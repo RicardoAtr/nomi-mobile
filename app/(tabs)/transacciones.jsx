@@ -44,6 +44,7 @@ export default function Transacciones() {
   const [mes, setMes] = useState(now.getMonth() + 1);
   const [anio, setAnio] = useState(now.getFullYear());
   const [search, setSearch] = useState("");
+  const [filtroAccount, setFiltroAccount] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState({
     tipo: "gasto",
@@ -69,7 +70,8 @@ export default function Transacciones() {
 
   const filtered = txs.filter(
     (t) =>
-      !search || t.descripcion?.toLowerCase().includes(search.toLowerCase()),
+      (!search || t.descripcion?.toLowerCase().includes(search.toLowerCase())) &&
+      (!filtroAccount || t.account_id === filtroAccount),
   );
 
   const totales = filtered.reduce(
@@ -147,7 +149,7 @@ export default function Transacciones() {
               <Text style={s.addBtnText}>+ Agregar</Text>
             </TouchableOpacity>
           </View>
-          <MonthYearSelector mes={mes} anio={anio} onChange={(m, a) => { setMes(m); setAnio(a); }} />
+          <MonthYearSelector mes={mes} anio={anio} onChange={(m, a) => { setMes(m); setAnio(a); setFiltroAccount(null); }} />
         </View>
 
         <View style={s.totalesRow}>
@@ -200,6 +202,34 @@ export default function Transacciones() {
             onChangeText={setSearch}
           />
         </View>
+
+        {accounts.length > 1 && (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingHorizontal: 20, gap: 8, paddingBottom: 12 }}
+          >
+            <TouchableOpacity
+              onPress={() => setFiltroAccount(null)}
+              style={[s.cuentaChip, !filtroAccount && s.cuentaChipActive]}
+            >
+              <Text style={[s.cuentaChipText, !filtroAccount && s.cuentaChipTextActive]}>
+                Todas
+              </Text>
+            </TouchableOpacity>
+            {accounts.map((a) => (
+              <TouchableOpacity
+                key={a.id}
+                onPress={() => setFiltroAccount(filtroAccount === a.id ? null : a.id)}
+                style={[s.cuentaChip, filtroAccount === a.id && { backgroundColor: a.color, borderColor: a.color }]}
+              >
+                <Text style={[s.cuentaChipText, filtroAccount === a.id && s.cuentaChipTextActive]}>
+                  {a.icono} {a.nombre}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        )}
 
         {loading && (
           <Text style={[s.empty, { textAlign: "center", marginTop: 40 }]}>
@@ -654,6 +684,19 @@ const s = StyleSheet.create({
     fontFamily: "Jakarta-Regular",
     color: COLORS.textSub,
   },
+  cuentaChip: {
+    paddingHorizontal: 14,
+    height: 32,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  cuentaChipActive: { backgroundColor: COLORS.brand, borderColor: COLORS.brand },
+  cuentaChipText: { fontSize: 12, fontFamily: "Jakarta-Medium", color: COLORS.textSub },
+  cuentaChipTextActive: { color: "#fff", fontFamily: "Jakarta-SemiBold" },
   hintText: {
     textAlign: "center",
     fontSize: 11,

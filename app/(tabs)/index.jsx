@@ -26,6 +26,7 @@ import {
   useResumen,
   useBudgets,
   useCategories,
+  useCompromisos,
 } from "../../src/hooks/useData";
 import {
   clp,
@@ -74,6 +75,11 @@ export default function Home() {
   const { data: resumen, refetch: refetchResumen } = useResumen(mes, anio);
   const { data: budgets, refetch: refetchBudgets } = useBudgets(mes, anio);
   const { data: cats } = useCategories("gasto");
+  const { data: compromisos, refetch: refetchCompromisos } = useCompromisos();
+
+  const compromisosPendientes = compromisos.filter(c => !c.pagado);
+  const totalMeDeben = compromisosPendientes.filter(c => c.tipo === 'me_deben').reduce((s, c) => s + Number(c.monto), 0);
+  const totalDebo = compromisosPendientes.filter(c => c.tipo === 'debo').reduce((s, c) => s + Number(c.monto), 0);
 
   const TIPOS_DEUDA = ['tarjeta_credito', 'linea_credito', 'prestamo']
   const activos = accounts.filter(a => !TIPOS_DEUDA.includes(a.tipo))
@@ -90,6 +96,7 @@ export default function Home() {
       refetchGoals();
       refetchResumen();
       refetchBudgets();
+      refetchCompromisos();
       if (user) fetchProfile(user);
     }, [mes, anio]),
   );
@@ -102,6 +109,7 @@ export default function Home() {
       refetchGoals(),
       refetchResumen(),
       refetchBudgets(),
+      refetchCompromisos(),
     ]);
     setRefreshing(false);
   };
@@ -269,6 +277,32 @@ export default function Home() {
             🔴 {budgets.filter(b => Number(b.porcentaje_usado) > 80).length} presupuesto(s) cerca del límite
           </Text>
         </View>
+      )}
+
+      {/* Compromisos */}
+      {compromisosPendientes.length > 0 && (
+        <TouchableOpacity
+          style={s.compromisoCard}
+          onPress={() => router.push("/(tabs)/compromisos")}
+          activeOpacity={0.85}
+        >
+          <Text style={s.compromisoTitle}>🤝 Compromisos pendientes</Text>
+          <View style={s.compromisoRow}>
+            {totalMeDeben > 0 && (
+              <View style={s.compromisoItem}>
+                <Text style={s.compromisoLabel}>Me deben</Text>
+                <Text style={[s.compromisoVal, { color: COLORS.accent }]}>{clp(totalMeDeben)}</Text>
+              </View>
+            )}
+            {totalMeDeben > 0 && totalDebo > 0 && <View style={s.compromisoDivider} />}
+            {totalDebo > 0 && (
+              <View style={s.compromisoItem}>
+                <Text style={s.compromisoLabel}>Debo</Text>
+                <Text style={[s.compromisoVal, { color: COLORS.red }]}>{clp(totalDebo)}</Text>
+              </View>
+            )}
+          </View>
+        </TouchableOpacity>
       )}
 
       {/* Mis cuentas */}
@@ -999,6 +1033,58 @@ const s = StyleSheet.create({
     color: COLORS.text,
   },
   goalPct: { fontSize: 13, fontFamily: "Jakarta-Bold" },
+  alertCard: {
+    marginHorizontal: 20,
+    marginBottom: 10,
+    backgroundColor: "#FCEBEB",
+    borderRadius: 14,
+    padding: 12,
+  },
+  alertText: {
+    fontSize: 13,
+    fontFamily: "Jakarta-SemiBold",
+    color: COLORS.red,
+  },
+  warningCard: {
+    marginHorizontal: 20,
+    marginBottom: 10,
+    backgroundColor: "#FAEEDA",
+    borderRadius: 14,
+    padding: 12,
+  },
+  warningText: {
+    fontSize: 13,
+    fontFamily: "Jakarta-SemiBold",
+    color: "#854F0B",
+  },
+  compromisoCard: {
+    marginHorizontal: 20,
+    marginBottom: 16,
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    padding: 16,
+  },
+  compromisoTitle: {
+    fontSize: 14,
+    fontFamily: "Jakarta-Bold",
+    color: COLORS.text,
+    marginBottom: 12,
+  },
+  compromisoRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  compromisoItem: { flex: 1, alignItems: "center" },
+  compromisoDivider: { width: 1, height: 32, backgroundColor: COLORS.border },
+  compromisoLabel: {
+    fontSize: 10,
+    fontFamily: "Jakarta-SemiBold",
+    color: COLORS.textSub,
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    marginBottom: 4,
+  },
+  compromisoVal: { fontSize: 16, fontFamily: "Jakarta-ExtraBold" },
   cuentaCard: {
     backgroundColor: COLORS.surface,
     borderRadius: 16,

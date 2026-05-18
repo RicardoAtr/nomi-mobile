@@ -168,7 +168,7 @@ export default function CuentaForm({ form, setForm, onSave, saving, editingCuent
                     setForm(f => ({ ...f, banco: b, banco_otro: '' }))
                     setShowBancoModal(false)
                   }}>
-                  <Text style={[s.bancoText, form.banco === b && { color: COLORS.brand, fontWeight: '700' }]}>
+                  <Text style={[s.bancoText, form.banco === b && { color: COLORS.brand, fontFamily: 'Jakarta-Bold' }]}>
                     {b}
                   </Text>
                   {form.banco === b && <Text style={{ color: COLORS.brand }}>✓</Text>}
@@ -185,7 +185,7 @@ export default function CuentaForm({ form, setForm, onSave, saving, editingCuent
 
 const s = StyleSheet.create({
   label: {
-    fontSize: 11, fontWeight: '600', color: COLORS.textSub, marginBottom: 8,
+    fontSize: 11, fontFamily: 'Jakarta-SemiBold', color: COLORS.textSub, marginBottom: 8,
     textTransform: 'uppercase', letterSpacing: 0.5, marginTop: 4,
   },
   tipoChip: {
@@ -194,23 +194,23 @@ const s = StyleSheet.create({
     marginRight: 10, backgroundColor: '#F8F9FA', minWidth: 84,
   },
   tipoChipActive: { backgroundColor: COLORS.brand, borderColor: COLORS.brand },
-  tipoChipText: { fontSize: 10, fontWeight: '600', color: COLORS.textSub, textAlign: 'center' },
+  tipoChipText: { fontSize: 10, fontFamily: 'Jakarta-SemiBold', color: COLORS.textSub, textAlign: 'center' },
   tipoChipTextActive: { color: '#fff' },
   selectBtn: {
     flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
     borderWidth: 1.5, borderColor: COLORS.border, borderRadius: 12, padding: 13,
     backgroundColor: '#F8F9FA', marginBottom: 12,
   },
-  selectText: { fontSize: 14, color: COLORS.text, fontWeight: '500' },
+  selectText: { fontSize: 14, color: COLORS.text, fontFamily: 'Jakarta-Medium' },
   selectArrow: { fontSize: 14, color: COLORS.textSub },
   input: {
     borderWidth: 1.5, borderColor: COLORS.border, borderRadius: 12, padding: 13,
-    fontSize: 14, color: COLORS.text, backgroundColor: '#F8F9FA', marginBottom: 12,
+    fontSize: 14, color: COLORS.text, fontFamily: 'Jakarta-Regular', backgroundColor: '#F8F9FA', marginBottom: 12,
   },
   colorRow: { flexDirection: 'row', gap: 12, marginBottom: 20 },
   colorDot: { width: 32, height: 32, borderRadius: 16 },
   saveBtn: { borderRadius: 14, padding: 16, alignItems: 'center' },
-  saveBtnText: { color: '#fff', fontSize: 15, fontWeight: '700' },
+  saveBtnText: { color: '#fff', fontSize: 15, fontFamily: 'Jakarta-Bold' },
   bancoOverlay: { flex: 1, justifyContent: 'flex-end' },
   bancoBg: {
     position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
@@ -224,10 +224,10 @@ const s = StyleSheet.create({
     width: 40, height: 4, backgroundColor: '#E5E7EB', borderRadius: 2,
     alignSelf: 'center', marginBottom: 18,
   },
-  bancoTitle: { fontSize: 20, fontWeight: '800', color: COLORS.text, marginBottom: 16 },
+  bancoTitle: { fontSize: 20, fontFamily: 'Jakarta-ExtraBold', color: COLORS.text, marginBottom: 16 },
   bancoRow: {
     flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
     paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: '#F4F6F9',
   },
-  bancoText: { fontSize: 15, color: COLORS.text },
+  bancoText: { fontSize: 15, fontFamily: 'Jakarta-Regular', color: COLORS.text },
 })

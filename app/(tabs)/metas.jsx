@@ -14,6 +14,7 @@ import {
   Keyboard,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useSavingsGoals, useAccounts } from "../../src/hooks/useData";
 import { supabase } from "../../src/lib/supabase";
 import { useAuthStore } from "../../src/store/authStore";
@@ -56,6 +57,7 @@ const defaultForm = () => ({
 
 export default function Metas() {
   const { user } = useAuthStore();
+  const insets = useSafeAreaInsets();
   const { data: goals, refetch } = useSavingsGoals();
   const { data: accounts } = useAccounts();
   const [showModal, setShowModal] = useState(false);
@@ -134,7 +136,7 @@ export default function Metas() {
 
   return (
     <View style={s.container}>
-      <View style={s.header}>
+      <View style={[s.header, { paddingTop: insets.top + 16 }]}>
         <View>
           <Text style={s.title}>Metas de ahorro</Text>
           <Text style={s.subtitle}>
@@ -200,6 +202,8 @@ export default function Metas() {
                 0,
               )
             : null;
+          const mesesRestantes = diasRestantes !== null ? Math.max(1, Math.ceil(diasRestantes / 30)) : null;
+          const ahorroMensualSugerido = mesesRestantes && falta > 0 ? Math.ceil(falta / mesesRestantes) : null;
 
           return (
             <TouchableOpacity
@@ -251,6 +255,12 @@ export default function Metas() {
                   <Text style={s.goalAmtVal}>{clp(g.monto_objetivo)}</Text>
                 </View>
               </View>
+
+              {ahorroMensualSugerido && (
+                <Text style={s.ahorroSugerido}>
+                  💡 Ahorra {clp(ahorroMensualSugerido)}/mes para llegar a tiempo
+                </Text>
+              )}
 
               <View style={s.depositRow}>
                 <TextInput
@@ -456,7 +466,6 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-end",
     paddingHorizontal: 20,
-    paddingTop: 60,
     paddingBottom: 20,
   },
   title: {
@@ -572,6 +581,16 @@ const s = StyleSheet.create({
     marginBottom: 3,
   },
   goalAmtVal: { fontSize: 13, fontFamily: "Jakarta-Bold", color: COLORS.text },
+  ahorroSugerido: {
+    fontSize: 12,
+    fontFamily: "Jakarta-Medium",
+    color: COLORS.brand,
+    backgroundColor: COLORS.accent + "18",
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 10,
+    marginBottom: 12,
+  },
   depositRow: { flexDirection: "row", gap: 10 },
   depositInput: {
     flex: 1,
