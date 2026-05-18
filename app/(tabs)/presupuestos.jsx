@@ -8,44 +8,17 @@ import {
   TextInput,
   Alert,
 } from "react-native";
+import MonthYearSelector from "../../src/components/MonthYearSelector";
 import { useBudgets, useCategories } from "../../src/hooks/useData";
 import { supabase } from "../../src/lib/supabase";
 import { useAuthStore } from "../../src/store/authStore";
 import { clp, COLORS, numericOnly } from "../../src/lib/format";
 
 const now = new Date();
-const MESES = [
-  "Ene",
-  "Feb",
-  "Mar",
-  "Abr",
-  "May",
-  "Jun",
-  "Jul",
-  "Ago",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dic",
-];
-const MESES_FULL = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
-];
 
 export default function Presupuestos() {
   const [mes, setMes] = useState(now.getMonth() + 1);
-  const [anio] = useState(now.getFullYear());
+  const [anio, setAnio] = useState(now.getFullYear());
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ category_id: "", monto_limite: "" });
   const [saving, setSaving] = useState(false);
@@ -84,9 +57,6 @@ export default function Presupuestos() {
       <View style={s.header}>
         <View>
           <Text style={s.title}>Presupuestos</Text>
-          <Text style={s.subtitle}>
-            {MESES_FULL[mes - 1]} {anio}
-          </Text>
         </View>
         <TouchableOpacity
           style={[s.addBtn, showForm && s.addBtnCancel]}
@@ -96,24 +66,7 @@ export default function Presupuestos() {
         </TouchableOpacity>
       </View>
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={s.monthScroll}
-        contentContainerStyle={{ paddingHorizontal: 20, gap: 8 }}
-      >
-        {MESES.map((m, i) => (
-          <TouchableOpacity
-            key={m}
-            onPress={() => setMes(i + 1)}
-            style={[s.monthBtn, mes === i + 1 && s.monthBtnActive]}
-          >
-            <Text style={[s.monthText, mes === i + 1 && s.monthTextActive]}>
-              {m}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      <MonthYearSelector mes={mes} anio={anio} onChange={(m, a) => { setMes(m); setAnio(a); }} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {totalLimit > 0 && (
@@ -222,7 +175,7 @@ export default function Presupuestos() {
           {loading && <Text style={s.empty}>Cargando...</Text>}
           {!loading && budgets.length === 0 && (
             <View style={s.emptyWrap}>
-              <Text style={s.emptyEmoji}>&#127919;</Text>
+              <Text style={s.emptyEmoji}>🎯</Text>
               <Text style={s.emptyTitle}>Sin presupuestos</Text>
               <Text style={s.empty}>
                 Agrega un presupuesto para controlar tus gastos
@@ -250,6 +203,10 @@ export default function Presupuestos() {
               : warn
                 ? "#854F0B"
                 : COLORS.brand2;
+            const hoy = new Date().getDate();
+            const diasEnMes = new Date(anio, mes, 0).getDate();
+            const gastoProyectado = hoy > 0 ? Math.round((Number(b.gastado) / hoy) * diasEnMes) : 0;
+            const excede = gastoProyectado > Number(b.monto_limite);
 
             return (
               <View key={b.id} style={s.budgetCard}>
@@ -300,6 +257,11 @@ export default function Presupuestos() {
                     {pct.toFixed(0)}%
                   </Text>
                 </View>
+                {excede && (
+                  <Text style={s.proyeccionText}>
+                    Al ritmo actual: {clp(gastoProyectado)} al cierre
+                  </Text>
+                )}
               </View>
             );
           })}
@@ -322,11 +284,10 @@ const s = StyleSheet.create({
   },
   title: {
     fontSize: 26,
-    fontWeight: "800",
+    fontFamily: "Jakarta-ExtraBold",
     color: COLORS.text,
     letterSpacing: -0.5,
   },
-  subtitle: { fontSize: 13, color: COLORS.textSub, marginTop: 2 },
   addBtn: {
     backgroundColor: COLORS.brand,
     paddingHorizontal: 16,
@@ -334,7 +295,7 @@ const s = StyleSheet.create({
     borderRadius: 20,
   },
   addBtnCancel: { backgroundColor: "#888780" },
-  addBtnText: { color: "#fff", fontSize: 13, fontWeight: "700" },
+  addBtnText: { color: "#fff", fontSize: 13, fontFamily: "Jakarta-Bold" },
   monthScroll: { marginBottom: 16 },
   monthBtn: {
     paddingHorizontal: 14,
@@ -345,8 +306,8 @@ const s = StyleSheet.create({
     borderColor: COLORS.border,
   },
   monthBtnActive: { backgroundColor: COLORS.brand, borderColor: COLORS.brand },
-  monthText: { fontSize: 12, color: COLORS.textSub, fontWeight: "500" },
-  monthTextActive: { color: "#fff", fontWeight: "600" },
+  monthText: { fontSize: 12, color: COLORS.textSub, fontFamily: "Jakarta-Medium" },
+  monthTextActive: { color: "#fff", fontFamily: "Jakarta-SemiBold" },
   resumenCard: {
     backgroundColor: COLORS.brand,
     marginHorizontal: 20,
@@ -363,17 +324,18 @@ const s = StyleSheet.create({
   resumenLabel: {
     color: "rgba(255,255,255,0.75)",
     fontSize: 12,
+    fontFamily: "Jakarta-Medium",
     marginBottom: 4,
   },
   resumenTotal: {
     color: "#fff",
     fontSize: 26,
-    fontWeight: "800",
+    fontFamily: "Jakarta-ExtraBold",
     letterSpacing: -0.5,
   },
   resumenRight: { alignItems: "flex-end" },
-  resumenPct: { color: "#fff", fontSize: 28, fontWeight: "800" },
-  resumenPctSub: { color: "rgba(255,255,255,0.7)", fontSize: 12 },
+  resumenPct: { color: "#fff", fontSize: 28, fontFamily: "Jakarta-ExtraBold" },
+  resumenPctSub: { color: "rgba(255,255,255,0.7)", fontSize: 12, fontFamily: "Jakarta-Regular" },
   resumenBarBg: {
     height: 8,
     backgroundColor: "rgba(255,255,255,0.25)",
@@ -386,7 +348,7 @@ const s = StyleSheet.create({
   resumenFooterText: {
     color: "rgba(255,255,255,0.85)",
     fontSize: 12,
-    fontWeight: "500",
+    fontFamily: "Jakarta-Medium",
   },
   formCard: {
     backgroundColor: "#fff",
@@ -397,13 +359,13 @@ const s = StyleSheet.create({
   },
   formTitle: {
     fontSize: 15,
-    fontWeight: "700",
+    fontFamily: "Jakarta-Bold",
     color: COLORS.text,
     marginBottom: 14,
   },
   chipLabel: {
     fontSize: 11,
-    fontWeight: "600",
+    fontFamily: "Jakarta-SemiBold",
     color: COLORS.textSub,
     marginBottom: 8,
     textTransform: "uppercase",
@@ -418,7 +380,7 @@ const s = StyleSheet.create({
     marginRight: 8,
     backgroundColor: "#F8F9FA",
   },
-  chipText: { fontSize: 12, fontWeight: "500", color: COLORS.textSub },
+  chipText: { fontSize: 12, fontFamily: "Jakarta-Medium", color: COLORS.textSub },
   input: {
     borderWidth: 1.5,
     borderColor: COLORS.border,
@@ -435,13 +397,13 @@ const s = StyleSheet.create({
     padding: 15,
     alignItems: "center",
   },
-  saveBtnText: { color: "#fff", fontSize: 15, fontWeight: "700" },
+  saveBtnText: { color: "#fff", fontSize: 15, fontFamily: "Jakarta-Bold" },
   listWrap: { paddingHorizontal: 20 },
   emptyWrap: { alignItems: "center", paddingVertical: 50 },
   emptyEmoji: { fontSize: 48, marginBottom: 12 },
   emptyTitle: {
     fontSize: 18,
-    fontWeight: "700",
+    fontFamily: "Jakarta-Bold",
     color: COLORS.text,
     marginBottom: 6,
   },
@@ -449,6 +411,7 @@ const s = StyleSheet.create({
     textAlign: "center",
     color: COLORS.textSub,
     fontSize: 14,
+    fontFamily: "Jakarta-Regular",
     marginBottom: 20,
   },
   emptyBtn: {
@@ -457,7 +420,7 @@ const s = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 20,
   },
-  emptyBtnText: { color: "#fff", fontWeight: "700", fontSize: 14 },
+  emptyBtnText: { color: "#fff", fontFamily: "Jakarta-Bold", fontSize: 14 },
   budgetCard: {
     backgroundColor: "#fff",
     borderRadius: 18,
@@ -480,13 +443,13 @@ const s = StyleSheet.create({
   budgetInfo: { flex: 1 },
   budgetName: {
     fontSize: 15,
-    fontWeight: "700",
+    fontFamily: "Jakarta-Bold",
     color: COLORS.text,
     marginBottom: 3,
   },
-  budgetAmounts: { fontSize: 12, color: COLORS.textSub },
+  budgetAmounts: { fontSize: 12, fontFamily: "Jakarta-Regular", color: COLORS.textSub },
   badge: { paddingHorizontal: 10, paddingVertical: 5, borderRadius: 20 },
-  badgeText: { fontSize: 11, fontWeight: "700" },
+  badgeText: { fontSize: 11, fontFamily: "Jakarta-Bold" },
   barBg: {
     height: 7,
     backgroundColor: "#F4F6F9",
@@ -496,6 +459,12 @@ const s = StyleSheet.create({
   },
   barFill: { height: "100%", borderRadius: 4 },
   budgetFooter: { flexDirection: "row", justifyContent: "space-between" },
-  budgetDisp: { fontSize: 12, color: COLORS.textSub, fontWeight: "500" },
-  budgetPct: { fontSize: 13, fontWeight: "800" },
+  budgetDisp: { fontSize: 12, color: COLORS.textSub, fontFamily: "Jakarta-Medium" },
+  budgetPct: { fontSize: 13, fontFamily: "Jakarta-ExtraBold" },
+  proyeccionText: {
+    fontSize: 11,
+    fontFamily: "Jakarta-Medium",
+    color: COLORS.amber,
+    marginTop: 6,
+  },
 });

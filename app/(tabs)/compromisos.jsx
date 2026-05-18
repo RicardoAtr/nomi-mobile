@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   View,
   Text,
@@ -59,6 +60,7 @@ const defaultForm = () => ({
 export default function Compromisos() {
   const { user } = useAuthStore();
   const { data: compromisos, refetch } = useCompromisos();
+  const insets = useSafeAreaInsets();
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState(defaultForm());
   const [saving, setSaving] = useState(false);
@@ -153,7 +155,7 @@ export default function Compromisos() {
 
   return (
     <View style={s.container}>
-      <View style={s.header}>
+      <View style={[s.header, { paddingTop: insets.top + 16 }]}>
         <View>
           <Text style={s.title}>Compromisos</Text>
           <Text style={s.subtitle}>Deudas y prestamos</Text>
@@ -620,7 +622,6 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-end",
     paddingHorizontal: 20,
-    paddingTop: 60,
     paddingBottom: 20,
   },
   title: {

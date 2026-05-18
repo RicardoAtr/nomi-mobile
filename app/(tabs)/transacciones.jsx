@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import {
   Keyboard,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import MonthYearSelector from "../../src/components/MonthYearSelector";
 import {
   useTransactions,
   useAccounts,
@@ -37,25 +38,11 @@ const F = {
   extraBold: "Jakarta-ExtraBold",
 };
 
-const MESES = [
-  "Ene",
-  "Feb",
-  "Mar",
-  "Abr",
-  "May",
-  "Jun",
-  "Jul",
-  "Ago",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dic",
-];
 const now = new Date();
 
 export default function Transacciones() {
   const [mes, setMes] = useState(now.getMonth() + 1);
-  const [anio] = useState(now.getFullYear());
+  const [anio, setAnio] = useState(now.getFullYear());
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState({
@@ -79,9 +66,6 @@ export default function Transacciones() {
   const { data: accounts } = useAccounts();
   const { data: cats } = useCategories();
 
-  useEffect(() => {
-    refetch();
-  }, [mes]);
 
   const filtered = txs.filter(
     (t) =>
@@ -155,9 +139,6 @@ export default function Transacciones() {
           <View style={s.headerRow}>
             <View>
               <Text style={s.title}>Movimientos</Text>
-              <Text style={s.subtitle}>
-                {MESES[mes - 1]} {anio}
-              </Text>
             </View>
             <TouchableOpacity
               style={s.addBtn}
@@ -166,27 +147,7 @@ export default function Transacciones() {
               <Text style={s.addBtnText}>+ Agregar</Text>
             </TouchableOpacity>
           </View>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              paddingHorizontal: 20,
-              gap: 8,
-              paddingBottom: 12,
-            }}
-          >
-            {MESES.map((m, i) => (
-              <TouchableOpacity
-                key={m}
-                onPress={() => setMes(i + 1)}
-                style={[s.monthBtn, mes === i + 1 && s.monthBtnActive]}
-              >
-                <Text style={[s.monthText, mes === i + 1 && s.monthTextActive]}>
-                  {m}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+          <MonthYearSelector mes={mes} anio={anio} onChange={(m, a) => { setMes(m); setAnio(a); }} />
         </View>
 
         <View style={s.totalesRow}>
@@ -258,6 +219,9 @@ export default function Transacciones() {
           </View>
         )}
 
+        {filtered.length > 0 && (
+          <Text style={s.hintText}>Mantén presionada una transacción para eliminarla</Text>
+        )}
         {filtered.map((tx) => (
           <TouchableOpacity
             key={tx.id}
@@ -341,17 +305,20 @@ export default function Transacciones() {
             </View>
 
             <View style={s.tipoRow}>
-              {["ingreso", "gasto"].map((t) => (
+              {[
+                { key: "ingreso", label: "📈 Ingreso", color: COLORS.accent },
+                { key: "gasto", label: "📉 Gasto", color: COLORS.red },
+                { key: "transferencia", label: "↔️ Transfer.", color: "#378ADD" },
+              ].map((t) => (
                 <TouchableOpacity
-                  key={t}
+                  key={t.key}
                   onPress={() =>
-                    setForm((f) => ({ ...f, tipo: t, category_id: "" }))
+                    setForm((f) => ({ ...f, tipo: t.key, category_id: "" }))
                   }
                   style={[
                     s.tipoBtn,
-                    form.tipo === t && {
-                      backgroundColor:
-                        t === "ingreso" ? COLORS.accent : COLORS.red,
+                    form.tipo === t.key && {
+                      backgroundColor: t.color,
                       borderColor: "transparent",
                     },
                   ]}
@@ -359,10 +326,10 @@ export default function Transacciones() {
                   <Text
                     style={[
                       s.tipoBtnText,
-                      form.tipo === t && { color: "#fff" },
+                      form.tipo === t.key && { color: "#fff" },
                     ]}
                   >
-                    {t === "ingreso" ? "Ingreso" : "Gasto"}
+                    {t.label}
                   </Text>
                 </TouchableOpacity>
               ))}
@@ -686,6 +653,15 @@ const s = StyleSheet.create({
     fontSize: 12,
     fontFamily: "Jakarta-Regular",
     color: COLORS.textSub,
+  },
+  hintText: {
+    textAlign: "center",
+    fontSize: 11,
+    fontFamily: "Jakarta-Regular",
+    color: COLORS.textSub,
+    fontStyle: "italic",
+    marginBottom: 8,
+    paddingHorizontal: 20,
   },
   txRight: { alignItems: "flex-end", gap: 5 },
   txAmount: { fontSize: 15, fontFamily: "Jakarta-ExtraBold" },

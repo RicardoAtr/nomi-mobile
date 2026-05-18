@@ -276,7 +276,7 @@ export default function Home() {
         <View style={s.section}>
           <View style={s.sectionHeader}>
             <Text style={s.sectionTitle}>Mis cuentas</Text>
-            <Text style={s.sectionSub}>{clp(totalPatrimonio)}</Text>
+            <Text style={s.sectionSub}>{clp(patrimonioNeto)}</Text>
           </View>
           <ScrollView
             horizontal
