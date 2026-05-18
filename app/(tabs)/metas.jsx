@@ -49,7 +49,7 @@ const ICONOS = ["🎯", "🏖", "🚗", "🏠", "💻", "✈️", "📚", "💍"
 const defaultForm = () => ({
   nombre: "",
   monto_objetivo: "",
-  fecha_objetivo: "",
+  fecha_limite: "",
   color: PALETTE[0],
   icono: "🎯",
   notas: "",
@@ -88,7 +88,7 @@ export default function Metas() {
       owner_id: user.id,
       nombre: form.nombre,
       monto_objetivo: Number(form.monto_objetivo),
-      fecha_objetivo: form.fecha_objetivo || null,
+      fecha_limite: form.fecha_limite || null,
       color: form.color,
       icono: form.icono,
       notas: form.notas || null,
@@ -193,10 +193,10 @@ export default function Metas() {
             Number(g.monto_objetivo) - Number(g.monto_actual),
             0,
           );
-          const diasRestantes = g.fecha_objetivo
+          const diasRestantes = g.fecha_limite
             ? Math.max(
                 Math.ceil(
-                  (new Date(g.fecha_objetivo) - new Date()) /
+                  (new Date(g.fecha_limite) - new Date()) /
                     (1000 * 60 * 60 * 24),
                 ),
                 0,
@@ -338,12 +338,12 @@ export default function Metas() {
                 <Text
                   style={[
                     s.dateBtnText,
-                    !form.fecha_objetivo && { color: COLORS.textSub },
+                    !form.fecha_limite && { color: COLORS.textSub },
                   ]}
                 >
-                  {form.fecha_objetivo
+                  {form.fecha_limite
                     ? new Date(
-                        form.fecha_objetivo + "T12:00:00",
+                        form.fecha_limite + "T12:00:00",
                       ).toLocaleDateString("es-CL", {
                         day: "2-digit",
                         month: "long",
@@ -364,7 +364,7 @@ export default function Metas() {
                     if (date) {
                       setDatePickerDate(date);
                       const iso = date.toISOString().split("T")[0];
-                      set("fecha_objetivo", iso);
+                      set("fecha_limite", iso);
                     }
                   }}
                 />
