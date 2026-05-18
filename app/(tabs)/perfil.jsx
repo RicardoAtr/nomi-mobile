@@ -304,7 +304,7 @@ export default function Perfil() {
   );
 
   return (
-    <View style={s.container}>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={s.container}>
       <View style={[s.headerCard, { paddingTop: insets.top + 12 }]}>
         <TouchableOpacity
           style={s.avatarWrap}
@@ -350,7 +350,7 @@ export default function Perfil() {
         </View>
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
         {activeTab === "perfil" && (
           <>
             <View style={s.section}>
@@ -887,7 +887,7 @@ export default function Perfil() {
           </View>
         </InputAccessoryView>
       </Modal>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

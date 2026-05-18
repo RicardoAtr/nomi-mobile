@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import MonthYearSelector from "../../src/components/MonthYearSelector";
 import { useBudgets, useCategories } from "../../src/hooks/useData";
@@ -53,7 +55,7 @@ export default function Presupuestos() {
   };
 
   return (
-    <View style={s.container}>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={s.container}>
       <View style={s.header}>
         <View>
           <Text style={s.title}>Presupuestos</Text>
@@ -68,7 +70,7 @@ export default function Presupuestos() {
 
       <MonthYearSelector mes={mes} anio={anio} onChange={(m, a) => { setMes(m); setAnio(a); }} />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
         {totalLimit > 0 && (
           <View style={s.resumenCard}>
             <View style={s.resumenTop}>
@@ -268,7 +270,7 @@ export default function Presupuestos() {
         </View>
         <View style={{ height: 100 }} />
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

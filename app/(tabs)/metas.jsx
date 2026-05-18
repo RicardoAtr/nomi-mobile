@@ -133,7 +133,7 @@ export default function Metas() {
   );
 
   return (
-    <View style={s.container}>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={s.container}>
       <View style={[s.header, { paddingTop: insets.top + 16 }]}>
         <View>
           <Text style={s.title}>Metas de ahorro</Text>
@@ -149,6 +149,7 @@ export default function Metas() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 100 }}
       >
         {goals.length > 0 && (
@@ -461,7 +462,7 @@ export default function Metas() {
           </View>
         </InputAccessoryView>
       </Modal>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
