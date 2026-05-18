@@ -13,7 +13,11 @@ import {
   InputAccessoryView,
   Keyboard,
   Platform,
+  Vibration,
 } from "react-native";
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import MonthYearSelector from '../../src/components/MonthYearSelector'
+import ProgressBar from '../../src/components/ProgressBar'
 import { useAuthStore } from "../../src/store/authStore";
 import {
   useTransactions,
@@ -58,6 +62,7 @@ export default function Home() {
   const { profile, user, fetchProfile } = useAuthStore();
   const router = useRouter();
   const [showAvatarMenu, setShowAvatarMenu] = useState(false);
+  const insets = useSafeAreaInsets()
 
   const { data: txs, refetch: refetchTx } = useTransactions({
     mes,
@@ -70,10 +75,12 @@ export default function Home() {
   const { data: budgets, refetch: refetchBudgets } = useBudgets(mes, anio);
   const { data: cats } = useCategories("gasto");
 
-  const totalPatrimonio = accounts.reduce(
-    (s, a) => s + Number(a.saldo_actual ?? 0),
-    0,
-  );
+  const TIPOS_DEUDA = ['tarjeta_credito', 'linea_credito', 'prestamo']
+  const activos = accounts.filter(a => !TIPOS_DEUDA.includes(a.tipo))
+    .reduce((s, a) => s + Number(a.saldo_actual ?? 0), 0)
+  const deudas = accounts.filter(a => TIPOS_DEUDA.includes(a.tipo))
+    .reduce((s, a) => s + Math.abs(Number(a.saldo_actual ?? 0)), 0)
+  const patrimonioNeto = activos - deudas
   const balance = resumen?.balance_neto ?? 0;
 
   useFocusEffect(
@@ -123,7 +130,9 @@ export default function Home() {
         text: "Eliminar",
         style: "destructive",
         onPress: async () => {
-          await supabase.from("budgets").delete().eq("id", id);
+          const { error } = await supabase.from("budgets").delete().eq("id", id);
+          if (error) return Alert.alert("Error", error.message);
+          Vibration.vibrate(10);
           setEditingBudget(null);
           setBudgetForm({ category_id: "", monto_limite: "" });
           setShowBudgetModal(false);
@@ -155,6 +164,7 @@ export default function Home() {
       );
     }
     setSavingBudget(false);
+    Vibration.vibrate(10);
     closeBudgetModal();
     refetchBudgets();
   };
@@ -174,7 +184,7 @@ export default function Home() {
       }
     >
       {/* Header */}
-      <View style={s.header}>
+      <View style={[s.header, { paddingTop: insets.top + 16 }]}>
         <View>
           <Text style={s.greeting}>Hola, {nombre} 👋</Text>
           <Text style={s.subtitle}>Tu dinero, ordenado</Text>
@@ -197,40 +207,24 @@ export default function Home() {
       {/* Patrimonio */}
       <View style={s.patrimonioCard}>
         <View style={s.patrimonioInner}>
-          <Text style={s.patrimonioLabel}>Patrimonio total</Text>
-          <Text style={s.patrimonioVal}>{clp(totalPatrimonio)}</Text>
+          <Text style={s.patrimonioLabel}>Patrimonio neto</Text>
+          <Text style={s.patrimonioVal}>{clp(patrimonioNeto)}</Text>
           <View style={s.patrimonioRow}>
             <View style={s.patrimonioTag}>
-              <Text style={s.patrimonioTagText}>
-                {accounts.length} cuenta{accounts.length !== 1 ? "s" : ""}
-              </Text>
+              <Text style={s.patrimonioTagText}>Activos {clp(activos)}</Text>
             </View>
-            <Text style={s.patrimonioSub}>Actualizado ahora</Text>
+            {deudas > 0 && (
+              <View style={[s.patrimonioTag, { backgroundColor: 'rgba(255,80,80,0.25)' }]}>
+                <Text style={s.patrimonioTagText}>Deudas {clp(deudas)}</Text>
+              </View>
+            )}
           </View>
         </View>
         <View style={s.circle1} />
         <View style={s.circle2} />
       </View>
 
-      {/* Selector mes */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={s.monthScroll}
-        contentContainerStyle={{ paddingHorizontal: 20, gap: 8 }}
-      >
-        {MONTHS.map((m, i) => (
-          <TouchableOpacity
-            key={m}
-            onPress={() => setMes(i + 1)}
-            style={[s.monthBtn, mes === i + 1 && s.monthBtnActive]}
-          >
-            <Text style={[s.monthText, mes === i + 1 && s.monthTextActive]}>
-              {m}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      <MonthYearSelector mes={mes} anio={anio} onChange={(m, a) => { setMes(m); setAnio(a) }} />
 
       {/* KPIs */}
       <View style={s.kpiRow}>
@@ -263,6 +257,19 @@ export default function Home() {
           </Text>
         </View>
       </View>
+
+      {balance < 0 && (
+        <View style={s.alertCard}>
+          <Text style={s.alertText}>⚠️ Este mes gastas más de lo que ingresas</Text>
+        </View>
+      )}
+      {budgets.some(b => Number(b.porcentaje_usado) > 80) && (
+        <View style={s.warningCard}>
+          <Text style={s.warningText}>
+            🔴 {budgets.filter(b => Number(b.porcentaje_usado) > 80).length} presupuesto(s) cerca del límite
+          </Text>
+        </View>
+      )}
 
       {/* Mis cuentas */}
       {accounts.length > 0 && (
