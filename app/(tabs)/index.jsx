@@ -608,28 +608,24 @@ export default function Home() {
           <View style={s.menuDivider} />
           {[
             {
-              icon: "👤",
-              label: "Ver perfil",
-              action: () => {
-                setShowAvatarMenu(false);
-                router.push("/(tabs)/perfil");
-              },
-            },
-            {
               icon: "➕",
               label: "Agregar movimiento",
-              action: () => {
-                setShowAvatarMenu(false);
-                router.push("/(tabs)/transacciones");
-              },
+              action: () => { setShowAvatarMenu(false); router.push("/(tabs)/transacciones"); },
             },
             {
-              icon: "🎯",
-              label: "Nueva meta",
-              action: () => {
-                setShowAvatarMenu(false);
-                router.push("/(tabs)/metas");
-              },
+              icon: "📊",
+              label: "Presupuestos",
+              action: () => { setShowAvatarMenu(false); router.push("/(tabs)/presupuestos"); },
+            },
+            {
+              icon: "🤝",
+              label: "Deudas y compromisos",
+              action: () => { setShowAvatarMenu(false); router.push("/(tabs)/compromisos"); },
+            },
+            {
+              icon: "👤",
+              label: "Ver perfil",
+              action: () => { setShowAvatarMenu(false); router.push("/(tabs)/perfil"); },
             },
           ].map((item) => (
             <TouchableOpacity
@@ -758,7 +754,6 @@ export default function Home() {
               <Text
                 style={{
                   color: COLORS.brand,
-                  fontWeight: "700",
                   fontSize: 16,
                   fontFamily: F.bold,
                 }}

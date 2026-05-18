@@ -14,6 +14,7 @@ import {
   InputAccessoryView,
   Keyboard,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuthStore } from "../../src/store/authStore";
 import { useAccounts } from "../../src/hooks/useData";
 import { supabase } from "../../src/lib/supabase";
@@ -121,6 +122,7 @@ function defaultForm() {
 }
 
 export default function Perfil() {
+  const insets = useSafeAreaInsets();
   const { profile, signOut, fetchProfile, user, uploadAvatar } = useAuthStore();
   const { data: accounts, refetch: refetchAcc } = useAccounts();
   const [nickname, setNickname] = useState(profile?.nickname ?? "");
@@ -303,7 +305,7 @@ export default function Perfil() {
 
   return (
     <View style={s.container}>
-      <View style={s.headerCard}>
+      <View style={[s.headerCard, { paddingTop: insets.top + 12 }]}>
         <TouchableOpacity
           style={s.avatarWrap}
           onPress={handlePickAvatar}
@@ -425,12 +427,9 @@ export default function Perfil() {
                   key={a.id}
                   style={[
                     s.accountRow,
-                    {
-                      borderLeftColor: a.color,
-                      opacity: a.is_active ? 1 : 0.5,
-                    },
+                    { borderLeftColor: a.color, opacity: a.is_active ? 1 : 0.5 },
                   ]}
-                  onLongPress={() => handleOptions(a)}
+                  onPress={() => handleOptions(a)}
                 >
                   <View
                     style={[s.accountIcon, { backgroundColor: a.color + "18" }]}
@@ -497,7 +496,7 @@ export default function Perfil() {
             })}
             {accounts.length > 0 && (
               <Text style={s.hintSmall}>
-                Manten presionada una cuenta para mas opciones
+                Toca una cuenta para editar o desactivar
               </Text>
             )}
           </View>
@@ -896,7 +895,6 @@ const s = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#F8FAFC" },
   headerCard: {
     backgroundColor: COLORS.brand,
-    paddingTop: 60,
     paddingBottom: 0,
     paddingHorizontal: 20,
     alignItems: "center",
@@ -1065,14 +1063,13 @@ const s = StyleSheet.create({
   },
   accountRow: {
     flexDirection: "row",
-    alignItems: "flex-start",
+    alignItems: "center",
     gap: 12,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.surface,
-    borderLeftWidth: 3,
-    paddingLeft: 10,
-    marginLeft: -10,
+    padding: 14,
+    borderRadius: 16,
+    backgroundColor: COLORS.surface,
+    borderLeftWidth: 4,
+    marginBottom: 10,
   },
   accountIcon: {
     width: 44,

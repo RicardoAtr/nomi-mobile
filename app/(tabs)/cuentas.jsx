@@ -625,7 +625,7 @@ export default function Cuentas() {
                       s.bancoText,
                       form.banco === b && {
                         color: COLORS.brand,
-                        fontWeight: "700",
+                        fontFamily: "Jakarta-Bold",
                       },
                     ]}
                   >
@@ -657,18 +657,18 @@ const s = StyleSheet.create({
   },
   title: {
     fontSize: 26,
-    fontWeight: "800",
+    fontFamily: "Jakarta-ExtraBold",
     color: COLORS.text,
     letterSpacing: -0.5,
   },
-  subtitle: { fontSize: 13, color: COLORS.textSub, marginTop: 2 },
+  subtitle: { fontSize: 13, fontFamily: "Jakarta-Regular", color: COLORS.textSub, marginTop: 2 },
   addBtn: {
     backgroundColor: COLORS.brand,
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 20,
   },
-  addBtnText: { color: "#fff", fontSize: 13, fontWeight: "700" },
+  addBtnText: { color: "#fff", fontSize: 13, fontFamily: "Jakarta-Bold" },
   patrimonioCard: {
     marginHorizontal: 20,
     borderRadius: 24,
@@ -681,17 +681,17 @@ const s = StyleSheet.create({
   patrimonioLabel: {
     color: "rgba(255,255,255,0.75)",
     fontSize: 13,
-    fontWeight: "500",
+    fontFamily: "Jakarta-Medium",
     marginBottom: 8,
   },
   patrimonioVal: {
     color: "#fff",
     fontSize: 32,
-    fontWeight: "800",
+    fontFamily: "Jakarta-ExtraBold",
     letterSpacing: -1,
     marginBottom: 6,
   },
-  patrimonioSub: { color: "rgba(255,255,255,0.65)", fontSize: 12 },
+  patrimonioSub: { color: "rgba(255,255,255,0.65)", fontSize: 12, fontFamily: "Jakarta-Regular" },
   circle1: {
     position: "absolute",
     width: 160,
@@ -715,7 +715,7 @@ const s = StyleSheet.create({
   emptyEmoji: { fontSize: 48, marginBottom: 12 },
   emptyTitle: {
     fontSize: 18,
-    fontWeight: "700",
+    fontFamily: "Jakarta-Bold",
     color: COLORS.text,
     marginBottom: 6,
   },
@@ -723,6 +723,7 @@ const s = StyleSheet.create({
     textAlign: "center",
     color: COLORS.textSub,
     fontSize: 14,
+    fontFamily: "Jakarta-Regular",
     lineHeight: 22,
     marginBottom: 20,
     paddingHorizontal: 20,
@@ -733,7 +734,7 @@ const s = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 20,
   },
-  emptyBtnText: { color: "#fff", fontWeight: "700", fontSize: 14 },
+  emptyBtnText: { color: "#fff", fontFamily: "Jakarta-Bold", fontSize: 14 },
   accountCard: {
     backgroundColor: "#fff",
     borderRadius: 18,
@@ -757,10 +758,10 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 4,
   },
-  accountNombre: { fontSize: 15, fontWeight: "700", color: COLORS.text },
+  accountNombre: { fontSize: 15, fontFamily: "Jakarta-Bold", color: COLORS.text },
   tipoBadge: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 10 },
-  tipoBadgeText: { fontSize: 10, fontWeight: "700" },
-  accountBanco: { fontSize: 12, color: COLORS.textSub, marginBottom: 10 },
+  tipoBadgeText: { fontSize: 10, fontFamily: "Jakarta-Bold" },
+  accountBanco: { fontSize: 12, fontFamily: "Jakarta-Regular", color: COLORS.textSub, marginBottom: 10 },
   accountFooter: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -769,13 +770,13 @@ const s = StyleSheet.create({
   saldoLabel: {
     fontSize: 10,
     color: COLORS.textSub,
-    fontWeight: "600",
+    fontFamily: "Jakarta-SemiBold",
     textTransform: "uppercase",
     letterSpacing: 0.4,
     marginBottom: 3,
   },
-  saldoVal: { fontSize: 18, fontWeight: "800" },
-  saldoInicialVal: { fontSize: 13, fontWeight: "600", color: COLORS.textSub },
+  saldoVal: { fontSize: 18, fontFamily: "Jakarta-ExtraBold" },
+  saldoInicialVal: { fontSize: 13, fontFamily: "Jakarta-SemiBold", color: COLORS.textSub },
   limiteWrap: { marginTop: 6 },
   limiteLabelRow: {
     flexDirection: "row",
@@ -785,11 +786,11 @@ const s = StyleSheet.create({
   limiteLabel: {
     fontSize: 11,
     color: COLORS.textSub,
-    fontWeight: "600",
+    fontFamily: "Jakarta-SemiBold",
     textTransform: "uppercase",
     letterSpacing: 0.4,
   },
-  limitePct: { fontSize: 12, fontWeight: "800" },
+  limitePct: { fontSize: 12, fontFamily: "Jakarta-ExtraBold" },
   barBg: {
     height: 7,
     backgroundColor: "#F4F6F9",
@@ -839,8 +840,8 @@ const s = StyleSheet.create({
     alignItems: "flex-start",
     marginBottom: 18,
   },
-  modalTitle: { fontSize: 20, fontWeight: "800", color: COLORS.text },
-  modalSubtitle: { fontSize: 12, color: COLORS.textSub, marginTop: 3 },
+  modalTitle: { fontSize: 20, fontFamily: "Jakarta-ExtraBold", color: COLORS.text },
+  modalSubtitle: { fontSize: 12, fontFamily: "Jakarta-Regular", color: COLORS.textSub, marginTop: 3 },
   modalClose: {
     width: 32,
     height: 32,
@@ -849,10 +850,10 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  modalCloseText: { fontSize: 13, color: COLORS.textSub, fontWeight: "700" },
+  modalCloseText: { fontSize: 13, color: COLORS.textSub, fontFamily: "Jakarta-Bold" },
   chipLabel: {
     fontSize: 11,
-    fontWeight: "600",
+    fontFamily: "Jakarta-SemiBold",
     color: COLORS.textSub,
     marginBottom: 8,
     textTransform: "uppercase",
@@ -860,7 +861,7 @@ const s = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 12,
-    fontWeight: "600",
+    fontFamily: "Jakarta-SemiBold",
     color: COLORS.textSub,
     marginBottom: 6,
     marginTop: 4,
@@ -879,7 +880,7 @@ const s = StyleSheet.create({
   tipoChipActive: { backgroundColor: COLORS.brand, borderColor: COLORS.brand },
   tipoChipText: {
     fontSize: 10,
-    fontWeight: "600",
+    fontFamily: "Jakarta-SemiBold",
     color: COLORS.textSub,
     textAlign: "center",
   },
@@ -895,7 +896,7 @@ const s = StyleSheet.create({
     backgroundColor: "#F8F9FA",
     marginBottom: 12,
   },
-  selectBtnText: { fontSize: 14, color: COLORS.text, fontWeight: "500" },
+  selectBtnText: { fontSize: 14, color: COLORS.text, fontFamily: "Jakarta-Medium" },
   selectArrow: { fontSize: 14, color: COLORS.textSub },
   modalInput: {
     borderWidth: 1.5,
@@ -910,7 +911,7 @@ const s = StyleSheet.create({
   colorRow: { flexDirection: "row", gap: 12, marginBottom: 20 },
   colorDot: { width: 32, height: 32, borderRadius: 16 },
   saveBtn: { borderRadius: 14, padding: 16, alignItems: "center" },
-  saveBtnText: { color: "#fff", fontSize: 15, fontWeight: "700" },
+  saveBtnText: { color: "#fff", fontSize: 15, fontFamily: "Jakarta-Bold" },
   bancoRow: {
     flexDirection: "row",
     justifyContent: "space-between",

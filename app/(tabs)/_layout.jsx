@@ -33,24 +33,6 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="presupuestos"
-        options={{
-          tabBarLabel: "Budgets",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="bar-chart-outline" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="compromisos"
-        options={{
-          tabBarLabel: "Deudas",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="people-outline" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="metas"
         options={{
           tabBarLabel: "Metas",
@@ -68,6 +50,8 @@ export default function TabsLayout() {
           ),
         }}
       />
+      <Tabs.Screen name="presupuestos" options={{ href: null }} />
+      <Tabs.Screen name="compromisos" options={{ href: null }} />
       <Tabs.Screen name="cuentas" options={{ href: null }} />
     </Tabs>
   );
