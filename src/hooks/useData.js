@@ -22,7 +22,7 @@ export function useTransactions({ mes, anio, limit = 50 } = {}) {
       )
       .eq("is_deleted", false)
       .eq("created_by", user.id)
-      .order("created_at", { ascending: false })
+      .order("fecha", { ascending: false })
       .limit(limit);
 
     if (mes && anio) {
@@ -36,7 +36,7 @@ export function useTransactions({ mes, anio, limit = 50 } = {}) {
     }
 
     const { data: rows, error } = await q;
-    if (error) console.error("useTransactions error:", JSON.stringify(error));
+    if (error) console.error("useTransactions error:", error);
     setData(rows ?? []);
     setLoading(false);
   }, [user?.id, mes, anio, limit]);
@@ -129,7 +129,7 @@ export function useResumen(mes, anio) {
       p_mes: mes,
       p_anio: anio,
     });
-    if (error) console.error("useResumen error:", JSON.stringify(error));
+    if (error) console.error("useResumen error:", error);
     setData(rows?.[0] ?? null);
     setLoading(false);
   }, [user?.id, mes, anio]);
@@ -159,4 +159,28 @@ export function useCategories(tipo) {
     fetch();
   }, [fetch]);
   return { data, loading };
+}
+
+export function useCompromisos() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { user } = useAuthStore();
+
+  const fetch = useCallback(async () => {
+    if (!user) return;
+    setLoading(true);
+    const { data: rows, error } = await supabase
+      .from("compromisos")
+      .select("*")
+      .eq("owner_id", user.id)
+      .order("fecha_compromiso", { ascending: true, nullsFirst: false });
+    if (error) console.error("useCompromisos error:", error);
+    setData(rows ?? []);
+    setLoading(false);
+  }, [user?.id]);
+
+  useEffect(() => {
+    fetch();
+  }, [fetch]);
+  return { data, loading, refetch: fetch };
 }

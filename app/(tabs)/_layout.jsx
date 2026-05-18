@@ -1,15 +1,7 @@
 import { Tabs } from "expo-router";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../../src/lib/format";
-
-function TabIcon({ emoji, label, focused }) {
-  return (
-    <View style={[s.tab, focused && s.tabActive]}>
-      <Text style={[s.emoji, focused && s.emojiFocused]}>{emoji}</Text>
-      <Text style={[s.tabLabel, focused && s.tabLabelActive]}>{label}</Text>
-    </View>
-  );
-}
 
 export default function TabsLayout() {
   return (
@@ -17,38 +9,53 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: s.tabBar,
-        tabBarShowLabel: false,
+        tabBarActiveTintColor: COLORS.brand,
+        tabBarInactiveTintColor: "#94A3B8",
+        tabBarLabelStyle: s.tabLabel,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon label="Inicio" emoji="🏠" focused={focused} />
+          tabBarLabel: "Inicio",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="transacciones"
         options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon label="Flujo" emoji="↕️" focused={focused} />
+          tabBarLabel: "Flujo",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="swap-vertical-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="compromisos"
+        options={{
+          tabBarLabel: "Deudas",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="people-outline" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="metas"
         options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon label="Metas" emoji="⭐" focused={focused} />
+          tabBarLabel: "Metas",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="flag-outline" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="perfil"
         options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon label="Perfil" emoji="👤" focused={focused} />
+          tabBarLabel: "Perfil",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person-outline" size={size} color={color} />
           ),
         }}
       />
@@ -60,18 +67,15 @@ export default function TabsLayout() {
 
 const s = StyleSheet.create({
   tabBar: {
-    backgroundColor: COLORS.white,
+    backgroundColor: "#fff",
     borderTopWidth: 1,
-    borderTopColor: COLORS.border,
-    height: 60,
-    paddingBottom: 6,
-    paddingTop: 6,
+    borderTopColor: "#E2E8F0",
+    height: 72,
+    paddingBottom: 10,
+    paddingTop: 8,
   },
-  tab: { alignItems: "center", justifyContent: "center", gap: 2 },
-  tabActive: {},
-  emoji: { fontSize: 24 },
-  emojiFocused: {},
-  tabLabel: { fontSize: 10, color: COLORS.textSub, fontWeight: "500" },
-  tabLabelActive: { color: COLORS.brand, fontWeight: "600" },
-  tab: { alignItems: "center", justifyContent: "center", gap: 2, width: 50 },
+  tabLabel: {
+    fontSize: 11,
+    fontFamily: "Jakarta-Medium",
+  },
 });

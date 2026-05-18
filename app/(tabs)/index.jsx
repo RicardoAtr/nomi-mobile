@@ -9,6 +9,10 @@ import {
   Modal,
   TextInput,
   Alert,
+  Image,
+  InputAccessoryView,
+  Keyboard,
+  Platform,
 } from "react-native";
 import { useAuthStore } from "../../src/store/authStore";
 import {
@@ -19,9 +23,24 @@ import {
   useBudgets,
   useCategories,
 } from "../../src/hooks/useData";
-import { clp, COLORS, MONTHS, numericOnly } from "../../src/lib/format";
-import { useFocusEffect } from "expo-router";
+import {
+  clp,
+  COLORS,
+  MONTHS,
+  formatInputCLP,
+  parseInputCLP,
+  getBancoLogoUrl,
+} from "../../src/lib/format";
+import { useFocusEffect, useRouter } from "expo-router";
 import { supabase } from "../../src/lib/supabase";
+
+const F = {
+  regular: "Jakarta-Regular",
+  medium: "Jakarta-Medium",
+  semiBold: "Jakarta-SemiBold",
+  bold: "Jakarta-Bold",
+  extraBold: "Jakarta-ExtraBold",
+};
 
 const now = new Date();
 
@@ -34,14 +53,16 @@ export default function Home() {
     category_id: "",
     monto_limite: "",
   });
-  const [savingBudget, setSavingBudget] = useState(false);
   const [editingBudget, setEditingBudget] = useState(null);
+  const [savingBudget, setSavingBudget] = useState(false);
   const { profile, user, fetchProfile } = useAuthStore();
+  const router = useRouter();
+  const [showAvatarMenu, setShowAvatarMenu] = useState(false);
 
   const { data: txs, refetch: refetchTx } = useTransactions({
     mes,
     anio,
-    limit: 6,
+    limit: 5,
   });
   const { data: accounts, refetch: refetchAcc } = useAccounts();
   const { data: goals, refetch: refetchGoals } = useSavingsGoals();
@@ -78,6 +99,8 @@ export default function Home() {
     setRefreshing(false);
   };
 
+  const handleAvatarPress = () => setShowAvatarMenu(true);
+
   const openBudgetEdit = (b) => {
     setEditingBudget(b);
     setBudgetForm({
@@ -87,20 +110,20 @@ export default function Home() {
     setShowBudgetModal(true);
   };
 
+  const closeBudgetModal = () => {
+    setShowBudgetModal(false);
+    setEditingBudget(null);
+    setBudgetForm({ category_id: "", monto_limite: "" });
+  };
+
   const handleDeleteBudget = async (id) => {
-    console.log("Eliminando presupuesto id:", id); // ← agrega esto
     Alert.alert("Eliminar presupuesto", "Esta accion no se puede deshacer.", [
       { text: "Cancelar", style: "cancel" },
       {
         text: "Eliminar",
         style: "destructive",
         onPress: async () => {
-          console.log("Confirmado, eliminando..."); // ← y esto
-          const { error } = await supabase
-            .from("budgets")
-            .delete()
-            .eq("id", id);
-          console.log("Resultado:", error ? error.message : "OK"); // ← y esto
+          await supabase.from("budgets").delete().eq("id", id);
           setEditingBudget(null);
           setBudgetForm({ category_id: "", monto_limite: "" });
           setShowBudgetModal(false);
@@ -132,11 +155,11 @@ export default function Home() {
       );
     }
     setSavingBudget(false);
-    setEditingBudget(null);
-    setBudgetForm({ category_id: "", monto_limite: "" });
-    setShowBudgetModal(false);
+    closeBudgetModal();
     refetchBudgets();
   };
+
+  const nombre = profile?.nickname || profile?.nombre?.split(" ")[0] || "tú";
 
   return (
     <ScrollView
@@ -146,39 +169,50 @@ export default function Home() {
         <RefreshControl
           refreshing={refreshing}
           onRefresh={onRefresh}
-          tintColor={COLORS.brand}
+          tintColor={COLORS.accent}
         />
       }
     >
+      {/* Header */}
       <View style={s.header}>
         <View>
-          <Text style={s.greeting}>
-            Hola, {profile?.nickname || profile?.nombre?.split(" ")[0]} 👋
-          </Text>
+          <Text style={s.greeting}>Hola, {nombre} 👋</Text>
           <Text style={s.subtitle}>Tu dinero, ordenado</Text>
         </View>
-        <View style={s.avatar}>
-          <Text style={s.avatarText}>
-            {(profile?.nombre ?? "U").charAt(0).toUpperCase()}
-          </Text>
-        </View>
+        <TouchableOpacity
+          style={s.avatar}
+          onPress={handleAvatarPress}
+          activeOpacity={0.8}
+        >
+          {profile?.avatar_url ? (
+            <Image source={{ uri: profile.avatar_url }} style={s.avatarImg} />
+          ) : (
+            <Text style={s.avatarText}>
+              {(profile?.nombre ?? "U").charAt(0).toUpperCase()}
+            </Text>
+          )}
+        </TouchableOpacity>
       </View>
 
+      {/* Patrimonio */}
       <View style={s.patrimonioCard}>
-        <Text style={s.patrimonioLabel}>Patrimonio total</Text>
-        <Text style={s.patrimonioVal}>{clp(totalPatrimonio)}</Text>
-        <View style={s.patrimonioRow}>
-          <View style={s.patrimonioTag}>
-            <Text style={s.patrimonioTagText}>
-              {accounts.length} cuenta{accounts.length !== 1 ? "s" : ""}
-            </Text>
+        <View style={s.patrimonioInner}>
+          <Text style={s.patrimonioLabel}>Patrimonio total</Text>
+          <Text style={s.patrimonioVal}>{clp(totalPatrimonio)}</Text>
+          <View style={s.patrimonioRow}>
+            <View style={s.patrimonioTag}>
+              <Text style={s.patrimonioTagText}>
+                {accounts.length} cuenta{accounts.length !== 1 ? "s" : ""}
+              </Text>
+            </View>
+            <Text style={s.patrimonioSub}>Actualizado ahora</Text>
           </View>
-          <Text style={s.patrimonioSub}>Todas las cuentas activas</Text>
         </View>
         <View style={s.circle1} />
         <View style={s.circle2} />
       </View>
 
+      {/* Selector mes */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -198,16 +232,15 @@ export default function Home() {
         ))}
       </ScrollView>
 
+      {/* KPIs */}
       <View style={s.kpiRow}>
-        <View style={[s.kpiCard, { borderLeftColor: COLORS.brand }]}>
-          <Text style={s.kpiEmoji}>📈</Text>
+        <View style={[s.kpiCard, { borderTopColor: COLORS.accent }]}>
           <Text style={s.kpiLabel}>Ingresos</Text>
-          <Text style={[s.kpiVal, { color: COLORS.brand }]}>
+          <Text style={[s.kpiVal, { color: COLORS.accent }]}>
             {clp(resumen?.total_ingresos ?? 0)}
           </Text>
         </View>
-        <View style={[s.kpiCard, { borderLeftColor: COLORS.red }]}>
-          <Text style={s.kpiEmoji}>📉</Text>
+        <View style={[s.kpiCard, { borderTopColor: COLORS.red }]}>
           <Text style={s.kpiLabel}>Gastos</Text>
           <Text style={[s.kpiVal, { color: COLORS.red }]}>
             {clp(resumen?.total_gastos ?? 0)}
@@ -216,15 +249,14 @@ export default function Home() {
         <View
           style={[
             s.kpiCard,
-            { borderLeftColor: balance >= 0 ? COLORS.brand : COLORS.red },
+            { borderTopColor: balance >= 0 ? COLORS.accent : COLORS.red },
           ]}
         >
-          <Text style={s.kpiEmoji}>{balance >= 0 ? "✅" : "⚠️"}</Text>
           <Text style={s.kpiLabel}>Balance</Text>
           <Text
             style={[
               s.kpiVal,
-              { color: balance >= 0 ? COLORS.brand : COLORS.red },
+              { color: balance >= 0 ? COLORS.accent : COLORS.red },
             ]}
           >
             {clp(balance)}
@@ -232,6 +264,7 @@ export default function Home() {
         </View>
       </View>
 
+      {/* Mis cuentas */}
       {accounts.length > 0 && (
         <View style={s.section}>
           <View style={s.sectionHeader}>
@@ -255,7 +288,7 @@ export default function Home() {
               const usado = Math.abs(Number(a.saldo_actual));
               const pct = limite ? Math.min((usado / limite) * 100, 100) : 0;
               const semaforo =
-                pct > 80 ? COLORS.red : pct > 50 ? COLORS.amber : COLORS.brand;
+                pct > 80 ? COLORS.red : pct > 50 ? COLORS.amber : COLORS.accent;
               return (
                 <View
                   key={a.id}
@@ -268,7 +301,15 @@ export default function Home() {
                         { backgroundColor: a.color + "18" },
                       ]}
                     >
-                      <Text style={{ fontSize: 20 }}>{a.icono}</Text>
+                      {getBancoLogoUrl(a.banco) ? (
+                        <Image
+                          source={{ uri: getBancoLogoUrl(a.banco) }}
+                          style={{ width: 28, height: 28, borderRadius: 6 }}
+                          resizeMode="contain"
+                        />
+                      ) : (
+                        <Text style={{ fontSize: 20 }}>{a.icono}</Text>
+                      )}
                     </View>
                     <View style={{ flex: 1 }}>
                       <Text style={s.cuentaNombre} numberOfLines={1}>
@@ -291,10 +332,14 @@ export default function Home() {
                           ]}
                         />
                       </View>
-                      <Text style={[s.cuentaSaldo, { color: semaforo }]}>
+                      <Text
+                        style={[
+                          s.cuentaSaldo,
+                          { color: semaforo, fontSize: 13 },
+                        ]}
+                      >
                         {pct.toFixed(0)}% usado
                       </Text>
-                      <Text style={s.cuentaLimite}>Limite {clp(limite)}</Text>
                     </>
                   ) : (
                     <Text
@@ -318,6 +363,7 @@ export default function Home() {
         </View>
       )}
 
+      {/* Presupuestos */}
       <View style={s.section}>
         <View style={s.sectionHeader}>
           <Text style={s.sectionTitle}>Presupuestos</Text>
@@ -327,23 +373,18 @@ export default function Home() {
         </View>
         {budgets.length === 0 ? (
           <TouchableOpacity
-            style={s.budgetEmpty}
+            style={s.emptyDashed}
             onPress={() => setShowBudgetModal(true)}
           >
-            <Text style={s.budgetEmptyText}>
+            <Text style={s.emptyDashedText}>
               Toca para agregar un presupuesto mensual
             </Text>
           </TouchableOpacity>
         ) : (
           budgets.map((b) => {
             const pct = Number(b.porcentaje_usado ?? 0);
-            const over = pct > 100;
-            const warn = pct > 80;
-            const barColor = over
-              ? COLORS.red
-              : warn
-                ? COLORS.amber
-                : COLORS.brand;
+            const barColor =
+              pct > 100 ? COLORS.red : pct > 80 ? COLORS.amber : COLORS.accent;
             return (
               <TouchableOpacity
                 key={b.id}
@@ -380,6 +421,7 @@ export default function Home() {
         )}
       </View>
 
+      {/* Ultimos movimientos */}
       <View style={s.section}>
         <View style={s.sectionHeader}>
           <Text style={s.sectionTitle}>Ultimos movimientos</Text>
@@ -420,45 +462,21 @@ export default function Home() {
                   {tx.category?.nombre ?? "Sin categoria"}
                 </Text>
               </View>
-              <View style={s.txRight}>
-                <Text
-                  style={[
-                    s.txAmount,
-                    {
-                      color: tx.tipo === "ingreso" ? COLORS.brand : COLORS.red,
-                    },
-                  ]}
-                >
-                  {tx.tipo === "ingreso" ? "+" : "-"}
-                  {clp(tx.monto)}
-                </Text>
-                <View
-                  style={[
-                    s.txBadge,
-                    {
-                      backgroundColor:
-                        tx.tipo === "ingreso" ? "#E1F5EE" : "#FCEBEB",
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      s.txBadgeText,
-                      {
-                        color:
-                          tx.tipo === "ingreso" ? COLORS.brand2 : COLORS.red,
-                      },
-                    ]}
-                  >
-                    {tx.tipo}
-                  </Text>
-                </View>
-              </View>
+              <Text
+                style={[
+                  s.txAmount,
+                  { color: tx.tipo === "ingreso" ? COLORS.accent : COLORS.red },
+                ]}
+              >
+                {tx.tipo === "ingreso" ? "+" : "-"}
+                {clp(tx.monto)}
+              </Text>
             </View>
           ))
         )}
       </View>
 
+      {/* Metas */}
       {goals.length > 0 && (
         <View style={s.section}>
           <View style={s.sectionHeader}>
@@ -496,7 +514,13 @@ export default function Home() {
                     ]}
                   />
                 </View>
-                <View style={s.goalAmounts}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginTop: 4,
+                  }}
+                >
                   <Text style={s.budgetAmt}>{clp(g.monto_actual)}</Text>
                   <Text style={s.budgetAmt}>{clp(g.monto_objetivo)}</Text>
                 </View>
@@ -508,25 +532,96 @@ export default function Home() {
 
       <View style={{ height: 100 }} />
 
+      {/* Avatar Menu */}
+      <Modal
+        visible={showAvatarMenu}
+        animationType="slide"
+        transparent
+        onRequestClose={() => setShowAvatarMenu(false)}
+      >
+        <TouchableOpacity
+          style={s.modalBg}
+          activeOpacity={1}
+          onPress={() => setShowAvatarMenu(false)}
+        />
+        <View style={s.menuSheet}>
+          <View style={s.modalHandle} />
+          <View style={s.menuAvatar}>
+            {profile?.avatar_url ? (
+              <Image
+                source={{ uri: profile.avatar_url }}
+                style={s.menuAvatarImg}
+              />
+            ) : (
+              <View style={s.menuAvatarFallback}>
+                <Text style={s.menuAvatarText}>
+                  {(profile?.nombre ?? "U").charAt(0).toUpperCase()}
+                </Text>
+              </View>
+            )}
+            <View>
+              <Text style={s.menuName}>{profile?.nombre ?? "—"}</Text>
+              <Text style={s.menuEmail}>{profile?.email ?? "—"}</Text>
+            </View>
+          </View>
+          <View style={s.menuDivider} />
+          {[
+            {
+              icon: "👤",
+              label: "Ver perfil",
+              action: () => {
+                setShowAvatarMenu(false);
+                router.push("/(tabs)/perfil");
+              },
+            },
+            {
+              icon: "➕",
+              label: "Agregar movimiento",
+              action: () => {
+                setShowAvatarMenu(false);
+                router.push("/(tabs)/transacciones");
+              },
+            },
+            {
+              icon: "🎯",
+              label: "Nueva meta",
+              action: () => {
+                setShowAvatarMenu(false);
+                router.push("/(tabs)/metas");
+              },
+            },
+          ].map((item) => (
+            <TouchableOpacity
+              key={item.label}
+              style={s.menuItem}
+              onPress={item.action}
+            >
+              <Text style={s.menuItemIcon}>{item.icon}</Text>
+              <Text style={s.menuItemLabel}>{item.label}</Text>
+              <Text style={s.menuItemArrow}>›</Text>
+            </TouchableOpacity>
+          ))}
+          <TouchableOpacity
+            style={s.menuCancel}
+            onPress={() => setShowAvatarMenu(false)}
+          >
+            <Text style={s.menuCancelText}>Cancelar</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
+      {/* Modal presupuesto */}
       <Modal
         visible={showBudgetModal}
         animationType="slide"
         transparent
-        onRequestClose={() => {
-          setShowBudgetModal(false);
-          setEditingBudget(null);
-          setBudgetForm({ category_id: "", monto_limite: "" });
-        }}
+        onRequestClose={closeBudgetModal}
       >
         <View style={s.modalOverlay}>
           <TouchableOpacity
             style={s.modalBg}
             activeOpacity={1}
-            onPress={() => {
-              setShowBudgetModal(false);
-              setEditingBudget(null);
-              setBudgetForm({ category_id: "", monto_limite: "" });
-            }}
+            onPress={closeBudgetModal}
           />
           <View style={s.modalSheet}>
             <View style={s.modalHandle} />
@@ -534,14 +629,7 @@ export default function Home() {
               <Text style={s.modalTitle}>
                 {editingBudget ? "Editar presupuesto" : "Nuevo presupuesto"}
               </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  setShowBudgetModal(false);
-                  setEditingBudget(null);
-                  setBudgetForm({ category_id: "", monto_limite: "" });
-                }}
-                style={s.modalClose}
-              >
+              <TouchableOpacity onPress={closeBudgetModal} style={s.modalClose}>
                 <Text style={s.modalCloseText}>✕</Text>
               </TouchableOpacity>
             </View>
@@ -577,11 +665,12 @@ export default function Home() {
             <Text style={s.chipLabel}>Limite mensual $</Text>
             <TextInput
               style={s.modalInput}
-              placeholder="Ej: 200000"
+              placeholder="Ej: 200.000"
               keyboardType="numeric"
-              value={budgetForm.monto_limite}
+              inputAccessoryViewID="numpad"
+              value={formatInputCLP(budgetForm.monto_limite)}
               onChangeText={(v) =>
-                setBudgetForm((f) => ({ ...f, monto_limite: numericOnly(v) }))
+                setBudgetForm((f) => ({ ...f, monto_limite: parseInputCLP(v) }))
               }
               placeholderTextColor={COLORS.textSub}
             />
@@ -611,13 +700,40 @@ export default function Home() {
             </TouchableOpacity>
           </View>
         </View>
+        <InputAccessoryView nativeID="numpad">
+          <View
+            style={{
+              backgroundColor: "#F8FAFC",
+              padding: 8,
+              alignItems: "flex-end",
+              borderTopWidth: 1,
+              borderTopColor: "#E2E8F0",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => Keyboard.dismiss()}
+              style={{ paddingHorizontal: 16, paddingVertical: 8 }}
+            >
+              <Text
+                style={{
+                  color: COLORS.brand,
+                  fontWeight: "700",
+                  fontSize: 16,
+                  fontFamily: F.bold,
+                }}
+              >
+                Listo
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </InputAccessoryView>
       </Modal>
     </ScrollView>
   );
 }
 
 const s = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F4F6F9" },
+  container: { flex: 1, backgroundColor: COLORS.surface },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -628,15 +744,15 @@ const s = StyleSheet.create({
   },
   greeting: {
     fontSize: 24,
-    fontWeight: "800",
+    fontFamily: "Jakarta-ExtraBold",
     color: COLORS.text,
     letterSpacing: -0.5,
   },
   subtitle: {
     fontSize: 13,
+    fontFamily: "Jakarta-Regular",
     color: COLORS.textSub,
     marginTop: 3,
-    fontStyle: "italic",
   },
   avatar: {
     width: 46,
@@ -646,55 +762,64 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  avatarText: { color: "#fff", fontSize: 20, fontWeight: "700" },
+  avatarImg: { width: 46, height: 46, borderRadius: 23 },
+  avatarText: { color: "#fff", fontSize: 18, fontFamily: "Jakarta-Bold" },
   patrimonioCard: {
     marginHorizontal: 20,
     borderRadius: 24,
     backgroundColor: COLORS.brand,
-    padding: 24,
     marginBottom: 20,
     overflow: "hidden",
-    minHeight: 130,
+    minHeight: 140,
   },
+  patrimonioInner: { padding: 24, zIndex: 1 },
   patrimonioLabel: {
-    color: "rgba(255,255,255,0.75)",
+    color: "rgba(255,255,255,0.7)",
     fontSize: 13,
-    fontWeight: "500",
-    marginBottom: 8,
+    fontFamily: "Jakarta-Medium",
+    marginBottom: 6,
   },
   patrimonioVal: {
     color: "#fff",
-    fontSize: 34,
-    fontWeight: "800",
+    fontSize: 36,
+    fontFamily: "Jakarta-ExtraBold",
     letterSpacing: -1,
-    marginBottom: 12,
+    marginBottom: 14,
   },
   patrimonioRow: { flexDirection: "row", alignItems: "center", gap: 10 },
   patrimonioTag: {
-    backgroundColor: "rgba(255,255,255,0.2)",
+    backgroundColor: "rgba(255,255,255,0.15)",
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 20,
   },
-  patrimonioTagText: { color: "#fff", fontSize: 12, fontWeight: "500" },
-  patrimonioSub: { color: "rgba(255,255,255,0.6)", fontSize: 12 },
+  patrimonioTagText: {
+    color: "#fff",
+    fontSize: 12,
+    fontFamily: "Jakarta-SemiBold",
+  },
+  patrimonioSub: {
+    color: "rgba(255,255,255,0.55)",
+    fontSize: 12,
+    fontFamily: "Jakarta-Regular",
+  },
   circle1: {
     position: "absolute",
-    width: 160,
-    height: 160,
-    borderRadius: 80,
-    backgroundColor: "rgba(255,255,255,0.07)",
-    right: -40,
-    top: -40,
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: "rgba(0,200,150,0.12)",
+    right: -50,
+    top: -50,
   },
   circle2: {
     position: "absolute",
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: "rgba(255,255,255,0.07)",
-    right: 50,
-    bottom: -35,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: "rgba(0,200,150,0.08)",
+    right: 40,
+    bottom: -40,
   },
   monthScroll: { marginBottom: 16 },
   monthBtn: {
@@ -703,13 +828,17 @@ const s = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.card,
     borderWidth: 1,
     borderColor: COLORS.border,
   },
   monthBtnActive: { backgroundColor: COLORS.brand, borderColor: COLORS.brand },
-  monthText: { fontSize: 13, color: COLORS.textSub, fontWeight: "500" },
-  monthTextActive: { color: "#fff", fontWeight: "600" },
+  monthText: {
+    fontSize: 13,
+    fontFamily: "Jakarta-Medium",
+    color: COLORS.textSub,
+  },
+  monthTextActive: { color: "#fff", fontFamily: "Jakarta-SemiBold" },
   kpiRow: {
     flexDirection: "row",
     paddingHorizontal: 20,
@@ -718,23 +847,22 @@ const s = StyleSheet.create({
   },
   kpiCard: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.card,
     borderRadius: 16,
     padding: 14,
-    borderLeftWidth: 3,
+    borderTopWidth: 3,
   },
-  kpiEmoji: { fontSize: 16, marginBottom: 6 },
   kpiLabel: {
     fontSize: 10,
+    fontFamily: "Jakarta-SemiBold",
     color: COLORS.textSub,
-    fontWeight: "600",
-    marginBottom: 4,
+    marginBottom: 6,
     textTransform: "uppercase",
     letterSpacing: 0.5,
   },
-  kpiVal: { fontSize: 13, fontWeight: "800" },
+  kpiVal: { fontSize: 13, fontFamily: "Jakarta-ExtraBold" },
   section: {
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.card,
     marginHorizontal: 20,
     borderRadius: 20,
     padding: 18,
@@ -746,11 +874,23 @@ const s = StyleSheet.create({
     alignItems: "center",
     marginBottom: 14,
   },
-  sectionTitle: { fontSize: 16, fontWeight: "700", color: COLORS.text },
-  sectionSub: { fontSize: 12, color: COLORS.textSub },
-  sectionAction: { fontSize: 13, color: COLORS.brand, fontWeight: "600" },
-  budgetEmpty: {
-    backgroundColor: "#F8F9FA",
+  sectionTitle: {
+    fontSize: 16,
+    fontFamily: "Jakarta-Bold",
+    color: COLORS.text,
+  },
+  sectionSub: {
+    fontSize: 12,
+    fontFamily: "Jakarta-Regular",
+    color: COLORS.textSub,
+  },
+  sectionAction: {
+    fontSize: 13,
+    fontFamily: "Jakarta-SemiBold",
+    color: COLORS.brand,
+  },
+  emptyDashed: {
+    backgroundColor: COLORS.surface,
     borderRadius: 12,
     padding: 16,
     alignItems: "center",
@@ -758,7 +898,17 @@ const s = StyleSheet.create({
     borderColor: COLORS.border,
     borderStyle: "dashed",
   },
-  budgetEmptyText: { fontSize: 13, color: COLORS.textSub },
+  emptyDashedText: {
+    fontSize: 13,
+    fontFamily: "Jakarta-Regular",
+    color: COLORS.textSub,
+  },
+  emptyWrap: { alignItems: "center", paddingVertical: 20 },
+  emptyText: {
+    fontSize: 13,
+    fontFamily: "Jakarta-Regular",
+    color: COLORS.textSub,
+  },
   budgetRow: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -771,29 +921,35 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 6,
   },
-  budgetName: { fontSize: 13, fontWeight: "600", color: COLORS.text },
-  budgetPct: { fontSize: 12, fontWeight: "700" },
+  budgetName: {
+    fontSize: 13,
+    fontFamily: "Jakarta-SemiBold",
+    color: COLORS.text,
+  },
+  budgetPct: { fontSize: 12, fontFamily: "Jakarta-Bold" },
   budgetAmounts: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 4,
   },
-  budgetAmt: { fontSize: 11, color: COLORS.textSub },
+  budgetAmt: {
+    fontSize: 11,
+    fontFamily: "Jakarta-Regular",
+    color: COLORS.textSub,
+  },
   barBg: {
-    height: 6,
-    backgroundColor: "#F4F6F9",
+    height: 5,
+    backgroundColor: COLORS.surface,
     borderRadius: 3,
     overflow: "hidden",
   },
   barFill: { height: "100%", borderRadius: 3 },
-  emptyWrap: { alignItems: "center", paddingVertical: 20 },
-  emptyText: { fontSize: 13, color: COLORS.textSub },
   txRow: {
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: "#F4F6F9",
+    borderBottomColor: COLORS.surface,
   },
   txIcon: {
     width: 42,
@@ -806,15 +962,12 @@ const s = StyleSheet.create({
   txInfo: { flex: 1 },
   txName: {
     fontSize: 14,
-    fontWeight: "600",
+    fontFamily: "Jakarta-SemiBold",
     color: COLORS.text,
     marginBottom: 3,
   },
-  txCat: { fontSize: 12, color: COLORS.textSub },
-  txRight: { alignItems: "flex-end", gap: 4 },
-  txAmount: { fontSize: 14, fontWeight: "700" },
-  txBadge: { paddingHorizontal: 8, paddingVertical: 2, borderRadius: 10 },
-  txBadgeText: { fontSize: 10, fontWeight: "600", textTransform: "capitalize" },
+  txCat: { fontSize: 12, fontFamily: "Jakarta-Regular", color: COLORS.textSub },
+  txAmount: { fontSize: 14, fontFamily: "Jakarta-Bold" },
   goalRow: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -833,15 +986,14 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 6,
   },
-  goalName: { fontSize: 14, fontWeight: "600", color: COLORS.text },
-  goalPct: { fontSize: 13, fontWeight: "700" },
-  goalAmounts: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 4,
+  goalName: {
+    fontSize: 14,
+    fontFamily: "Jakarta-SemiBold",
+    color: COLORS.text,
   },
+  goalPct: { fontSize: 13, fontFamily: "Jakarta-Bold" },
   cuentaCard: {
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.surface,
     borderRadius: 16,
     padding: 14,
     width: 160,
@@ -860,10 +1012,80 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  cuentaNombre: { fontSize: 13, fontWeight: "700", color: COLORS.text },
-  cuentaBanco: { fontSize: 11, color: COLORS.textSub },
-  cuentaSaldo: { fontSize: 16, fontWeight: "800", marginTop: 4 },
-  cuentaLimite: { fontSize: 11, color: COLORS.textSub, marginTop: 2 },
+  cuentaNombre: {
+    fontSize: 13,
+    fontFamily: "Jakarta-SemiBold",
+    color: COLORS.text,
+  },
+  cuentaBanco: {
+    fontSize: 11,
+    fontFamily: "Jakarta-Regular",
+    color: COLORS.textSub,
+  },
+  cuentaSaldo: { fontSize: 16, fontFamily: "Jakarta-ExtraBold", marginTop: 4 },
+
+  menuSheet: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    padding: 20,
+    paddingBottom: 40,
+  },
+  menuAvatar: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 14,
+    marginBottom: 16,
+  },
+  menuAvatarImg: { width: 52, height: 52, borderRadius: 26 },
+  menuAvatarFallback: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    backgroundColor: COLORS.brand,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  menuAvatarText: { color: "#fff", fontSize: 20, fontFamily: "Jakarta-Bold" },
+  menuName: { fontSize: 16, fontFamily: "Jakarta-Bold", color: COLORS.text },
+  menuEmail: {
+    fontSize: 13,
+    fontFamily: "Jakarta-Regular",
+    color: COLORS.textSub,
+  },
+  menuDivider: { height: 1, backgroundColor: COLORS.border, marginBottom: 8 },
+  menuItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 14,
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.surface,
+  },
+  menuItemIcon: { fontSize: 22, width: 32, textAlign: "center" },
+  menuItemLabel: {
+    flex: 1,
+    fontSize: 15,
+    fontFamily: "Jakarta-SemiBold",
+    color: COLORS.text,
+  },
+  menuItemArrow: { fontSize: 22, color: COLORS.textSub },
+  menuCancel: {
+    marginTop: 12,
+    padding: 14,
+    backgroundColor: COLORS.surface,
+    borderRadius: 14,
+    alignItems: "center",
+  },
+  menuCancelText: {
+    fontSize: 15,
+    fontFamily: "Jakarta-SemiBold",
+    color: COLORS.textSub,
+  },
   modalOverlay: { flex: 1, justifyContent: "flex-end" },
   modalBg: {
     position: "absolute",
@@ -871,10 +1093,10 @@ const s = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(0,0,0,0.45)",
+    backgroundColor: "rgba(15,23,42,0.5)",
   },
   modalSheet: {
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.card,
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,
     padding: 20,
@@ -883,7 +1105,7 @@ const s = StyleSheet.create({
   modalHandle: {
     width: 40,
     height: 4,
-    backgroundColor: "#E5E7EB",
+    backgroundColor: COLORS.border,
     borderRadius: 2,
     alignSelf: "center",
     marginBottom: 18,
@@ -894,19 +1116,27 @@ const s = StyleSheet.create({
     alignItems: "center",
     marginBottom: 16,
   },
-  modalTitle: { fontSize: 20, fontWeight: "800", color: COLORS.text },
+  modalTitle: {
+    fontSize: 20,
+    fontFamily: "Jakarta-ExtraBold",
+    color: COLORS.text,
+  },
   modalClose: {
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: "#F4F6F9",
+    backgroundColor: COLORS.surface,
     alignItems: "center",
     justifyContent: "center",
   },
-  modalCloseText: { fontSize: 13, color: COLORS.textSub, fontWeight: "700" },
+  modalCloseText: {
+    fontSize: 13,
+    color: COLORS.textSub,
+    fontFamily: "Jakarta-Bold",
+  },
   chipLabel: {
     fontSize: 11,
-    fontWeight: "600",
+    fontFamily: "Jakarta-SemiBold",
     color: COLORS.textSub,
     marginBottom: 8,
     textTransform: "uppercase",
@@ -919,10 +1149,14 @@ const s = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: COLORS.border,
     marginRight: 8,
-    backgroundColor: "#F8F9FA",
+    backgroundColor: COLORS.surface,
   },
   chipActive: { backgroundColor: COLORS.brand, borderColor: COLORS.brand },
-  chipText: { fontSize: 12, fontWeight: "500", color: COLORS.textSub },
+  chipText: {
+    fontSize: 12,
+    fontFamily: "Jakarta-Medium",
+    color: COLORS.textSub,
+  },
   chipTextActive: { color: "#fff" },
   modalInput: {
     borderWidth: 1.5,
@@ -930,8 +1164,9 @@ const s = StyleSheet.create({
     borderRadius: 12,
     padding: 13,
     fontSize: 14,
+    fontFamily: "Jakarta-Regular",
     color: COLORS.text,
-    backgroundColor: "#F8F9FA",
+    backgroundColor: COLORS.surface,
     marginBottom: 16,
   },
   saveBtn: {
@@ -940,5 +1175,5 @@ const s = StyleSheet.create({
     padding: 16,
     alignItems: "center",
   },
-  saveBtnText: { color: "#fff", fontSize: 15, fontWeight: "700" },
+  saveBtnText: { color: "#fff", fontSize: 15, fontFamily: "Jakarta-Bold" },
 });
