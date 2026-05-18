@@ -52,7 +52,6 @@ const defaultForm = () => ({
   fecha_limite: "",
   color: PALETTE[0],
   icono: "🎯",
-  notas: "",
 });
 
 export default function Metas() {
@@ -91,7 +90,6 @@ export default function Metas() {
       fecha_limite: form.fecha_limite || null,
       color: form.color,
       icono: form.icono,
-      notas: form.notas || null,
     });
     setSaving(false);
     if (error) return Alert.alert("Error", error.message);
@@ -342,33 +340,13 @@ export default function Metas() {
                   ]}
                 >
                   {form.fecha_limite
-                    ? new Date(
-                        form.fecha_limite + "T12:00:00",
-                      ).toLocaleDateString("es-CL", {
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric",
+                    ? new Date(form.fecha_limite + "T12:00:00").toLocaleDateString("es-CL", {
+                        day: "2-digit", month: "long", year: "numeric",
                       })
                     : "Seleccionar fecha..."}
                 </Text>
                 <Text style={{ fontSize: 16 }}>📅</Text>
               </TouchableOpacity>
-              {showDatePicker && (
-                <DateTimePicker
-                  value={datePickerDate}
-                  mode="date"
-                  display="spinner"
-                  locale="es-CL"
-                  onChange={(e, date) => {
-                    setShowDatePicker(Platform.OS === "android");
-                    if (date) {
-                      setDatePickerDate(date);
-                      const iso = date.toISOString().split("T")[0];
-                      set("fecha_limite", iso);
-                    }
-                  }}
-                />
-              )}
 
               <Text style={s.chipLabel}>Icono</Text>
               <ScrollView
@@ -428,6 +406,34 @@ export default function Metas() {
             </ScrollView>
           </View>
         </KeyboardAvoidingView>
+      <Modal visible={showDatePicker} transparent animationType="slide">
+        <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={() => setShowDatePicker(false)} />
+        <View style={s.datePicker}>
+          <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 8 }}>
+            <TouchableOpacity onPress={() => setShowDatePicker(false)}>
+              <Text style={{ color: COLORS.textSub, fontFamily: F.semiBold, fontSize: 15 }}>Cancelar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setShowDatePicker(false)}>
+              <Text style={{ color: COLORS.brand, fontFamily: F.bold, fontSize: 15 }}>Listo</Text>
+            </TouchableOpacity>
+          </View>
+          <DateTimePicker
+            value={datePickerDate}
+            mode="date"
+            display="spinner"
+            locale="es-CL"
+            textColor={COLORS.text}
+            minimumDate={new Date()}
+            onChange={(e, date) => {
+              if (date) {
+                setDatePickerDate(date);
+                set("fecha_limite", date.toISOString().split("T")[0]);
+              }
+            }}
+          />
+        </View>
+      </Modal>
+
         <InputAccessoryView nativeID="numpad">
           <View
             style={{
@@ -710,4 +716,11 @@ const s = StyleSheet.create({
   },
   saveBtn: { borderRadius: 14, padding: 16, alignItems: "center" },
   saveBtnText: { color: "#fff", fontSize: 15, fontFamily: "Jakarta-Bold" },
+  datePicker: {
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    padding: 20,
+    paddingBottom: 40,
+  },
 });
