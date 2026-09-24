@@ -1,0 +1,15 @@
+import { chromium } from 'playwright-core';
+const [url, tag] = process.argv.slice(2);
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', proxy: { server: process.env.HTTPS_PROXY } });
+const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, locale: 'es-CL' });
+const p = await ctx.newPage();
+p.on('pageerror', (e) => console.log('PAGEERROR', e.message));
+await p.goto(url, { waitUntil: 'networkidle', timeout: 60000 }).catch(() => {});
+await p.waitForTimeout(2000);
+await p.click('.el-offer:nth-of-type(3)');
+await p.click('[data-el-add]');
+await p.waitForTimeout(3500);
+const r = await p.evaluate(async () => { const c = await (await fetch('/cart.js')).json(); return { drawerOpen: !!document.querySelector('#CartDrawer[open]'), codOpen: document.body.classList.contains('el-modal-open'), items: c.items.map((i) => [i.title, i.quantity, i.final_line_price]), total: c.total_price, discounts: c.cart_level_discount_applications.concat(c.items.flatMap((i) => i.discounts || [])).map((d) => d.title || d.amount) }; });
+console.log(JSON.stringify(r));
+await p.screenshot({ path: `../preview/live/${tag}-cart.png` });
+await b.close();

@@ -48,6 +48,7 @@
       var lbl = b.querySelector('[data-el-buy-label]');
       if (lbl) { if (!lbl.dataset.orig) lbl.dataset.orig = lbl.textContent; lbl.textContent = avail ? lbl.dataset.orig : 'Agotado'; }
     });
+    document.querySelectorAll('[data-el-add]').forEach(function (b) { b.toggleAttribute('disabled', !avail); });
     var f = S.root && S.root.querySelector('form[data-el-form]');
     if (f) {
       var id = f.querySelector('input[name=id]'), q = f.querySelector('input[name=quantity]');
@@ -99,15 +100,20 @@
     }
     return null;
   }
+  // Solo botones "comprar" de Releasit (el del producto y su barra flotante). Nunca elementos dentro de su
+  // ventana/formulario/downsell: esos también llevan clases rsi y deben seguir visibles.
+  var COD_BUY = /(^|[\s_-])rsi[_-]?buy[_-]?now|rsi_floating/i;
+  function insideCodModal(el) {
+    return !!el.closest('[role=dialog],[aria-modal=true],dialog,[class*=modal],[class*=Modal],[class*=popup],[class*=Popup],[class*=drawer],[class*=downsell],[class*=Downsell],form:not([data-el-form])');
+  }
   function findAllCod() {
-    var scope = (S.root && S.root.querySelector('.el-buy')) || document, out = [];
-    var list = document.querySelectorAll('button,a,[role=button],input[type=submit]');
+    var out = [], list = document.querySelectorAll('button,a,[role=button]');
     for (var i = 0; i < list.length; i++) {
       var el = list[i];
-      if (ours(el) || out.indexOf(el) > -1) continue;
-      var byCls = COD_CLS.test(meta(el)) || (el.parentElement && COD_CLS.test(meta(el.parentElement)));
-      var byTxt = COD_TXT.test((el.innerText || el.textContent || el.value || '').trim());
-      if (byCls || (byTxt && (scope.contains(el) || fixedAncestor(el) || el.classList.contains('el-cod-btn')))) out.push(el);
+      if (ours(el) || insideCodModal(el)) continue;
+      var txt = (el.innerText || el.textContent || '').trim();
+      var isBuy = el.id === 'rsi_buy_now_button' || COD_BUY.test(meta(el)) || (COD_TXT.test(txt) && txt.length < 60);
+      if (isBuy) out.push(el);
     }
     return out;
   }

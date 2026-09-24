@@ -172,7 +172,10 @@
                 <span class="el-btn__txt"><span data-el-buy-label>{% if v.available %}{{ block.settings.label | escape }}{% else %}Agotado{% endif %}</span>{%- if block.settings.sublabel != blank -%}<small>{{ block.settings.sublabel | escape }}</small>{%- endif -%}</span>
               </button>
             </div>
-            <p class="el-status" role="status" data-el-status></p>
+            {%- if block.settings.show_add -%}
+            <button type="submit" name="add" class="el-btn el-btn--ghost el-add" data-el-add {% unless v.available %}disabled{% endunless %}>{{ block.settings.add_label | default: 'Agregar al carrito' | escape }}</button>
+            {%- endif -%}
+            <p class="el-status form-status" role="status" data-el-status></p>
           {%- endform -%}
           </div>
         {%- when 'cta_micro' -%}
@@ -223,70 +226,500 @@
 
 {% schema %}
 {
-  "name": "Producto · compra",
-  "tag": "div",
-  "class": "el-section-main",
-  "settings": [
-    {"type": "product", "id": "product", "label": "Producto (solo fuera de la página de producto)"},
-    {"type": "checkbox", "id": "force_h1", "label": "Usar título principal (H1) también en inicio", "default": true},
-    {"type": "select", "id": "ratio", "label": "Proporción de la galería", "default": "1/1", "options": [{"value": "1/1", "label": "Cuadrada"}, {"value": "4/5", "label": "Vertical 4:5"}, {"value": "3/4", "label": "Vertical 3:4"}]},
-    {"type": "text", "id": "badge", "label": "Sello sobre la imagen", "info": "Ej.: 2x1. Déjalo vacío si no hay oferta real."},
-    {"type": "text", "id": "offers_label", "label": "Título de las opciones", "default": "Elige tu oferta"},
-    {"type": "select", "id": "cod_mode", "label": "Botón de compra abre", "info": "Sin formulario contra entrega, abre el checkout de Shopify.", "default": "auto", "options": [{"value": "auto", "label": "Formulario contra entrega (si existe)"}, {"value": "checkout", "label": "Siempre checkout de Shopify"}]},
-    {"type": "paragraph", "content": "Las imágenes de «Imagen de galería» reemplazan las fotos del producto. Úsalas si Dropify sobrescribe imágenes al sincronizar."}
-  ],
-  "blocks": [
-    {"type": "gallery_image", "name": "Imagen de galería", "settings": [{"type": "image_picker", "id": "image", "label": "Imagen"}, {"type": "text", "id": "alt", "label": "Texto alternativo"}]},
-    {"type": "vendor", "name": "Marca", "limit": 1, "settings": [{"type": "text", "id": "text", "label": "Texto (vacío = proveedor)"}]},
-    {"type": "title", "name": "Título", "limit": 1, "settings": [{"type": "text", "id": "text", "label": "Título comercial (vacío = nombre del producto)"}]},
-    {"type": "subtitle", "name": "Propuesta de valor", "limit": 1, "settings": [{"type": "textarea", "id": "text", "label": "Texto"}]},
-    {"type": "chips", "name": "Etiquetas", "limit": 1, "settings": [{"type": "text", "id": "items", "label": "Separadas por coma"}]},
-    {"type": "bullet", "name": "Viñeta", "settings": [{"type": "text", "id": "text", "label": "Texto (acepta <b>)"}]},
-    {"type": "price", "name": "Precio", "limit": 1, "settings": [{"type": "text", "id": "save_prefix", "label": "Texto de ahorro", "default": "AHORRA"}, {"type": "text", "id": "note", "label": "Nota bajo el precio"}]},
-    {"type": "variant_picker", "name": "Selector de variantes", "limit": 1, "settings": [{"type": "paragraph", "content": "Solo aparece si el producto tiene variantes."}]},
-    {"type": "offer", "name": "Oferta / pack", "settings": [
-      {"type": "range", "id": "qty", "label": "Unidades", "min": 1, "max": 10, "step": 1, "default": 1},
-      {"type": "number", "id": "pay", "label": "Unidades que se cobran", "info": "2x1: unidades 2, se cobran 1. Debe coincidir con un descuento automático real en Shopify."},
-      {"type": "number", "id": "compare", "label": "Precio tachado (CLP)", "info": "Vacío = sin tachado."},
-      {"type": "text", "id": "title", "label": "Nombre", "default": "1 unidad"},
-      {"type": "text", "id": "note", "label": "Nota (vacío = precio por unidad)"},
-      {"type": "text", "id": "badge", "label": "Sello"},
-      {"type": "checkbox", "id": "badge_alt", "label": "Sello amarillo", "default": false},
-      {"type": "checkbox", "id": "default", "label": "Preseleccionada", "default": false}
-    ]},
-    {"type": "urgency", "name": "Contador (fecha real)", "limit": 1, "settings": [
-      {"type": "text", "id": "text", "label": "Mensaje", "default": "La oferta termina en"},
-      {"type": "text", "id": "end", "label": "Fecha y hora de término", "info": "Formato 2026-10-05T23:59:00-03:00. Al vencer se oculta solo. Vacío = no se muestra."}
-    ]},
-    {"type": "stock", "name": "Stock bajo (real)", "limit": 1, "settings": [
-      {"type": "range", "id": "threshold", "label": "Mostrar cuando queden como máximo", "min": 1, "max": 50, "step": 1, "default": 10},
-      {"type": "paragraph", "content": "Solo se muestra si Shopify controla el inventario de la variante."}
-    ]},
-    {"type": "cta", "name": "Botón Pide ahora", "limit": 1, "settings": [
-      {"type": "text", "id": "label", "label": "Texto", "default": "PIDE AHORA"},
-      {"type": "text", "id": "sublabel", "label": "Texto pequeño", "default": "Pagas al recibir"},
-      {"type": "checkbox", "id": "icon", "label": "Ícono de carro", "default": true},
-      {"type": "select", "id": "anim", "label": "Animación", "default": "pulse", "options": [{"value": "pulse", "label": "Pulso + destello"}, {"value": "shake", "label": "Vibración suave"}, {"value": "shine", "label": "Solo destello"}, {"value": "none", "label": "Sin animación"}]}
-    ]},
-    {"type": "cta_micro", "name": "Microtexto del botón", "limit": 1, "settings": [{"type": "text", "id": "items", "label": "Separados por |", "default": "🔒 Compra segura | 🚚 Envío gratis | 💵 Pagas al recibir"}]},
-    {"type": "delivery", "name": "Entrega y pago", "limit": 1, "settings": [
-      {"type": "range", "id": "from", "label": "Entrega desde (días)", "min": 0, "max": 20, "step": 1, "default": 2},
-      {"type": "range", "id": "to", "label": "Entrega hasta (días)", "min": 1, "max": 30, "step": 1, "default": 6},
-      {"type": "checkbox", "id": "business", "label": "Contar días hábiles", "default": false},
-      {"type": "text", "id": "note", "label": "Nota junto a la fecha", "default": "envío gratis"},
-      {"type": "richtext", "id": "line2", "label": "Línea de pago"},
-      {"type": "richtext", "id": "line3", "label": "Línea de garantía"},
-      {"type": "checkbox", "id": "payments", "label": "Mostrar medios de pago habilitados", "default": false}
-    ]},
-    {"type": "trust", "name": "Sellos de confianza", "limit": 1, "settings": [{"type": "text", "id": "items", "label": "Formato emoji:texto separados por |", "default": "🚚:Envío gratis|🔒:Compra segura|🛡️:Garantía 30 días|💬:Atención por WhatsApp"}]},
-    {"type": "contact", "name": "Línea de contacto", "limit": 1, "settings": [{"type": "text", "id": "text", "label": "Texto", "default": "¿Dudas? Escríbenos:"}]},
-    {"type": "accordion", "name": "Pestaña desplegable", "settings": [
-      {"type": "text", "id": "heading", "label": "Título", "default": "Descripción"},
-      {"type": "select", "id": "source", "label": "Contenido", "info": "Dropify puede sobrescribir la descripción al sincronizar.", "default": "custom", "options": [{"value": "custom", "label": "Texto de abajo"}, {"value": "description", "label": "Descripción del producto"}, {"value": "shipping", "label": "Política de envío"}, {"value": "refund", "label": "Política de reembolso"}]},
-      {"type": "richtext", "id": "content", "label": "Texto"},
-      {"type": "checkbox", "id": "open", "label": "Abierta por defecto", "default": false}
-    ]}
-  ],
-  "presets": [{"name": "Producto · compra", "blocks": [{"type": "title"}, {"type": "price"}, {"type": "offer", "settings": {"default": true}}, {"type": "cta"}, {"type": "delivery"}]}]
+ "name": "Producto · compra",
+ "tag": "div",
+ "class": "el-section-main",
+ "settings": [
+  {
+   "type": "product",
+   "id": "product",
+   "label": "Producto (solo fuera de la página de producto)"
+  },
+  {
+   "type": "checkbox",
+   "id": "force_h1",
+   "label": "Usar título principal (H1) también en inicio",
+   "default": true
+  },
+  {
+   "type": "select",
+   "id": "ratio",
+   "label": "Proporción de la galería",
+   "default": "1/1",
+   "options": [
+    {
+     "value": "1/1",
+     "label": "Cuadrada"
+    },
+    {
+     "value": "4/5",
+     "label": "Vertical 4:5"
+    },
+    {
+     "value": "3/4",
+     "label": "Vertical 3:4"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "badge",
+   "label": "Sello sobre la imagen",
+   "info": "Ej.: 2x1. Déjalo vacío si no hay oferta real."
+  },
+  {
+   "type": "text",
+   "id": "offers_label",
+   "label": "Título de las opciones",
+   "default": "Elige tu oferta"
+  },
+  {
+   "type": "select",
+   "id": "cod_mode",
+   "label": "Botón de compra abre",
+   "info": "Sin formulario contra entrega, abre el checkout de Shopify.",
+   "default": "auto",
+   "options": [
+    {
+     "value": "auto",
+     "label": "Formulario contra entrega (si existe)"
+    },
+    {
+     "value": "checkout",
+     "label": "Siempre checkout de Shopify"
+    }
+   ]
+  },
+  {
+   "type": "paragraph",
+   "content": "Las imágenes de «Imagen de galería» reemplazan las fotos del producto. Úsalas si Dropify sobrescribe imágenes al sincronizar."
+  }
+ ],
+ "blocks": [
+  {
+   "type": "gallery_image",
+   "name": "Imagen de galería",
+   "settings": [
+    {
+     "type": "image_picker",
+     "id": "image",
+     "label": "Imagen"
+    },
+    {
+     "type": "text",
+     "id": "alt",
+     "label": "Texto alternativo"
+    }
+   ]
+  },
+  {
+   "type": "vendor",
+   "name": "Marca",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "text",
+     "id": "text",
+     "label": "Texto (vacío = proveedor)"
+    }
+   ]
+  },
+  {
+   "type": "title",
+   "name": "Título",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "text",
+     "id": "text",
+     "label": "Título comercial (vacío = nombre del producto)"
+    }
+   ]
+  },
+  {
+   "type": "subtitle",
+   "name": "Propuesta de valor",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "textarea",
+     "id": "text",
+     "label": "Texto"
+    }
+   ]
+  },
+  {
+   "type": "chips",
+   "name": "Etiquetas",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "text",
+     "id": "items",
+     "label": "Separadas por coma"
+    }
+   ]
+  },
+  {
+   "type": "bullet",
+   "name": "Viñeta",
+   "settings": [
+    {
+     "type": "text",
+     "id": "text",
+     "label": "Texto (acepta <b>)"
+    }
+   ]
+  },
+  {
+   "type": "price",
+   "name": "Precio",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "text",
+     "id": "save_prefix",
+     "label": "Texto de ahorro",
+     "default": "AHORRA"
+    },
+    {
+     "type": "text",
+     "id": "note",
+     "label": "Nota bajo el precio"
+    }
+   ]
+  },
+  {
+   "type": "variant_picker",
+   "name": "Selector de variantes",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "paragraph",
+     "content": "Solo aparece si el producto tiene variantes."
+    }
+   ]
+  },
+  {
+   "type": "offer",
+   "name": "Oferta / pack",
+   "settings": [
+    {
+     "type": "range",
+     "id": "qty",
+     "label": "Unidades",
+     "min": 1,
+     "max": 10,
+     "step": 1,
+     "default": 1
+    },
+    {
+     "type": "number",
+     "id": "pay",
+     "label": "Unidades que se cobran",
+     "info": "2x1: unidades 2, se cobran 1. Debe coincidir con un descuento automático real en Shopify."
+    },
+    {
+     "type": "number",
+     "id": "compare",
+     "label": "Precio tachado (CLP)",
+     "info": "Vacío = sin tachado."
+    },
+    {
+     "type": "text",
+     "id": "title",
+     "label": "Nombre",
+     "default": "1 unidad"
+    },
+    {
+     "type": "text",
+     "id": "note",
+     "label": "Nota (vacío = precio por unidad)"
+    },
+    {
+     "type": "text",
+     "id": "badge",
+     "label": "Sello"
+    },
+    {
+     "type": "checkbox",
+     "id": "badge_alt",
+     "label": "Sello amarillo",
+     "default": false
+    },
+    {
+     "type": "checkbox",
+     "id": "default",
+     "label": "Preseleccionada",
+     "default": false
+    }
+   ]
+  },
+  {
+   "type": "urgency",
+   "name": "Contador (fecha real)",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "text",
+     "id": "text",
+     "label": "Mensaje",
+     "default": "La oferta termina en"
+    },
+    {
+     "type": "text",
+     "id": "end",
+     "label": "Fecha y hora de término",
+     "info": "Formato 2026-10-05T23:59:00-03:00. Al vencer se oculta solo. Vacío = no se muestra."
+    }
+   ]
+  },
+  {
+   "type": "stock",
+   "name": "Stock bajo (real)",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "range",
+     "id": "threshold",
+     "label": "Mostrar cuando queden como máximo",
+     "min": 1,
+     "max": 50,
+     "step": 1,
+     "default": 10
+    },
+    {
+     "type": "paragraph",
+     "content": "Solo se muestra si Shopify controla el inventario de la variante."
+    }
+   ]
+  },
+  {
+   "type": "cta",
+   "name": "Botón Pide ahora",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "text",
+     "id": "label",
+     "label": "Texto",
+     "default": "PIDE AHORA"
+    },
+    {
+     "type": "text",
+     "id": "sublabel",
+     "label": "Texto pequeño",
+     "default": "Pagas al recibir"
+    },
+    {
+     "type": "checkbox",
+     "id": "icon",
+     "label": "Ícono de carro",
+     "default": true
+    },
+    {
+     "type": "select",
+     "id": "anim",
+     "label": "Animación",
+     "default": "pulse",
+     "options": [
+      {
+       "value": "pulse",
+       "label": "Pulso + destello"
+      },
+      {
+       "value": "shake",
+       "label": "Vibración suave"
+      },
+      {
+       "value": "shine",
+       "label": "Solo destello"
+      },
+      {
+       "value": "none",
+       "label": "Sin animación"
+      }
+     ]
+    },
+    {
+     "type": "checkbox",
+     "id": "show_add",
+     "label": "Mostrar «Agregar al carrito»",
+     "default": true
+    },
+    {
+     "type": "text",
+     "id": "add_label",
+     "label": "Texto de «Agregar al carrito»",
+     "default": "Agregar al carrito"
+    }
+   ]
+  },
+  {
+   "type": "cta_micro",
+   "name": "Microtexto del botón",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "text",
+     "id": "items",
+     "label": "Separados por |",
+     "default": "🔒 Compra segura | 🚚 Envío gratis | 💵 Pagas al recibir"
+    }
+   ]
+  },
+  {
+   "type": "delivery",
+   "name": "Entrega y pago",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "range",
+     "id": "from",
+     "label": "Entrega desde (días)",
+     "min": 0,
+     "max": 20,
+     "step": 1,
+     "default": 2
+    },
+    {
+     "type": "range",
+     "id": "to",
+     "label": "Entrega hasta (días)",
+     "min": 1,
+     "max": 30,
+     "step": 1,
+     "default": 6
+    },
+    {
+     "type": "checkbox",
+     "id": "business",
+     "label": "Contar días hábiles",
+     "default": false
+    },
+    {
+     "type": "text",
+     "id": "note",
+     "label": "Nota junto a la fecha",
+     "default": "envío gratis"
+    },
+    {
+     "type": "richtext",
+     "id": "line2",
+     "label": "Línea de pago"
+    },
+    {
+     "type": "richtext",
+     "id": "line3",
+     "label": "Línea de garantía"
+    },
+    {
+     "type": "checkbox",
+     "id": "payments",
+     "label": "Mostrar medios de pago habilitados",
+     "default": false
+    }
+   ]
+  },
+  {
+   "type": "trust",
+   "name": "Sellos de confianza",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "text",
+     "id": "items",
+     "label": "Formato emoji:texto separados por |",
+     "default": "🚚:Envío gratis|🔒:Compra segura|🛡️:Garantía 30 días|💬:Atención por WhatsApp"
+    }
+   ]
+  },
+  {
+   "type": "contact",
+   "name": "Línea de contacto",
+   "limit": 1,
+   "settings": [
+    {
+     "type": "text",
+     "id": "text",
+     "label": "Texto",
+     "default": "¿Dudas? Escríbenos:"
+    }
+   ]
+  },
+  {
+   "type": "accordion",
+   "name": "Pestaña desplegable",
+   "settings": [
+    {
+     "type": "text",
+     "id": "heading",
+     "label": "Título",
+     "default": "Descripción"
+    },
+    {
+     "type": "select",
+     "id": "source",
+     "label": "Contenido",
+     "info": "Dropify puede sobrescribir la descripción al sincronizar.",
+     "default": "custom",
+     "options": [
+      {
+       "value": "custom",
+       "label": "Texto de abajo"
+      },
+      {
+       "value": "description",
+       "label": "Descripción del producto"
+      },
+      {
+       "value": "shipping",
+       "label": "Política de envío"
+      },
+      {
+       "value": "refund",
+       "label": "Política de reembolso"
+      }
+     ]
+    },
+    {
+     "type": "richtext",
+     "id": "content",
+     "label": "Texto"
+    },
+    {
+     "type": "checkbox",
+     "id": "open",
+     "label": "Abierta por defecto",
+     "default": false
+    }
+   ]
+  }
+ ],
+ "presets": [
+  {
+   "name": "Producto · compra",
+   "blocks": [
+    {
+     "type": "title"
+    },
+    {
+     "type": "price"
+    },
+    {
+     "type": "offer",
+     "settings": {
+      "default": true
+     }
+    },
+    {
+     "type": "cta"
+    },
+    {
+     "type": "delivery"
+    }
+   ]
+  }
+ ]
 }
 {% endschema %}
