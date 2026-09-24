@@ -1,5 +1,15 @@
 # Entalle · estado del trabajo (24 sep 2026)
 
+## v6 (24 sep, sin publicar) · ID 167006142564
+- **Downsell de $1.500:**
+  - El botón aceptar ahora se ve: los estilos heredados quedaron en `@layer legacy`.
+  - El descuento ahora se aplica: el 2x1 de Clorofila se puede combinar con otros descuentos. Con 2 frascos y el downsell, el total queda en $27.490.
+- **Botón "Agregar al carrito"** bajo "PIDE AHORA": agrega la cantidad del pack elegido y abre el carrito lateral.
+- **Primer producto con el sistema: Aurelys.** Detalle en `products/aurelys/README.md`.
+- **Vista previa:**
+  - https://www.entalle.cl/?preview_theme_id=167006142564
+  - https://www.entalle.cl/products/drenaje-linfatico-aurelys?preview_theme_id=167006142564
+
 ## v4 (24 sep, tras la revisión del usuario)
 - **Tema** `entalle-v4 · desarrollo` (ID 167005159524, sin publicar). Es una copia del v3 publicado, con estas correcciones:
   - Texto `@font-face` visible arriba de la página → font_face ahora dentro de `{% style %}`.

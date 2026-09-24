@@ -303,3 +303,5 @@ h1,h2,h3{font-family:var(--el-font-head)}
 .el-included li:only-child{grid-column:1/-1;justify-self:center;max-width:560px;width:100%}
 .el-btn.el-btn.el-add{margin-top:10px;min-height:52px;font-size:16px}
 .el-btn.el-btn.el-add[disabled]{background:transparent;color:#9a9aa1}
+.el-mt.el-mt--text{grid-template-columns:1fr;max-width:760px;margin:0 auto;text-align:center}
+.el-mt--text .el-bullets{justify-items:center}

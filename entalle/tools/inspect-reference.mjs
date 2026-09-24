@@ -9,7 +9,7 @@ const [url, out = './ref'] = process.argv.slice(2);
 if (!url) { console.error('Falta URL'); process.exit(1); }
 fs.mkdirSync(out, { recursive: true });
 const WIDTHS = [320, 360, 390, 430, 768, 1280, 1440];
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', proxy: process.env.HTTPS_PROXY ? { server: process.env.HTTPS_PROXY } : undefined });
 const report = { url, date: new Date().toISOString(), widths: {}, resources: [], ctas: [], animations: [], sticky: {}, modal: {}, blocks: [], note: 'Observado en navegador headless. Nada se envió a la tienda de referencia.' };
 
 for (const w of WIDTHS) {

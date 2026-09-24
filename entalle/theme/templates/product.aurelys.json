@@ -1,0 +1,581 @@
+{
+ "sections": {
+  "main": {
+   "type": "el-product-main",
+   "settings": {
+    "ratio": "1/1",
+    "badge": "",
+    "offers_label": "Elige cuántos frascos",
+    "cod_mode": "auto",
+    "force_h1": true
+   },
+   "blocks": {
+    "b0": {
+     "type": "gallery_image",
+     "settings": {
+      "image": "shopify://shop_images/4be4ba31-52bf-4a80-9078-0d58d77814a0.webp",
+      "alt": "Frasco de Aurelys Drenaje linfático 50 ml con gotario"
+     }
+    },
+    "b1": {
+     "type": "cta",
+     "settings": {
+      "label": "PIDE AHORA",
+      "sublabel": "Paga al recibir · Envío gratis",
+      "icon": true,
+      "anim": "pulse",
+      "show_add": true,
+      "add_label": "Agregar al carrito"
+     }
+    },
+    "b2": {
+     "type": "vendor",
+     "settings": {
+      "text": "Aurelys"
+     }
+    },
+    "b3": {
+     "type": "title",
+     "settings": {
+      "text": "Aurelys Drenaje Linfático 50 ml"
+     }
+    },
+    "b4": {
+     "type": "price",
+     "settings": {
+      "save_prefix": "🏷️ AHORRA",
+      "note": "Precio final con IVA. Envío gratis a todo Chile."
+     }
+    },
+    "b5": {
+     "type": "subtitle",
+     "settings": {
+      "text": "Extractos líquidos de plantas en gotas, para sumar un momento de cuidado a tu día."
+     }
+    },
+    "b6": {
+     "type": "variant_picker",
+     "settings": {}
+    },
+    "b7": {
+     "type": "offer",
+     "settings": {
+      "qty": 1,
+      "title": "1 frasco",
+      "note": "50 ml con gotario",
+      "badge": "",
+      "default": true
+     }
+    },
+    "b8": {
+     "type": "offer",
+     "settings": {
+      "qty": 2,
+      "title": "2 frascos",
+      "note": "",
+      "badge": "",
+      "default": false
+     }
+    },
+    "b9": {
+     "type": "urgency",
+     "settings": {
+      "text": "La oferta termina en",
+      "end": ""
+     }
+    },
+    "b10": {
+     "type": "stock",
+     "settings": {
+      "threshold": 10
+     }
+    },
+    "b11": {
+     "type": "cta_micro",
+     "settings": {
+      "items": "🔒 Compra segura | 🚚 Envío gratis | 💵 Pagas al recibir"
+     }
+    },
+    "b12": {
+     "type": "delivery",
+     "settings": {
+      "from": 2,
+      "to": 6,
+      "business": false,
+      "note": "envío gratis",
+      "line2": "<p><b>Pagas al recibir</b> tu pedido, sin adelantar dinero.</p>",
+      "line3": "<p><b>Garantía de 30 días</b> si hay un problema con tu pedido.</p>",
+      "payments": false
+     }
+    },
+    "b13": {
+     "type": "trust",
+     "settings": {
+      "items": "🚚:Envío gratis|💵:Pago al recibir|🛡️:Garantía 30 días|💬:Atención por WhatsApp"
+     }
+    },
+    "b14": {
+     "type": "contact",
+     "settings": {
+      "text": "¿Dudas? Escríbenos:"
+     }
+    },
+    "b15": {
+     "type": "accordion",
+     "settings": {
+      "heading": "Descripción",
+      "source": "custom",
+      "content": "<p><b>Aurelys Drenaje Linfático</b> es un suplemento alimenticio de extractos líquidos de plantas, en frasco ámbar de 50 ml con gotario.</p><p>Pensado para acompañar tu rutina de bienestar, sobre todo después de jornadas largas sentado o de pie. Sigue siempre la dosis indicada en la etiqueta.</p><p><em>Suplemento alimenticio. No reemplaza una alimentación variada y equilibrada ni un tratamiento médico.</em></p>",
+      "open": true
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+    "b5",
+    "b6",
+    "b7",
+    "b8",
+    "b9",
+    "b10",
+    "b11",
+    "b12",
+    "b13",
+    "b14",
+    "b15"
+   ]
+  },
+  "hook": {
+   "type": "el-benefits",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Pensado para tu rutina",
+    "heading": "Tu día pesa. Tu rutina, no.",
+    "intro": "Horas en la silla o de pie se notan al final del día. Suma un momento de cuidado con extractos líquidos de plantas.",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir",
+    "cols_m": "2",
+    "cols_d": 4
+   },
+   "blocks": {
+    "b0": {
+     "type": "benefit",
+     "settings": {
+      "icon": "⏱️",
+      "title": "Un momento al día",
+      "text": "Unas gotas en tu agua o tu té."
+     }
+    },
+    "b1": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🌿",
+      "title": "Extractos de plantas",
+      "text": "Fórmula líquida de origen vegetal."
+     }
+    },
+    "b2": {
+     "type": "benefit",
+     "settings": {
+      "icon": "💧",
+      "title": "En gotas",
+      "text": "Sin cápsulas: mides con el gotario."
+     }
+    },
+    "b3": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🧴",
+      "title": "50 ml",
+      "text": "Frasco ámbar con gotario."
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3"
+   ]
+  },
+  "ritual": {
+   "type": "el-media-text",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir",
+    "side": "left",
+    "image": "shopify://shop_images/4be4ba31-52bf-4a80-9078-0d58d77814a0.webp",
+    "alt": "Frasco de Aurelys en la mano",
+    "title": "Pequeños rituales para grandes días",
+    "text": "<p>Agrégalo a tu agua o a tu té cada mañana, siempre en el mismo momento. Un hábito simple que sí vas a mantener.</p>"
+   },
+   "blocks": {
+    "b0": {
+     "type": "point",
+     "settings": {
+      "text": "☀️ Ideal para empezar la mañana"
+     }
+    },
+    "b1": {
+     "type": "point",
+     "settings": {
+      "text": "🍵 En agua o en té"
+     }
+    },
+    "b2": {
+     "type": "point",
+     "settings": {
+      "text": "📏 Dosis según la etiqueta"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2"
+   ]
+  },
+  "steps": {
+   "type": "el-steps",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Modo de uso",
+    "heading": "¿Cómo se usa?",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {
+    "b0": {
+     "type": "step",
+     "settings": {
+      "title": "Agita el frasco",
+      "text": "Antes de cada uso."
+     }
+    },
+    "b1": {
+     "type": "step",
+     "settings": {
+      "title": "Mide con el gotario",
+      "text": "La cantidad que indica la etiqueta."
+     }
+    },
+    "b2": {
+     "type": "step",
+     "settings": {
+      "title": "Tómalo",
+      "text": "En agua o en té, cada mañana."
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2"
+   ]
+  },
+  "reviews": {
+   "type": "el-reviews",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Clientes Entalle",
+    "heading": "Opiniones verificadas",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "included": {
+   "type": "el-included",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Lo que recibes",
+    "heading": "Qué incluye tu pedido",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {
+    "b0": {
+     "type": "item",
+     "settings": {
+      "qty": "1×",
+      "per_pack": true,
+      "units": 1,
+      "text": "Frascos de Aurelys Drenaje Linfático 50 ml con gotario"
+     }
+    }
+   },
+   "block_order": [
+    "b0"
+   ]
+  },
+  "specs": {
+   "type": "el-benefits",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Datos de la etiqueta",
+    "heading": "Especificaciones",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir",
+    "cols_m": "2",
+    "cols_d": 4
+   },
+   "blocks": {
+    "b0": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🧪",
+      "title": "Formato",
+      "text": "Extractos líquidos de plantas"
+     }
+    },
+    "b1": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🧴",
+      "title": "Contenido",
+      "text": "50 ml (1,7 fl oz)"
+     }
+    },
+    "b2": {
+     "type": "benefit",
+     "settings": {
+      "icon": "💧",
+      "title": "Presentación",
+      "text": "Frasco ámbar con gotario"
+     }
+    },
+    "b3": {
+     "type": "benefit",
+     "settings": {
+      "icon": "📋",
+      "title": "Categoría",
+      "text": "Suplemento alimenticio"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3"
+   ]
+  },
+  "faq": {
+   "type": "el-faq",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Resolvemos tus dudas",
+    "heading": "Preguntas frecuentes",
+    "intro": "",
+    "show_cta": true,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Paga al recibir",
+    "schema": true
+   },
+   "blocks": {
+    "b0": {
+     "type": "q",
+     "settings": {
+      "q": "¿Qué es Aurelys?",
+      "a": "<p>Un suplemento alimenticio de extractos líquidos de plantas, en frasco de 50 ml con gotario.</p>"
+     }
+    },
+    "b1": {
+     "type": "q",
+     "settings": {
+      "q": "¿Cómo se usa?",
+      "a": "<p>Agita el frasco, mide con el gotario la cantidad que indica la etiqueta y tómalo en agua o en té, idealmente siempre en el mismo momento del día.</p>"
+     }
+    },
+    "b2": {
+     "type": "q",
+     "settings": {
+      "q": "¿Para quién no es Aurelys?",
+      "a": "<p>No es un producto para bajar de peso. Si estás embarazada, amamantando, tomas medicamentos o tienes alguna condición de salud, consulta primero a tu médico. No es para menores de 18 años.</p>"
+     }
+    },
+    "b3": {
+     "type": "q",
+     "settings": {
+      "q": "¿Sirve para bajar de peso?",
+      "a": "<p>No. Es un suplemento alimenticio. No reemplaza una alimentación equilibrada ni un tratamiento médico.</p>"
+     }
+    },
+    "b4": {
+     "type": "q",
+     "settings": {
+      "q": "¿Cómo pago y cuánto demora el envío?",
+      "a": "<p>Pagas al recibir tu pedido, sin adelantar dinero. El envío es gratis a todo Chile y llega entre 2 y 6 días.</p>"
+     }
+    },
+    "b5": {
+     "type": "q",
+     "settings": {
+      "q": "¿Qué pasa si tengo un problema con mi pedido?",
+      "a": "<p>Tienes 30 días de garantía. Escríbenos por WhatsApp al +56 9 4058 9575 o a <a href=\"mailto:contacto@entalle.cl\">contacto@entalle.cl</a> y lo resolvemos.</p>"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+    "b5"
+   ]
+  },
+  "guarantees": {
+   "type": "el-guarantees",
+   "settings": {
+    "bg": "dark",
+    "eyebrow": "Compra tranquilo",
+    "heading": "Así te protegemos",
+    "intro": "",
+    "cols_m": "2",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": ""
+   },
+   "blocks": {
+    "b0": {
+     "type": "g",
+     "settings": {
+      "icon": "🚚",
+      "title": "Envío gratis",
+      "text": "A todo Chile, en 2 a 6 días.",
+      "link": "shopify://pages/envios",
+      "link_label": "Plazos de entrega"
+     }
+    },
+    "b1": {
+     "type": "g",
+     "settings": {
+      "icon": "💵",
+      "title": "Pagas al recibir",
+      "text": "Confirmas tu pedido y pagas cuando llega.",
+      "link": "",
+      "link_label": ""
+     }
+    },
+    "b2": {
+     "type": "g",
+     "settings": {
+      "icon": "🛡️",
+      "title": "Garantía de 30 días",
+      "text": "Si hay un problema con tu pedido, lo solucionamos.",
+      "link": "shopify://pages/devoluciones",
+      "link_label": "Ver política"
+     }
+    },
+    "b3": {
+     "type": "g",
+     "settings": {
+      "icon": "💬",
+      "title": "Atención directa",
+      "text": "WhatsApp y contacto@entalle.cl.",
+      "link": "shopify://pages/contact",
+      "link_label": "Contacto"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3"
+   ]
+  },
+  "closing": {
+   "type": "el-cta-banner",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Envío gratis · Pagas al recibir",
+    "heading": "Suma Aurelys a tu rutina",
+    "text": "Elige cuántos frascos, confirma tus datos y paga cuando llegue.",
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Paga al recibir",
+    "anim": "pulse",
+    "micro": "🚚 Envío gratis | 💵 Pagas al recibir | 🛡️ Garantía 30 días",
+    "image": "shopify://shop_images/4be4ba31-52bf-4a80-9078-0d58d77814a0.webp"
+   }
+  },
+  "legal": {
+   "type": "el-media-text",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir",
+    "side": "left",
+    "image": "",
+    "alt": "",
+    "title": "",
+    "text": "<p><em>Suplemento alimenticio. No reemplaza una alimentación variada y equilibrada. Si estás embarazada, amamantando o en tratamiento médico, consulta a tu médico antes de consumirlo. Mantener fuera del alcance de los niños.</em></p>"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "discover": {
+   "type": "el-discover",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Catálogo Entalle",
+    "heading": "Descubre más productos",
+    "intro": "",
+    "limit": 8,
+    "cols_d": 4,
+    "badge_tag": "",
+    "more_label": "Ver todo el catálogo"
+   }
+  },
+  "sticky": {
+   "type": "el-sticky-buy",
+   "settings": {
+    "enable": true,
+    "desktop": true,
+    "label": "PIDE AHORA",
+    "anim": "pulse",
+    "whatsapp": true,
+    "top": true
+   }
+  }
+ },
+ "order": [
+  "main",
+  "hook",
+  "ritual",
+  "steps",
+  "reviews",
+  "included",
+  "specs",
+  "faq",
+  "guarantees",
+  "closing",
+  "legal",
+  "discover",
+  "sticky"
+ ]
+}
