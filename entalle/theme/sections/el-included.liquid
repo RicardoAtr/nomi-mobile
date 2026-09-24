@@ -5,7 +5,7 @@ if section.blocks.size > 0
 endif
 -%}
 {%- if show -%}
-<section class="el el-section{% if section.settings.bg == 'soft' %} el-section--soft{% elsif section.settings.bg == 'dark' %} el-section--dark{% endif %}" id="el-{{ section.id }}"><div class="el-container el-rv">{%- render 'el-heading', s: section.settings -%}<ul class="el-included">{%- for b in section.blocks -%}<li {{ b.shopify_attributes }}><b>{{ b.settings.qty | escape }}</b><span>{{ b.settings.text | escape }}</span></li>{%- endfor -%}</ul>{%- if section.settings.show_cta -%}<div style="max-width:440px;margin:28px auto 0">{%- render 'el-buy-button', label: section.settings.cta_label, sublabel: section.settings.cta_sub, anim: 'pulse' -%}</div>{%- endif -%}</div></section>
+<section class="el el-section{% if section.settings.bg == 'soft' %} el-section--soft{% elsif section.settings.bg == 'dark' %} el-section--dark{% endif %}" id="el-{{ section.id }}"><div class="el-container el-rv">{%- render 'el-heading', s: section.settings -%}<ul class="el-included">{%- for b in section.blocks -%}<li {{ b.shopify_attributes }}><b>{%- if b.settings.per_pack -%}<span data-el-qty-mult="{{ b.settings.units | default: 1 }}">{{ b.settings.units | default: 1 }}</span>×{%- else -%}{{ b.settings.qty | escape }}{%- endif -%}</b><span>{{ b.settings.text | escape }}</span></li>{%- endfor -%}</ul>{%- if section.settings.show_cta -%}<div style="max-width:440px;margin:28px auto 0">{%- render 'el-buy-button', label: section.settings.cta_label, sublabel: section.settings.cta_sub, anim: 'pulse' -%}</div>{%- endif -%}</div></section>
 {%- endif -%}
 {% schema %}
 {
@@ -75,6 +75,18 @@ endif
      "id": "qty",
      "label": "Cantidad",
      "default": "1×"
+    },
+    {
+     "type": "checkbox",
+     "id": "per_pack",
+     "label": "Multiplicar por las unidades del pack elegido",
+     "default": false
+    },
+    {
+     "type": "number",
+     "id": "units",
+     "label": "Unidades por pack de 1",
+     "default": 1
     },
     {
      "type": "text",

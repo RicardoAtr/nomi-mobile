@@ -39,6 +39,7 @@
     document.querySelectorAll('[data-el-was]').forEach(function (n) { n.hidden = !t.was; if (t.was) n.textContent = money(t.was); });
     document.querySelectorAll('[data-el-save]').forEach(function (n) { n.hidden = !t.pct; var p = n.querySelector('[data-el-pct]'); if (p) p.textContent = t.pct; });
     document.querySelectorAll('[data-el-unit]').forEach(function (n) { n.hidden = t.qty < 2; n.textContent = money(t.unit) + ' c/u'; });
+    document.querySelectorAll('[data-el-qty-mult]').forEach(function (n) { n.textContent = (+n.dataset.elQtyMult || 1) * t.qty; });
     document.querySelectorAll('[data-el-offer-label]').forEach(function (n) { n.textContent = (S.offer && S.offer.label) || S.variant.title; });
     document.querySelectorAll('[data-el-buy]').forEach(function (b) {
       if (b.tagName === 'A') b.href = '/cart/' + S.variant.id + ':' + t.qty;

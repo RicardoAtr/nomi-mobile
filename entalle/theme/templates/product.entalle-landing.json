@@ -409,7 +409,9 @@
      "type": "item",
      "settings": {
       "qty": "1×",
-      "text": "Frasco de Clorofila Líquida Benevolent 59 ml con gotario (por cada unidad)"
+      "per_pack": true,
+      "units": 1,
+      "text": "Frascos de Clorofila Líquida Benevolent 59 ml con gotario"
      }
     }
    },
