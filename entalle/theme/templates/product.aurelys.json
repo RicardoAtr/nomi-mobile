@@ -65,7 +65,7 @@
      "settings": {
       "qty": 2,
       "pay": 1,
-      "compare": 40990,
+      "compare": 75980,
       "title": "2x1 · Lleva 2 y paga 1",
       "note": "2 frascos de 50 ml al precio de uno",
       "badge": "OFERTA",
@@ -121,7 +121,7 @@
      "settings": {
       "heading": "Descripción",
       "source": "custom",
-      "content": "<p><b>Aurelys Drenaje Linfático</b> es un suplemento alimenticio herbal en gotas, con cuatro extractos botánicos, en frasco ámbar de 50 ml con gotario.</p><p>Ocho horas en la silla o de pie se notan al final del día. Súmale un minuto de cuidado: unas gotas en tu agua o en tu té cada mañana.</p><p><em>Suplemento alimenticio. No reemplaza una alimentación variada y equilibrada ni un tratamiento médico.</em></p>",
+      "content": "<p><b>Aurelys Drenaje Linfático</b> es un suplemento alimenticio herbal en gotas, con cuatro extractos botánicos (diente de león, bardana, amor de hortelano (Galium aparine) y té verde), en frasco ámbar de 50 ml con gotario.</p><p>Ocho horas en la silla o de pie se notan al final del día. Súmale un minuto de cuidado: unas gotas en tu agua o en tu té cada mañana.</p><p><em>Suplemento alimenticio. No reemplaza una alimentación variada y equilibrada ni un tratamiento médico.</em></p>",
       "open": true
      }
     }
@@ -171,7 +171,7 @@
      "settings": {
       "icon": "🌿",
       "title": "Cuatro extractos botánicos",
-      "text": "Fórmula herbal en gotas."
+      "text": "Diente de león, bardana, amor de hortelano y té verde."
      }
     },
     "b2": {
@@ -209,8 +209,8 @@
     "cta_label": "PIDE AHORA",
     "cta_sub": "Pagas al recibir",
     "side": "left",
-    "image": "shopify://shop_images/aurelys-gif.gif",
-    "alt": "Aurelys 2x1, un minuto al día",
+    "image": "shopify://shop_images/aurelys-v2-gif.gif",
+    "alt": "Aurelys 2x1: lleva 2 y paga 1",
     "title": "Pequeños rituales para grandes días",
     "text": "<p>Unas gotas en tu agua o en tu té cada mañana. Un hábito simple que sí vas a mantener.</p>"
    },
@@ -339,10 +339,10 @@
     "cta_label": "PIDE AHORA",
     "cta_sub": "Paga al recibir",
     "side": "left",
-    "image": "shopify://shop_images/aurelys-12.webp",
+    "image": "shopify://shop_images/aurelys-v2-12.webp",
     "alt": "Especificaciones técnicas de Aurelys Drenaje Linfático 50 ml",
     "title": "",
-    "text": "<p>Frasco ámbar de 50 ml con gotario. Porción de 1 ml (unas 20 gotas), 50 porciones por frasco. Base sin alcohol. Suplemento alimenticio.</p>"
+    "text": "<p>Frasco ámbar de 50 ml con gotario. Mezcla herbal de diente de león, bardana, amor de hortelano (Galium aparine) y té verde. Porción de 1 ml (unas 20 gotas), 50 porciones por frasco. Base sin alcohol. Suplemento alimenticio.</p>"
    },
    "blocks": {},
    "block_order": []
@@ -364,7 +364,7 @@
      "type": "q",
      "settings": {
       "q": "¿Qué es Aurelys?",
-      "a": "<p>Un suplemento alimenticio herbal en gotas, con cuatro extractos botánicos, en frasco de 50 ml con gotario.</p>"
+      "a": "<p>Un suplemento alimenticio herbal en gotas, con cuatro extractos botánicos: diente de león, bardana, amor de hortelano (Galium aparine) y té verde. Viene en un frasco de 50 ml con gotario.</p>"
      }
     },
     "b1": {
@@ -508,7 +508,7 @@
     "cta_sub": "Paga al recibir",
     "anim": "pulse",
     "micro": "🚚 Envío gratis | 💵 Pagas al recibir | 🛡️ Garantía 30 días",
-    "image": "shopify://shop_images/aurelys-05.webp"
+    "image": "shopify://shop_images/aurelys-v2-05.webp"
    }
   },
   "legal": {
@@ -553,11 +553,54 @@
     "whatsapp": true,
     "top": true
    }
+  },
+  "drenaje": {
+   "type": "el-media-text",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": true,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Paga al recibir",
+    "side": "right",
+    "image": "shopify://shop_images/aurelys-drenaje.webp",
+    "alt": "Animación del sistema linfático en las piernas",
+    "title": "Favorece el drenaje linfático",
+    "text": "<p>Aurelys es un soporte linfático tradicional: favorece el drenaje linfático, ayuda a reducir la hinchazón y contribuye al equilibrio de líquidos, tal como indica su etiqueta.</p>"
+   },
+   "blocks": {
+    "b0": {
+     "type": "point",
+     "settings": {
+      "text": "💧 Favorece el drenaje linfático"
+     }
+    },
+    "b1": {
+     "type": "point",
+     "settings": {
+      "text": "🦵 Ayuda a reducir la hinchazón"
+     }
+    },
+    "b2": {
+     "type": "point",
+     "settings": {
+      "text": "⚖️ Contribuye al equilibrio de líquidos"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2"
+   ]
   }
  },
  "order": [
   "main",
   "hook",
+  "drenaje",
   "ritual",
   "steps",
   "reviews",

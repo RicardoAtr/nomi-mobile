@@ -1,0 +1,95 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--g:#15803D;--gd:#166534;--deep:#0F3D24;--soft:#EEF7F1;--y:#FFC53D;--ink:#1B1B1F;--cream:#F6F1E7}
+*{box-sizing:border-box;margin:0;padding:0}body{background:#999}
+.s{width:1080px;height:1080px;position:relative;overflow:hidden;font-family:Assistant,sans-serif;color:var(--ink);margin-bottom:20px}
+.logo{position:absolute;top:50px;left:64px;height:72px;z-index:5}
+h1,h2{font-family:Poppins,sans-serif;font-weight:800;letter-spacing:-1.5px;line-height:1.02;position:absolute;z-index:4}
+.acc{color:var(--g)}
+.b{position:absolute;filter:drop-shadow(0 34px 34px rgba(0,0,0,.28));z-index:3}
+.pod{position:absolute;border-radius:50%;z-index:2}
+.pill{position:absolute;background:var(--g);color:#fff;font-family:Poppins;font-weight:700;font-size:30px;padding:18px 40px;border-radius:999px;box-shadow:0 12px 28px rgba(21,128,61,.35);z-index:4}
+.legal{position:absolute;bottom:22px;left:0;right:0;text-align:center;font-size:17px;color:#55605A;z-index:4}
+.list{list-style:none;position:absolute;z-index:4}.list li{display:flex;gap:18px;align-items:center;font-size:32px;font-weight:600;margin:0 0 26px}
+.ic{width:64px;height:64px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:32px;box-shadow:0 6px 16px rgba(0,0,0,.08)}
+.badge{position:absolute;z-index:6;font-family:Poppins;font-weight:800;text-align:center}
+.card{background:#fff;border-radius:18px;padding:18px 24px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.card small{display:block;font-family:Poppins;font-weight:700;color:var(--g);font-size:17px;letter-spacing:1px;text-transform:uppercase}
+.card p{font-size:25px;line-height:1.25}
+.ing{position:absolute;z-index:4;width:230px;text-align:center}
+.ing .c{width:150px;height:150px;border-radius:50%;background:#fff;margin:0 auto 12px;display:grid;place-items:center;font-size:78px;box-shadow:0 10px 26px rgba(15,61,36,.14);border:4px solid #fff;outline:3px solid rgba(21,128,61,.25)}
+.ing b{font-family:Poppins;font-size:27px;display:block}.ing span{font-size:20px;color:#55605A}
+.leaf{position:absolute;z-index:1;font-size:180px;opacity:.9}
+</style></head><body>
+
+<!-- 01 portada: dos frascos sobre podio, fondo verde profundo -->
+<div class="s" id="n01" style="background:radial-gradient(circle at 72% 45%,#1f7a47 0%,#0F3D24 62%)">
+ <img class="logo" src="logo_blanco.png">
+ <h1 style="top:160px;left:64px;width:520px;font-size:62px;color:#fff">¿Pesadez en piernas y cuerpo <span style="color:var(--y)">al terminar el día?</span></h1>
+ <p style="position:absolute;z-index:4;top:540px;left:64px;width:440px;font-size:34px;line-height:1.25;color:#E3F1E8"><b style="color:#fff">Conoce Aurelys:</b> suplemento herbal en gotas.</p>
+ <div class="badge" style="top:680px;left:64px;background:var(--y);color:var(--ink);border-radius:28px;padding:22px 34px"><div style="font-size:110px;line-height:1">2x1</div><div style="font-size:24px">Recibe 2 frascos de 50 ml</div></div>
+ <div class="pod" style="left:560px;top:800px;width:470px;height:120px;background:radial-gradient(ellipse at center,#E9DFC9 0%,#CDBF9F 70%);box-shadow:0 30px 50px rgba(0,0,0,.35)"></div>
+ <img class="b" src="frasco-atras.png" style="left:590px;top:250px;height:580px">
+ <img class="b" src="frasco.png" style="left:700px;top:215px;height:640px;z-index:4">
+ <div class="legal" style="color:#B8D4C2">Suplemento alimenticio. No reemplaza una alimentación equilibrada.</div>
+</div>
+
+<!-- 02 presentacion: crema, circulo verde, frasco inclinado -->
+<div class="s" id="n02" style="background:var(--cream)">
+ <img class="logo" src="logo_negro.png">
+ <div class="pod" style="right:-120px;top:120px;width:720px;height:720px;background:radial-gradient(circle,#CFE8D8 0%,#A9D3B8 100%)"></div>
+ <div class="leaf" style="right:40px;top:90px;transform:rotate(20deg)">🌿</div>
+ <img class="b" src="frasco.png" style="right:170px;top:180px;height:720px;transform:rotate(-6deg)">
+ <h1 style="top:160px;left:64px;width:520px;font-size:62px">Tu bienestar merece <span class="acc">un lugar en tu día.</span></h1>
+ <p style="position:absolute;z-index:4;top:430px;left:64px;font-size:36px;font-weight:600">Conoce Aurelys</p>
+ <ul class="list" style="top:510px;left:64px"><li><span class="ic">🌿</span>Fórmula herbal</li><li><span class="ic">💧</span>Práctico gotario</li><li><span class="ic">🌱</span>Base sin alcohol</li></ul>
+ <div class="pill" style="top:850px;left:64px">Descubre su fórmula →</div>
+ <div class="legal">Suplemento alimenticio. No reemplaza una alimentación equilibrada.</div>
+</div>
+
+<!-- 03 ingredientes -->
+<div class="s" id="n03" style="background:linear-gradient(180deg,#F7FBF8 0%,#E2F1E7 100%)">
+ <img class="logo" src="logo_negro.png">
+ <h1 style="top:150px;left:0;right:0;text-align:center;font-size:60px">Cuatro extractos.<br><span class="acc">Una fórmula herbal.</span></h1>
+ <p style="position:absolute;top:300px;left:0;right:0;text-align:center;font-size:26px;letter-spacing:3px;text-transform:uppercase;color:#55605A">Conoce los ingredientes de Aurelys</p>
+ <div class="pod" style="left:390px;top:880px;width:300px;height:70px;background:rgba(15,61,36,.18);filter:blur(10px)"></div>
+ <img class="b" src="frasco.png" style="left:415px;top:370px;height:540px">
+ <div class="ing" style="left:80px;top:380px"><div class="c">🌼</div><b>Diente de león</b></div>
+ <div class="ing" style="right:80px;top:380px"><div class="c">🌱</div><b>Bardana</b></div>
+ <div class="ing" style="left:80px;top:680px"><div class="c">🌿</div><b>Amor de hortelano</b><span>Galium aparine</span></div>
+ <div class="ing" style="right:80px;top:680px"><div class="c">🍵</div><b>Té verde</b></div>
+ <div class="legal">Suplemento alimenticio. No reemplaza una alimentación equilibrada.</div>
+</div>
+
+<!-- 05 promo 2x1: amarillo, dos frascos lado a lado -->
+<div class="s" id="n05" style="background:linear-gradient(160deg,#FFD66B 0%,#FFC53D 100%)">
+ <img class="logo" src="logo_negro.png">
+ <h1 style="top:150px;left:64px;font-size:120px;color:var(--deep)">Lleva 2.<br><span style="color:#fff;-webkit-text-stroke:0;text-shadow:0 4px 0 var(--gd)">Paga 1.</span></h1>
+ <p style="position:absolute;z-index:4;top:440px;left:64px;width:400px;font-size:40px;line-height:1.2;font-weight:700;color:var(--deep)">Recibe 2 frascos de 50 ml al precio de uno.</p>
+ <div class="pill" style="top:880px;left:64px;font-size:40px;padding:22px 54px;background:var(--deep)">Quiero mi 2x1 →</div>
+ <div class="pod" style="left:520px;top:850px;width:520px;height:110px;background:radial-gradient(ellipse at center,#fff 0%,#F4E2AE 75%);box-shadow:0 24px 40px rgba(120,80,0,.25)"></div>
+ <img class="b" src="frasco.png" style="left:560px;top:290px;height:600px;transform:rotate(-4deg)">
+ <img class="b" src="frasco.png" style="left:790px;top:290px;height:600px;transform:rotate(4deg)">
+ <div class="badge" style="top:110px;right:60px;width:230px;height:230px;border-radius:50%;background:var(--g);color:#fff;padding-top:38px;box-shadow:0 16px 36px rgba(15,61,36,.35)"><div style="font-size:30px">PROMO</div><div style="font-size:96px;line-height:1">2x1</div></div>
+ <div class="legal" style="color:#6B5310">Suplemento alimenticio. No reemplaza una alimentación equilibrada.</div>
+</div>
+
+<!-- 12 ficha tecnica -->
+<div class="s" id="n12" style="background:#FAFCFA">
+ <img class="logo" src="logo_negro.png">
+ <h2 style="top:150px;left:64px;font-size:56px">Especificaciones técnicas</h2>
+ <p style="position:absolute;top:224px;left:64px;font-size:26px;color:var(--g);font-weight:700">Datos del frasco</p>
+ <div style="position:absolute;top:300px;left:64px;width:360px;height:620px;border-radius:26px;background:linear-gradient(180deg,#E2F1E7,#C7E3D1)"></div>
+ <img class="b" src="frasco.png" style="left:120px;top:350px;height:520px">
+ <div style="position:absolute;top:300px;left:460px;right:64px">
+  <div class="card"><small>Formato</small><p>Extractos líquidos de plantas, frasco ámbar de 50 ml con gotario</p></div>
+  <div class="card"><small>Porción · porciones</small><p>1 ml (unas 20 gotas) · 50 por frasco</p></div>
+  <div class="card"><small>Mezcla herbal</small><p>Diente de león, bardana, amor de hortelano, té verde</p></div>
+  <div class="card"><small>Base</small><p>Sin alcohol</p></div>
+  <div class="card"><small>Uso sugerido</small><p>1 a 2 ml al día, en agua, té o bajo la lengua</p></div>
+  <div class="card"><small>Categoría</small><p>Suplemento alimenticio</p></div>
+ </div>
+ <div class="legal" style="bottom:0;height:70px;background:var(--deep);color:#fff;font-family:Poppins;font-weight:700;font-size:24px;display:grid;place-items:center;letter-spacing:1px">ENVÍO GRATIS A TODO CHILE · PAGA AL RECIBIR</div>
+</div>
+</body></html>

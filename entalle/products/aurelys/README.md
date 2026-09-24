@@ -45,3 +45,11 @@ Se copian los **precios y ofertas** de la referencia, salvo indicación contrari
   - GIF médico de piernas;
   - testimonios inventados.
 - **Pendiente:** imagen de ingredientes (03) hasta definir cuáles se nombran.
+
+## Tercera vuelta (24 sep)
+- **Tachado del 2x1:** $75.980 (el precio de 2 frascos), por lo que muestra AHORRA 50%.
+- **Ingredientes (de Dropi):** diente de león, bardana, amor de hortelano (Galium aparine) y té verde. Van en la ficha, las preguntas frecuentes, la descripción y la imagen 03.
+- **Creativos v2** (`creativos2.html`): frasco recortado con rembg (isnet), con distintos fondos y escenas. Portada con 2 frascos sobre podio verde, presentación en crema, ingredientes, promo 2x1 amarilla y ficha.
+- **GIF v2:** animación del 2x1 con los dos frascos.
+- **Nueva sección "Favorece el drenaje linfático"**, con la animación de piernas de la referencia (`aurelys-drenaje.webp`, pedido del dueño) y los textos de la etiqueta.
+- **Testimonios inventados:** no se hicieron.
