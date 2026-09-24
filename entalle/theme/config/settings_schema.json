@@ -93,13 +93,13 @@
     "type": "color",
     "id": "el_primary",
     "label": "Principal (botones)",
-    "default": "#E5401C"
+    "default": "#15803D"
    },
    {
     "type": "color",
     "id": "el_primary_dark",
     "label": "Principal oscuro (precios, textos)",
-    "default": "#C8340F"
+    "default": "#166534"
    },
    {
     "type": "color",
@@ -109,9 +109,15 @@
    },
    {
     "type": "color",
+    "id": "el_deep",
+    "label": "Verde profundo (encabezado, pie, bloques oscuros)",
+    "default": "#0F3D24"
+   },
+   {
+    "type": "color",
     "id": "el_soft",
     "label": "Fondo suave",
-    "default": "#FFF3EE"
+    "default": "#EEF7F1"
    },
    {
     "type": "color",

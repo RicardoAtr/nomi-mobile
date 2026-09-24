@@ -1,5 +1,7 @@
 # Identidad visual Entalle
 
+> **Actualización v4 (24 sep):** por decisión del usuario, **el color de marca es el verde**. Tokens vigentes: principal #15803D (5,0:1 con blanco), oscuro #166534 (7,1:1), profundo #0F3D24 para encabezado, pie y bloques oscuros, suave #EEF7F1. Amarillo #FFC53D se mantiene para ahorro. La tabla de paletas de abajo queda como historial.
+
 Entalle vende un catálogo variado (hogar, bienestar, belleza, accesorios). El color de marca no puede depender del producto: el verde de la clorofila se queda en las fotos del producto, no en la marca.
 
 ## Paletas evaluadas

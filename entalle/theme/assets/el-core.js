@@ -50,8 +50,10 @@
     var f = S.root && S.root.querySelector('form[data-el-form]');
     if (f) {
       var id = f.querySelector('input[name=id]'), q = f.querySelector('input[name=quantity]');
-      if (id.value !== String(S.variant.id)) { id.value = S.variant.id; id.dispatchEvent(new Event('change', { bubbles: true })); }
-      if (q.value !== String(t.qty)) { q.value = t.qty; q.dispatchEvent(new Event('change', { bubbles: true })); }
+      var fire = function (el) { el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true })); };
+      if (id.value !== String(S.variant.id)) { id.value = S.variant.id; fire(id); }
+      if (q.value !== String(t.qty)) { q.value = t.qty; q.setAttribute('value', t.qty); fire(q); }
+      f.querySelectorAll('input[name=quantity]').forEach(function (x) { if (x !== q) { x.value = t.qty; x.setAttribute('value', t.qty); } });
     }
   }
   EL.paint = paint;

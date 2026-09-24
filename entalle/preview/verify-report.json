@@ -13,7 +13,10 @@
    "twoCols": false,
    "h1Size": "26px",
    "pageH": 8721,
-   "smallTargets": []
+   "smallTargets": [],
+   "ctaBg": "rgb(21, 128, 61)",
+   "ctaH": 64,
+   "dotsH": 8
   },
   "360": {
    "scrollW": 360,
@@ -28,7 +31,10 @@
    "twoCols": false,
    "h1Size": "26px",
    "pageH": 8716,
-   "smallTargets": []
+   "smallTargets": [],
+   "ctaBg": "rgb(21, 128, 61)",
+   "ctaH": 64,
+   "dotsH": 8
   },
   "390": {
    "scrollW": 390,
@@ -43,7 +49,10 @@
    "twoCols": false,
    "h1Size": "26px",
    "pageH": 8680,
-   "smallTargets": []
+   "smallTargets": [],
+   "ctaBg": "rgb(21, 128, 61)",
+   "ctaH": 64,
+   "dotsH": 8
   },
   "430": {
    "scrollW": 430,
@@ -58,7 +67,10 @@
    "twoCols": false,
    "h1Size": "26px",
    "pageH": 8549,
-   "smallTargets": []
+   "smallTargets": [],
+   "ctaBg": "rgb(21, 128, 61)",
+   "ctaH": 64,
+   "dotsH": 8
   },
   "768": {
    "scrollW": 768,
@@ -72,8 +84,11 @@
    "buyLeft": 398,
    "twoCols": true,
    "h1Size": "38px",
-   "pageH": 8922,
-   "smallTargets": []
+   "pageH": 8897,
+   "smallTargets": [],
+   "ctaBg": "rgb(21, 128, 61)",
+   "ctaH": 64,
+   "dotsH": 8
   },
   "1280": {
    "scrollW": 1280,
@@ -88,7 +103,10 @@
    "twoCols": true,
    "h1Size": "38px",
    "pageH": 7773,
-   "smallTargets": []
+   "smallTargets": [],
+   "ctaBg": "rgb(21, 128, 61)",
+   "ctaH": 64,
+   "dotsH": 0
   },
   "1440": {
    "scrollW": 1440,
@@ -103,7 +121,10 @@
    "twoCols": true,
    "h1Size": "38px",
    "pageH": 7773,
-   "smallTargets": []
+   "smallTargets": [],
+   "ctaBg": "rgb(21, 128, 61)",
+   "ctaH": 64,
+   "dotsH": 0
   }
  },
  "behavior": {
@@ -143,6 +164,32 @@
   "keyboardReachesCta": true,
   "reducedMotionAnimation": "none",
   "normalMotionAnimation": "el-pulse",
+  "index390": {
+   "hero": true,
+   "productMain": false,
+   "h1": "Productos útiles para tu día, sin complicaciones",
+   "sections": [
+    "Nuestros productos",
+    "Cómo comprar en Entalle",
+    "Así te protegemos",
+    "Preguntas frecuentes"
+   ],
+   "overflow": false,
+   "heroBtnBg": "rgb(21, 128, 61)"
+  },
+  "index1280": {
+   "hero": true,
+   "productMain": false,
+   "h1": "Productos útiles para tu día, sin complicaciones",
+   "sections": [
+    "Nuestros productos",
+    "Cómo comprar en Entalle",
+    "Así te protegemos",
+    "Preguntas frecuentes"
+   ],
+   "overflow": false,
+   "heroBtnBg": "rgb(21, 128, 61)"
+  },
   "baseTemplateSections": [
    "el el-main",
    "el el-section",

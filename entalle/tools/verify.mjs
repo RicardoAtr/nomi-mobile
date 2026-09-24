@@ -31,6 +31,9 @@ for (const w of WIDTHS) {
     const small = [...document.querySelectorAll('.el button, .el a, .el summary, .el-offer')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.height < 40 || r.width < 40) && !e.closest('.el-gallery__dots,.el-rte,.el-contact-line,.el-delivery,.el-guarantee'); }).slice(0, 6).map((e) => `${e.className || e.tagName}:${Math.round(e.getBoundingClientRect().width)}x${Math.round(e.getBoundingClientRect().height)}`);
     return { scrollW: doc.scrollWidth, innerW: innerWidth, overflow: doc.scrollWidth > innerWidth, overEls: over, ctaTop: Math.round(cta.top + scrollY), ctaInFirstScreen: cta.bottom <= innerHeight, galleryW: Math.round(gal.width), galleryH: Math.round(gal.height), buyLeft: Math.round(buy.left), twoCols: buy.left > gal.left + 10, h1Size: getComputedStyle(h1).fontSize, pageH: doc.scrollHeight, smallTargets: small };
   });
+  m.ctaBg = await p.evaluate(() => getComputedStyle(document.querySelector('[data-el-main-cta] .el-btn')).backgroundColor);
+  m.ctaH = await p.evaluate(() => Math.round(document.querySelector('[data-el-main-cta] .el-btn').getBoundingClientRect().height));
+  m.dotsH = await p.evaluate(() => { const d = document.querySelector('.el-gallery__dots button'); return d ? Math.round(d.getBoundingClientRect().height) : null; });
   report.widths[w] = m;
   await p.screenshot({ path: `${SHOTS}clorofila-${w}-first.png` });
   await p.screenshot({ path: `${SHOTS}clorofila-${w}-full.png`, fullPage: true });
@@ -100,6 +103,14 @@ for (const w of WIDTHS) {
   const { p: p2, ctx: c2 } = await page('clorofila.html', 390);
   report.behavior.normalMotionAnimation = await p2.evaluate(() => getComputedStyle(document.querySelector('[data-el-main-cta] .el-btn')).animationName);
   await ctx.close(); await c2.close();
+}
+// Inicio: portada de tienda (sin landing de producto)
+for (const w of [390, 1280]) {
+  const { p, ctx } = await page('index.html', w);
+  report.behavior['index' + w] = await p.evaluate(() => ({ hero: !!document.querySelector('.el-hero'), productMain: !!document.querySelector('[data-el-product]'), h1: (document.querySelector('h1') || {}).textContent, sections: [...document.querySelectorAll('main section h2')].map((h) => h.textContent), overflow: document.documentElement.scrollWidth > innerWidth, heroBtnBg: getComputedStyle(document.querySelector('.el-hero .el-btn')).backgroundColor }));
+  await p.screenshot({ path: `${SHOTS}index-${w}-first.png` });
+  await p.screenshot({ path: `${SHOTS}index-${w}-full.png`, fullPage: true });
+  await ctx.close();
 }
 // Plantilla base vacía: las secciones sin contenido no aparecen
 {

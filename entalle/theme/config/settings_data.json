@@ -1,8 +1,8 @@
 {
  "current": {
   "brand": "ENTALLE",
-  "accent": "#E5401C",
-  "surface": "#FFF3EE",
+  "accent": "#15803D",
+  "surface": "#EEF7F1",
   "background": "#FFFFFF",
   "ink": "#1B1B1F",
   "demo": false,
@@ -22,20 +22,21 @@
     "settings": {}
    }
   },
-  "el_primary": "#E5401C",
-  "el_primary_dark": "#C8340F",
+  "el_primary": "#15803D",
+  "el_primary_dark": "#166534",
   "el_ink": "#1B1B1F",
-  "el_soft": "#FFF3EE",
+  "el_soft": "#EEF7F1",
   "el_yellow": "#FFC53D",
   "el_trust": "#0F7B6C",
   "font_head": "poppins_n7",
-  "font_body": "assistant_n4"
+  "font_body": "assistant_n4",
+  "el_deep": "#0F3D24"
  },
  "presets": {
   "Entalle": {
    "brand": "ENTALLE",
    "demo": false,
-   "el_primary": "#E5401C"
+   "el_primary": "#15803D"
   }
  }
 }

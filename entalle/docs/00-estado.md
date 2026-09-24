@@ -1,6 +1,17 @@
 # Entalle · estado del trabajo (24 sep 2026)
 
-## Resumen
+## v4 (24 sep, tras la revisión del usuario)
+- **Tema** `entalle-v4 · desarrollo` (ID 167005159524, sin publicar). Es una copia del v3 publicado, con estas correcciones:
+  - Texto `@font-face` visible arriba de la página → font_face ahora dentro de `{% style %}`.
+  - CTA invisible (fondo transparente por la regla heredada `button:not(.button)`) → mayor especificidad; el render local ahora incluye las reglas heredadas.
+  - Cantidad del pack que no llegaba a Releasit → formulario `{% form 'product' %}` (el mismo que usaba v2), con eventos input/change.
+  - Inicio como portada de tienda: hero, catálogo, cómo comprar, garantías, FAQ.
+  - Color verde.
+  - Se quitó el anuncio de Clorofila. «Clorofila 2x1» se quitó del menú `entalle-v2-principal`, cambio aplicado en vivo.
+  - «Qué incluye» centrado cuando tiene un solo artículo.
+- **Vista previa:** https://www.entalle.cl/?preview_theme_id=167005159524 · https://www.entalle.cl/products/clorofila-benevolent-x-60-ml?preview_theme_id=167005159524
+
+## Resumen (v3)
 - **Tema de desarrollo:** `entalle-v3-escala · desarrollo`, ID 167003455588, sin publicar. Es una copia del tema en vivo `entalle-v2-conversion` (MAIN, 166995558500).
 - **Vista previa del producto:** https://www.entalle.cl/products/clorofila-benevolent-x-60-ml?preview_theme_id=167003455588
 - **Vista previa del inicio:** https://www.entalle.cl/?preview_theme_id=167003455588

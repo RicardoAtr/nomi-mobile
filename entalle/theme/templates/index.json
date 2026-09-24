@@ -1,213 +1,72 @@
 {
  "sections": {
-  "main": {
-   "type": "el-product-main",
+  "hero": {
+   "type": "el-hero",
    "settings": {
-    "ratio": "1/1",
-    "badge": "",
-    "offers_label": "Elige tu oferta",
-    "cod_mode": "auto",
-    "force_h1": true,
-    "product": "clorofila-benevolent-x-60-ml"
+    "bg": "#0F3D24",
+    "eyebrow": "Envío gratis a todo Chile",
+    "heading": "Productos útiles para tu día, sin complicaciones",
+    "text": "Elegimos pocos productos, los explicamos bien y te los llevamos a la puerta de tu casa. Pagas cuando llegan.",
+    "cta1_label": "Ver catálogo",
+    "cta1_url": "",
+    "cta2_label": "Cómo comprar",
+    "cta2_url": "#el-howto",
+    "points": "🚚 Envío gratis | 💵 Pagas al recibir | 🛡️ Garantía 30 días",
+    "image": "",
+    "collection": ""
+   }
+  },
+  "catalog": {
+   "type": "el-discover",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Catálogo Entalle",
+    "heading": "Nuestros productos",
+    "intro": "Solo productos disponibles para despacho inmediato.",
+    "limit": 12,
+    "cols_d": 4,
+    "badge_tag": "",
+    "more_label": "Ver todo el catálogo"
+   }
+  },
+  "howto": {
+   "type": "el-steps",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Así de simple",
+    "heading": "Cómo comprar en Entalle",
+    "intro": "Sin tarjeta ni registro: confirmas tus datos y pagas al recibir.",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": ""
    },
    "blocks": {
     "b0": {
-     "type": "vendor",
+     "type": "step",
      "settings": {
-      "text": "Benevolent Nourishment"
+      "title": "Elige tu producto",
+      "text": "Revisa el catálogo y elige la oferta que más te convenga."
      }
     },
     "b1": {
-     "type": "title",
+     "type": "step",
      "settings": {
-      "text": "Clorofila Líquida Benevolent 59 ml"
+      "title": "Completa tus datos",
+      "text": "Nombre, teléfono y dirección. Te toma menos de un minuto."
      }
     },
     "b2": {
-     "type": "subtitle",
+     "type": "step",
      "settings": {
-      "text": "Clorofila líquida sabor menta para tu rutina diaria. Unas gotas en tu vaso de agua y listo."
-     }
-    },
-    "b3": {
-     "type": "chips",
-     "settings": {
-      "items": "Sabor menta, Sin alcohol, Sin gluten, Apto veganos, 59 ml"
-     }
-    },
-    "b4": {
-     "type": "bullet",
-     "settings": {
-      "text": "🌿 Complemento natural para tu rutina de bienestar"
-     }
-    },
-    "b5": {
-     "type": "bullet",
-     "settings": {
-      "text": "💧 Solo 15 gotas en tu vaso de agua"
-     }
-    },
-    "b6": {
-     "type": "bullet",
-     "settings": {
-      "text": "🍃 Sabor menta, fresco y agradable"
-     }
-    },
-    "b7": {
-     "type": "bullet",
-     "settings": {
-      "text": "🔥 <b>2x1:</b> llévate 2 y paga 1"
-     }
-    },
-    "b8": {
-     "type": "price",
-     "settings": {
-      "save_prefix": "🏷️ AHORRA",
-      "note": "Precio final con IVA. Envío gratis a todo Chile."
-     }
-    },
-    "b9": {
-     "type": "variant_picker",
-     "settings": {}
-    },
-    "b10": {
-     "type": "offer",
-     "settings": {
-      "qty": 1,
-      "title": "1 frasco",
-      "note": "Compra individual",
-      "badge": "",
-      "default": false
-     }
-    },
-    "b11": {
-     "type": "offer",
-     "settings": {
-      "qty": 2,
-      "pay": 1,
-      "compare": 35990,
-      "title": "Lleva 2 y paga 1",
-      "note": "2 frascos · $14.495 cada uno",
-      "badge": "Más conveniente",
-      "badge_alt": false,
-      "default": true
-     }
-    },
-    "b12": {
-     "type": "offer",
-     "settings": {
-      "qty": 4,
-      "pay": 2,
-      "compare": 115960,
-      "title": "Pack para compartir · 4 frascos",
-      "note": "Dos promociones 2x1 · $14.495 cada uno",
-      "badge": "Mejor precio por unidad",
-      "badge_alt": true,
-      "default": false
-     }
-    },
-    "b13": {
-     "type": "urgency",
-     "settings": {
-      "text": "La oferta termina en",
-      "end": ""
-     }
-    },
-    "b14": {
-     "type": "stock",
-     "settings": {
-      "threshold": 10
-     }
-    },
-    "b15": {
-     "type": "cta",
-     "settings": {
-      "label": "PIDE AHORA",
-      "sublabel": "Pagas al recibir · Envío gratis",
-      "icon": true,
-      "anim": "pulse"
-     }
-    },
-    "b16": {
-     "type": "cta_micro",
-     "settings": {
-      "items": "🔒 Compra segura | 🚚 Envío gratis | 💵 Pagas al recibir"
-     }
-    },
-    "b17": {
-     "type": "delivery",
-     "settings": {
-      "from": 2,
-      "to": 6,
-      "business": false,
-      "note": "envío gratis",
-      "line2": "<p><b>Pagas al recibir</b> tu pedido, o con tarjeta si prefieres.</p>",
-      "line3": "<p><b>Garantía de 30 días</b> si hay un problema con tu pedido.</p>",
-      "payments": false
-     }
-    },
-    "b18": {
-     "type": "trust",
-     "settings": {
-      "items": "🚚:Envío gratis|🔒:Compra segura|🛡️:Garantía 30 días|💬:Atención por WhatsApp"
-     }
-    },
-    "b19": {
-     "type": "contact",
-     "settings": {
-      "text": "¿Dudas? Escríbenos:"
-     }
-    },
-    "b20": {
-     "type": "accordion",
-     "settings": {
-      "heading": "Descripción",
-      "source": "custom",
-      "content": "<p><b>Clorofila líquida Benevolent Nourishment con sabor menta.</b> Un complemento simple para tu rutina diaria: unas gotas en tu vaso de agua y listo.</p><ul><li>Sabor menta</li><li>Sin alcohol y sin gluten</li><li>Frasco de 59 ml con gotario</li></ul><p><b>Ingredientes:</b> clorofila, menta, eucalipto, té verde, romero y amla.</p><p><b>Modo de uso:</b> agrega 15 gotas a un vaso de agua, mezcla y disfruta. Sigue siempre las indicaciones de la etiqueta.</p>",
-      "open": true
-     }
-    },
-    "b21": {
-     "type": "accordion",
-     "settings": {
-      "heading": "Envío y entrega",
-      "source": "custom",
-      "content": "<p>El envío es gratis. Tu pedido llega entre 2 y 6 días después de la compra. Te enviamos el seguimiento por WhatsApp cuando sale a despacho.</p>"
-     }
-    },
-    "b22": {
-     "type": "accordion",
-     "settings": {
-      "heading": "Garantía",
-      "source": "custom",
-      "content": "<p>Tienes 30 días de garantía. Si hay un problema con tu pedido, escríbenos por WhatsApp o a contacto@entalle.cl y lo resolvemos.</p>"
+      "title": "Paga al recibir",
+      "text": "Te llega en 2 a 6 días con envío gratis y pagas al recibirlo."
      }
     }
    },
    "block_order": [
     "b0",
     "b1",
-    "b8",
-    "b2",
-    "b9",
-    "b10",
-    "b11",
-    "b12",
-    "b13",
-    "b14",
-    "b15",
-    "b16",
-    "b4",
-    "b5",
-    "b6",
-    "b7",
-    "b3",
-    "b17",
-    "b18",
-    "b19",
-    "b20",
-    "b21",
-    "b22"
+    "b2"
    ]
   },
   "guarantees": {
@@ -271,50 +130,52 @@
     "b3"
    ]
   },
-  "benefits": {
-   "type": "el-benefits",
+  "faq": {
+   "type": "el-faq",
    "settings": {
-    "bg": "soft",
-    "eyebrow": "Por qué elegirla",
-    "heading": "Bienestar natural, desde adentro",
+    "bg": "white",
+    "eyebrow": "Resolvemos tus dudas",
+    "heading": "Preguntas frecuentes",
     "intro": "",
-    "cols_m": "2",
-    "cols_d": 4,
+    "schema": false,
     "show_cta": false,
-    "cta_label": "PIDE AHORA",
-    "cta_sub": "Pagas al recibir"
+    "cta_label": "",
+    "cta_sub": ""
    },
    "blocks": {
     "b0": {
-     "type": "benefit",
+     "type": "q",
      "settings": {
-      "icon": "🌿",
-      "title": "Sabor menta",
-      "text": "Fresco y agradable, fácil de tomar todos los días."
+      "q": "¿Cuánto cuesta el envío?",
+      "a": "<p>Nada. El envío es gratis a todo Chile en todos los pedidos.</p>"
      }
     },
     "b1": {
-     "type": "benefit",
+     "type": "q",
      "settings": {
-      "icon": "🚫",
-      "title": "Sin alcohol",
-      "text": "Fórmula libre de alcohol."
+      "q": "¿Cuánto demora en llegar?",
+      "a": "<p>Entre 2 y 6 días después de la compra. En la página de cada producto ves las fechas estimadas.</p>"
      }
     },
     "b2": {
-     "type": "benefit",
+     "type": "q",
      "settings": {
-      "icon": "🌾",
-      "title": "Sin gluten",
-      "text": "Apto para personas que evitan el gluten."
+      "q": "¿Cómo pago?",
+      "a": "<p>Pagas al recibir tu pedido. También puedes pagar con tarjeta en el checkout de Shopify.</p>"
      }
     },
     "b3": {
-     "type": "benefit",
+     "type": "q",
      "settings": {
-      "icon": "🌱",
-      "title": "Apto veganos",
-      "text": "Ingredientes de origen vegetal."
+      "q": "¿Qué pasa si tengo un problema con mi pedido?",
+      "a": "<p>Tienes 30 días de garantía y 10 días de retracto. Escríbenos y lo resolvemos. Ver <a href=\"/pages/devoluciones\">Cambios y devoluciones</a>.</p>"
+     }
+    },
+    "b4": {
+     "type": "q",
+     "settings": {
+      "q": "¿Cómo los contacto?",
+      "a": "<p>Por WhatsApp al +56 9 4058 9575 o a <a href=\"mailto:contacto@entalle.cl\">contacto@entalle.cl</a>.</p>"
      }
     }
    },
@@ -322,40 +183,16 @@
     "b0",
     "b1",
     "b2",
-    "b3"
+    "b3",
+    "b4"
    ]
-  },
-  "discover": {
-   "type": "el-discover",
-   "settings": {
-    "bg": "soft",
-    "eyebrow": "Catálogo Entalle",
-    "heading": "Descubre más productos",
-    "intro": "",
-    "limit": 8,
-    "cols_d": 4,
-    "badge_tag": "",
-    "more_label": "Ver todo el catálogo"
-   }
-  },
-  "sticky": {
-   "type": "el-sticky-buy",
-   "settings": {
-    "enable": true,
-    "desktop": true,
-    "label": "PIDE AHORA",
-    "anim": "pulse",
-    "whatsapp": true,
-    "top": true,
-    "product": "clorofila-benevolent-x-60-ml"
-   }
   }
  },
  "order": [
-  "main",
+  "hero",
+  "catalog",
+  "howto",
   "guarantees",
-  "benefits",
-  "discover",
-  "sticky"
+  "faq"
  ]
 }

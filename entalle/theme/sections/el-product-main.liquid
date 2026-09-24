@@ -162,7 +162,8 @@
           <div class="el-stock" {{ block.shopify_attributes }}>Quedan {{ v.inventory_quantity }} unidades disponibles<div class="el-stock__bar"><i style="width:{{ w }}%"></i></div></div>
           {%- endif -%}
         {%- when 'cta' -%}
-          <form method="post" action="{{ routes.cart_add_url }}" data-el-form data-product-form {{ block.shopify_attributes }}>
+          <div {{ block.shopify_attributes }}>
+          {%- form 'product', p, data-el-form: '', data-product-form: '', class: 'el-form' -%}
             <input type="hidden" name="id" value="{{ v.id }}">
             <input type="hidden" name="quantity" value="{{ q }}">
             <div data-el-main-cta>
@@ -172,7 +173,8 @@
               </button>
             </div>
             <p class="el-status" role="status" data-el-status></p>
-          </form>
+          {%- endform -%}
+          </div>
         {%- when 'cta_micro' -%}
           {%- if block.settings.items != blank -%}<div class="el-cta-micro" {{ block.shopify_attributes }}>{%- assign ms = block.settings.items | split: '|' -%}{%- for m in ms -%}<span>{{ m | strip }}</span>{%- endfor -%}</div>{%- endif -%}
         {%- when 'delivery' -%}

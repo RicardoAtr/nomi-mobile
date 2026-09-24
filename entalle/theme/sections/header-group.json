@@ -18,26 +18,18 @@
       "text": "💵 Pagas al recibir tu pedido",
       "link": ""
      }
-    },
-    "a3": {
-     "type": "announcement",
-     "settings": {
-      "text": "🔥 2x1 en Clorofila Benevolent",
-      "link": "shopify://products/clorofila-benevolent-x-60-ml"
-     }
     }
    },
    "block_order": [
     "a1",
-    "a2",
-    "a3"
+    "a2"
    ],
    "settings": {
     "menu": "entalle-v2-principal",
     "catalog_url": "shopify://collections/catalogo",
     "sticky": false,
     "rotate": true,
-    "bg": "#1B1B1F",
+    "bg": "#0F3D24",
     "fg": "#FFFFFF"
    }
   }
