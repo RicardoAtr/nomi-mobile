@@ -4,26 +4,28 @@
 - **Plantilla:** `templates/product.aurelys.json`, subida al tema v6 (167006142564). El producto tiene `templateSuffix = aurelys`. El tema publicado (v5) no tiene esa plantilla, así que la página pública sigue usando `product.json` hasta que se publique v6.
 - **Referencia:** https://yallegashopping.com/products/aurelys-drenaje-linfatico. Las capturas y `reference-report.json` están en `ref/`.
 
+## Regla del dueño (24 sep)
+Se copian los **precios y ofertas** de la referencia, salvo indicación contraria. Los copys se adaptan solo un poco, porque los de la referencia venden. Si la referencia no trae un dato, no se agrega.
+
+## Cambios en Shopify (en vivo)
+- **Precio:** $37.990, con precio tachado de $40.990 (igual que la referencia). Ojo: Dropify tiene `sob_precio` activo; si sincroniza, podría volver a pisar el precio.
+- **Descuento automático** "2x1 Aurelys Drenaje Linfático" (gid://shopify/DiscountAutomaticNode/1488189915236). Compra 1 y lleva 1 gratis; se combina con otros descuentos.
+- **Agregado al Catálogo.**
+
 ## De la referencia a las secciones de Entalle
 | Referencia | Entalle | Decisión |
 |---|---|---|
-| Galería | `el-product-main` (bloque gallery_image) | Se usa la foto propia del frasco. El alt del producto ("Gray helmet…") está mal y se corrige en la plantilla |
-| Botón contra entrega sobre el título | Bloque CTA arriba ("PIDE AHORA") + "Agregar al carrito" | Replicado |
-| Precio tachado y sello "OFERTA" | Precio sin tachado | No hay descuento real. No se copia el precio de la referencia |
-| 2x1 | Packs de 1 y 2 frascos a precio normal | Sin descuento real no se muestra 2x1 |
-| Hook y 4 íconos | `el-benefits` "Tu día pesa. Tu rutina, no." | Adaptado, sin afirmaciones de salud |
-| Caja "rituales" | `el-media-text` | Adaptado |
-| Antes y después / testimonios | No se usa (`el-reviews` queda oculto) | No hay reseñas verificadas y las imágenes son de terceros |
-| Imagen de especificaciones | `el-benefits` como "Especificaciones" | Solo datos de la etiqueta (50 ml, gotario, suplemento) |
-| FAQ | `el-faq` (6 preguntas) + JSON-LD | Adaptado. Dosis: "según la etiqueta" |
-| Banner de confianza | `el-guarantees` + `el-cta-banner` | Replicado con datos reales de Entalle |
-
-## Contradicciones detectadas
-- La referencia vende **30 ml** con otros ingredientes (Galium aparine, trébol rojo, Stillingia, fresno espinoso). La etiqueta del producto de Entalle dice **50 ml**, y Dropi indica diente de león, bardana, amor de hortelano y té verde. **No se listan ingredientes** hasta confirmarlos con la etiqueta.
-- **Precio:** Shopify tiene $8.000 (el precio sugerido de Dropi). La referencia vende a $37.990. El precio lo define el dueño de la tienda.
+| Galería con sello 2x1 | `el-product-main`, sello "2x1" | Foto propia del frasco. El alt del producto ("Gray helmet…") se corrige en la plantilla |
+| "PIDE AHORA - PAGA AL RECIBIR · ENVÍO GRATIS" sobre el título | Bloque CTA arriba + "Agregar al carrito" | Replicado |
+| $37.990, tachado $40.990, "OFERTA" | Igual; pack 2x1 por defecto y opción de 1 frasco | Replicado |
+| Hook "Tu día pesa. Tu rutina, no." y 4 íconos | `el-benefits` | Copy casi igual. "Base sin alcohol" → "Extractos líquidos" (no está en nuestra etiqueta) |
+| "Pequeños rituales para grandes días" | `el-media-text` | Replicado |
+| Uso en 4 pasos (1 ml, unas 20 gotas) | `el-steps` con 4 pasos | Replicado |
+| Testimonios con nombre | No se usan | No son clientes de Entalle: serían reseñas inventadas |
+| FAQ | `el-faq` (9 preguntas) + JSON-LD | Adaptado a 50 ml: 50 porciones (100 con el 2x1) y unos 25 días a 2 ml diarios. Plazo de entrega de Entalle: 2 a 6 días |
+| Ingredientes nombrados | "Cuatro extractos botánicos", sin nombres | Los de la referencia (30 ml) no coinciden con los de Dropi para este frasco |
 
 ## Verificado en la vista previa real (v6)
-- La plantilla carga las 13 secciones sin desplazamiento horizontal, en 390 y 1280 px.
-- "PIDE AHORA" abre el formulario de Releasit (total $8.000). El botón propio de Releasit y su barra fija quedan ocultos.
-- "Agregar al carrito" con el pack de 2 agrega 2 unidades ($16.000) y abre el carrito lateral.
-- **Descuento de $1.500 al cerrar el formulario:** no aparece en Aurelys. Releasit no pide la oferta (`get-upsell`) para este producto, pero sí para Clorofila, donde se volvió a comprobar hoy. Es una regla de la configuración de Releasit (productos o monto mínimo del downsell); el tema no la controla.
+- 390 y 1280 px: precio $37.990 con $40.990 tachado, 2x1 preseleccionado y "OFERTA".
+- **Releasit:** "PIDE AHORA" abre el formulario con 2 frascos. Subtotal $75.980, "Descuento 2x1" −$37.990, **total $37.990**.
+- **Descuento de $1.500 al cerrar:** no aparece en Aurelys. En Releasit, el downsell "Downsell Clorofila $1.500" tiene `prods: [10317050937444]`, o sea, solo Clorofila. Para activarlo, hay que agregar Aurelys (o crear otro downsell) en Releasit → Downsells. El código de descuento ya aplica a todos los productos.

@@ -4,8 +4,8 @@
    "type": "el-product-main",
    "settings": {
     "ratio": "1/1",
-    "badge": "",
-    "offers_label": "Elige cuántos frascos",
+    "badge": "2x1",
+    "offers_label": "Elige tu oferta",
     "cod_mode": "auto",
     "force_h1": true
    },
@@ -20,8 +20,8 @@
     "b1": {
      "type": "cta",
      "settings": {
-      "label": "PIDE AHORA",
-      "sublabel": "Paga al recibir · Envío gratis",
+      "label": "PIDE AHORA - PAGA AL RECIBIR",
+      "sublabel": "Envío gratis a todo Chile",
       "icon": true,
       "anim": "pulse",
       "show_add": true,
@@ -50,7 +50,7 @@
     "b5": {
      "type": "subtitle",
      "settings": {
-      "text": "Extractos líquidos de plantas en gotas, para sumar un momento de cuidado a tu día."
+      "text": "¿Piernas y cuerpo pesados al final del día? Conoce Aurelys: suplemento herbal en gotas."
      }
     },
     "b6": {
@@ -64,17 +64,20 @@
       "title": "1 frasco",
       "note": "50 ml con gotario",
       "badge": "",
-      "default": true
+      "default": false
      }
     },
     "b8": {
      "type": "offer",
      "settings": {
       "qty": 2,
-      "title": "2 frascos",
-      "note": "",
-      "badge": "",
-      "default": false
+      "pay": 1,
+      "compare": 40990,
+      "title": "2x1 · Lleva 2 y paga 1",
+      "note": "2 frascos de 50 ml al precio de uno",
+      "badge": "OFERTA",
+      "badge_alt": false,
+      "default": true
      }
     },
     "b9": {
@@ -125,7 +128,7 @@
      "settings": {
       "heading": "Descripción",
       "source": "custom",
-      "content": "<p><b>Aurelys Drenaje Linfático</b> es un suplemento alimenticio de extractos líquidos de plantas, en frasco ámbar de 50 ml con gotario.</p><p>Pensado para acompañar tu rutina de bienestar, sobre todo después de jornadas largas sentado o de pie. Sigue siempre la dosis indicada en la etiqueta.</p><p><em>Suplemento alimenticio. No reemplaza una alimentación variada y equilibrada ni un tratamiento médico.</em></p>",
+      "content": "<p><b>Aurelys Drenaje Linfático</b> es un suplemento alimenticio herbal en gotas, con cuatro extractos botánicos, en frasco ámbar de 50 ml con gotario.</p><p>Ocho horas en la silla o de pie se notan al final del día. Súmale un minuto de cuidado: unas gotas en tu agua o en tu té cada mañana.</p><p><em>Suplemento alimenticio. No reemplaza una alimentación variada y equilibrada ni un tratamiento médico.</em></p>",
       "open": true
      }
     }
@@ -153,9 +156,9 @@
    "type": "el-benefits",
    "settings": {
     "bg": "soft",
-    "eyebrow": "Pensado para tu rutina",
+    "eyebrow": "",
     "heading": "Tu día pesa. Tu rutina, no.",
-    "intro": "Horas en la silla o de pie se notan al final del día. Suma un momento de cuidado con extractos líquidos de plantas.",
+    "intro": "Ocho horas en la silla o de pie se notan al terminar el día. Suma un minuto de cuidado con cuatro extractos de plantas.",
     "show_cta": false,
     "cta_label": "PIDE AHORA",
     "cta_sub": "Pagas al recibir",
@@ -167,32 +170,32 @@
      "type": "benefit",
      "settings": {
       "icon": "⏱️",
-      "title": "Un momento al día",
-      "text": "Unas gotas en tu agua o tu té."
+      "title": "Un minuto al día",
+      "text": "Unas gotas y listo."
      }
     },
     "b1": {
      "type": "benefit",
      "settings": {
       "icon": "🌿",
-      "title": "Extractos de plantas",
-      "text": "Fórmula líquida de origen vegetal."
+      "title": "Cuatro extractos botánicos",
+      "text": "Fórmula herbal en gotas."
      }
     },
     "b2": {
      "type": "benefit",
      "settings": {
       "icon": "💧",
-      "title": "En gotas",
-      "text": "Sin cápsulas: mides con el gotario."
+      "title": "Sin cápsulas",
+      "text": "Mides con el gotario."
      }
     },
     "b3": {
      "type": "benefit",
      "settings": {
-      "icon": "🧴",
-      "title": "50 ml",
-      "text": "Frasco ámbar con gotario."
+      "icon": "🧪",
+      "title": "Extractos líquidos",
+      "text": "De plantas, en frasco de 50 ml."
      }
     }
    },
@@ -217,7 +220,7 @@
     "image": "shopify://shop_images/4be4ba31-52bf-4a80-9078-0d58d77814a0.webp",
     "alt": "Frasco de Aurelys en la mano",
     "title": "Pequeños rituales para grandes días",
-    "text": "<p>Agrégalo a tu agua o a tu té cada mañana, siempre en el mismo momento. Un hábito simple que sí vas a mantener.</p>"
+    "text": "<p>Unas gotas en tu agua o en tu té cada mañana. Un hábito simple que sí vas a mantener.</p>"
    },
    "blocks": {
     "b0": {
@@ -235,7 +238,7 @@
     "b2": {
      "type": "point",
      "settings": {
-      "text": "📏 Dosis según la etiqueta"
+      "text": "📏 1 ml al día (unas 20 gotas)"
      }
     }
    },
@@ -267,22 +270,30 @@
     "b1": {
      "type": "step",
      "settings": {
-      "title": "Mide con el gotario",
-      "text": "La cantidad que indica la etiqueta."
+      "title": "Mide 1 ml",
+      "text": "Con el gotario, unas 20 gotas."
      }
     },
     "b2": {
      "type": "step",
      "settings": {
       "title": "Tómalo",
-      "text": "En agua o en té, cada mañana."
+      "text": "En agua, en té o bajo la lengua."
+     }
+    },
+    "b3": {
+     "type": "step",
+     "settings": {
+      "title": "Hazlo hábito",
+      "text": "Cada mañana, siempre a la misma hora."
      }
     }
    },
    "block_order": [
     "b0",
     "b1",
-    "b2"
+    "b2",
+    "b3"
    ]
   },
   "reviews": {
@@ -396,38 +407,59 @@
      "type": "q",
      "settings": {
       "q": "¿Qué es Aurelys?",
-      "a": "<p>Un suplemento alimenticio de extractos líquidos de plantas, en frasco de 50 ml con gotario.</p>"
+      "a": "<p>Un suplemento alimenticio herbal en gotas, con cuatro extractos botánicos, en frasco de 50 ml con gotario.</p>"
      }
     },
     "b1": {
      "type": "q",
      "settings": {
-      "q": "¿Cómo se usa?",
-      "a": "<p>Agita el frasco, mide con el gotario la cantidad que indica la etiqueta y tómalo en agua o en té, idealmente siempre en el mismo momento del día.</p>"
+      "q": "¿En qué se diferencia de una infusión de hierbas?",
+      "a": "<p>Con las gotas no hierves agua ni esperas que repose: mides 1 ml y listo, en menos de un minuto. La infusión es más económica y un ritual caliente que a muchos les gusta; no son excluyentes, puedes agregar las gotas a tu té.</p>"
      }
     },
     "b2": {
      "type": "q",
      "settings": {
       "q": "¿Para quién no es Aurelys?",
-      "a": "<p>No es un producto para bajar de peso. Si estás embarazada, amamantando, tomas medicamentos o tienes alguna condición de salud, consulta primero a tu médico. No es para menores de 18 años.</p>"
+      "a": "<p>No es un producto para bajar de peso ni de talla. Si estás embarazada, amamantando, tomas anticoagulantes o sigues un tratamiento hormonal, consulta primero a tu médico. No es para menores de 18 años.</p>"
      }
     },
     "b3": {
      "type": "q",
      "settings": {
-      "q": "¿Sirve para bajar de peso?",
-      "a": "<p>No. Es un suplemento alimenticio. No reemplaza una alimentación equilibrada ni un tratamiento médico.</p>"
+      "q": "¿Cuánto me dura un frasco?",
+      "a": "<p>Cada frasco trae 50 porciones de 1 ml. Con el 2x1 recibes 100. Si tomas 2 ml al día, un frasco te dura unos 25 días.</p>"
      }
     },
     "b4": {
+     "type": "q",
+     "settings": {
+      "q": "¿Sirve para bajar de peso?",
+      "a": "<p>No. Es un suplemento alimenticio herbal. No reemplaza una alimentación equilibrada ni un tratamiento médico.</p>"
+     }
+    },
+    "b5": {
+     "type": "q",
+     "settings": {
+      "q": "¿Puedo tomarlo si estoy embarazada o tomo remedios?",
+      "a": "<p>Consulta primero a tu médico si estás embarazada, amamantando, tomas anticoagulantes, sigues un tratamiento hormonal o tienes alguna condición de salud. No es para menores de 18 años. No superes la dosis del envase.</p>"
+     }
+    },
+    "b6": {
      "type": "q",
      "settings": {
       "q": "¿Cómo pago y cuánto demora el envío?",
       "a": "<p>Pagas al recibir tu pedido, sin adelantar dinero. El envío es gratis a todo Chile y llega entre 2 y 6 días.</p>"
      }
     },
-    "b5": {
+    "b7": {
+     "type": "q",
+     "settings": {
+      "q": "¿Puedo pedir solo un frasco?",
+      "a": "<p>Sí, pero hoy tienes el 2x1: dos frascos de 50 ml al precio de uno, $37.990.</p>"
+     }
+    },
+    "b8": {
      "type": "q",
      "settings": {
       "q": "¿Qué pasa si tengo un problema con mi pedido?",
@@ -441,7 +473,10 @@
     "b2",
     "b3",
     "b4",
-    "b5"
+    "b5",
+    "b6",
+    "b7",
+    "b8"
    ]
   },
   "guarantees": {
@@ -510,8 +545,8 @@
    "settings": {
     "bg": "white",
     "eyebrow": "Envío gratis · Pagas al recibir",
-    "heading": "Suma Aurelys a tu rutina",
-    "text": "Elige cuántos frascos, confirma tus datos y paga cuando llegue.",
+    "heading": "Aprovecha el 2x1",
+    "text": "Dos frascos de 50 ml por $37.990. Confirma tus datos y paga cuando llegue.",
     "cta_label": "PIDE AHORA",
     "cta_sub": "Paga al recibir",
     "anim": "pulse",
