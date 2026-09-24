@@ -29,3 +29,19 @@ Se copian los **precios y ofertas** de la referencia, salvo indicación contrari
 - 390 y 1280 px: precio $37.990 con $40.990 tachado, 2x1 preseleccionado y "OFERTA".
 - **Releasit:** "PIDE AHORA" abre el formulario con 2 frascos. Subtotal $75.980, "Descuento 2x1" −$37.990, **total $37.990**.
 - **Descuento de $1.500 al cerrar:** no aparece en Aurelys. En Releasit, el downsell "Downsell Clorofila $1.500" tiene `prods: [10317050937444]`, o sea, solo Clorofila. Para activarlo, hay que agregar Aurelys (o crear otro downsell) en Releasit → Downsells. El código de descuento ya aplica a todos los productos.
+
+## Fotos y GIF (24 sep, segunda vuelta)
+- **Creativos propios** en `media/` (HTML en `creativos.html` y render con Playwright), con la foto real del frasco de 50 ml, el logo y el verde de Entalle:
+  - `aurelys-01` portada;
+  - `02` presentación;
+  - `04` rutina;
+  - `05` promo 2x1;
+  - `12` ficha técnica.
+  Siguen la estructura y los copys de la referencia.
+- **Galería del producto:** portada, foto original, 02, 04, 05, 12. La plantilla ya no fuerza su propia galería: usa la del producto. Se corrigió el alt "Gray helmet".
+- **GIF animado** `aurelys-gif.gif` (Archivos) en la sección de rituales. Shopify lo sirve como WebP animado de 30 cuadros.
+- **No se replicó:**
+  - antes y después (AD1–AD3);
+  - GIF médico de piernas;
+  - testimonios inventados.
+- **Pendiente:** imagen de ingredientes (03) hasta definir cuáles se nombran.

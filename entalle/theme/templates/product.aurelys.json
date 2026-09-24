@@ -4,19 +4,12 @@
    "type": "el-product-main",
    "settings": {
     "ratio": "1/1",
-    "badge": "2x1",
+    "badge": "",
     "offers_label": "Elige tu oferta",
     "cod_mode": "auto",
     "force_h1": true
    },
    "blocks": {
-    "b0": {
-     "type": "gallery_image",
-     "settings": {
-      "image": "shopify://shop_images/4be4ba31-52bf-4a80-9078-0d58d77814a0.webp",
-      "alt": "Frasco de Aurelys Drenaje linfático 50 ml con gotario"
-     }
-    },
     "b1": {
      "type": "cta",
      "settings": {
@@ -134,7 +127,6 @@
     }
    },
    "block_order": [
-    "b0",
     "b1",
     "b2",
     "b3",
@@ -193,9 +185,9 @@
     "b3": {
      "type": "benefit",
      "settings": {
-      "icon": "🧪",
-      "title": "Extractos líquidos",
-      "text": "De plantas, en frasco de 50 ml."
+      "icon": "🌱",
+      "title": "Base sin alcohol",
+      "text": "Extractos líquidos de plantas."
      }
     }
    },
@@ -217,8 +209,8 @@
     "cta_label": "PIDE AHORA",
     "cta_sub": "Pagas al recibir",
     "side": "left",
-    "image": "shopify://shop_images/4be4ba31-52bf-4a80-9078-0d58d77814a0.webp",
-    "alt": "Frasco de Aurelys en la mano",
+    "image": "shopify://shop_images/aurelys-gif.gif",
+    "alt": "Aurelys 2x1, un minuto al día",
     "title": "Pequeños rituales para grandes días",
     "text": "<p>Unas gotas en tu agua o en tu té cada mañana. Un hábito simple que sí vas a mantener.</p>"
    },
@@ -337,58 +329,23 @@
    ]
   },
   "specs": {
-   "type": "el-benefits",
+   "type": "el-media-text",
    "settings": {
     "bg": "soft",
-    "eyebrow": "Datos de la etiqueta",
-    "heading": "Especificaciones",
+    "eyebrow": "",
+    "heading": "",
     "intro": "",
-    "show_cta": false,
+    "show_cta": true,
     "cta_label": "PIDE AHORA",
-    "cta_sub": "Pagas al recibir",
-    "cols_m": "2",
-    "cols_d": 4
+    "cta_sub": "Paga al recibir",
+    "side": "left",
+    "image": "shopify://shop_images/aurelys-12.webp",
+    "alt": "Especificaciones técnicas de Aurelys Drenaje Linfático 50 ml",
+    "title": "",
+    "text": "<p>Frasco ámbar de 50 ml con gotario. Porción de 1 ml (unas 20 gotas), 50 porciones por frasco. Base sin alcohol. Suplemento alimenticio.</p>"
    },
-   "blocks": {
-    "b0": {
-     "type": "benefit",
-     "settings": {
-      "icon": "🧪",
-      "title": "Formato",
-      "text": "Extractos líquidos de plantas"
-     }
-    },
-    "b1": {
-     "type": "benefit",
-     "settings": {
-      "icon": "🧴",
-      "title": "Contenido",
-      "text": "50 ml (1,7 fl oz)"
-     }
-    },
-    "b2": {
-     "type": "benefit",
-     "settings": {
-      "icon": "💧",
-      "title": "Presentación",
-      "text": "Frasco ámbar con gotario"
-     }
-    },
-    "b3": {
-     "type": "benefit",
-     "settings": {
-      "icon": "📋",
-      "title": "Categoría",
-      "text": "Suplemento alimenticio"
-     }
-    }
-   },
-   "block_order": [
-    "b0",
-    "b1",
-    "b2",
-    "b3"
-   ]
+   "blocks": {},
+   "block_order": []
   },
   "faq": {
    "type": "el-faq",
@@ -551,7 +508,7 @@
     "cta_sub": "Paga al recibir",
     "anim": "pulse",
     "micro": "🚚 Envío gratis | 💵 Pagas al recibir | 🛡️ Garantía 30 días",
-    "image": "shopify://shop_images/4be4ba31-52bf-4a80-9078-0d58d77814a0.webp"
+    "image": "shopify://shop_images/aurelys-05.webp"
    }
   },
   "legal": {
