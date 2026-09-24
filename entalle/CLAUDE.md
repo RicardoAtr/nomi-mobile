@@ -54,8 +54,8 @@ Sigue **`.claude/skills/cargar-producto/SKILL.md`** paso a paso. No hace falta u
 
 ## IDs y datos técnicos
 - **Temas:**
-  - `entalle-v8`: 167024001124 (MAIN desde el 24 sep);
-  - `entalle-v9 · desarrollo`: 167026622564 (copia sin publicar, lista para publicar).
+  - `entalle-v9`: 167026622564 (MAIN desde el 24 sep);
+  - `entalle-v10 · desarrollo`: 167027146852 (copia sin publicar, lista para publicar).
   - El dueño publica seguido: antes de escribir, revisa siempre qué tema es MAIN.
   - Revisa cuál es MAIN con `themes(roles:[MAIN])`.
 - **Escritura de temas:**
@@ -73,6 +73,11 @@ Sigue **`.claude/skills/cargar-producto/SKILL.md`** paso a paso. No hace falta u
   - El downsell de $1.500 se configura **por producto** en Releasit → Downsells (metafield `_rsi_cod_form_sf.downsells_json`, campo `prods`), y lo agrega el dueño.
 - **Playwright** con la red del entorno: `executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'` y `proxy: { server: process.env.HTTPS_PROXY }`. Si falla el certificado, agrega los CA de `/root/.ccr/ca-bundle.crt` a `~/.pki/nssdb` con certutil. Nunca desactives TLS.
 - **Recorte de fondo** para creativos: `pip install rembg onnxruntime`, modelo `isnet-general-use` (gratis). Resultado de ejemplo: `products/aurelys/media/frasco.png`.
+
+## Regla de edición de plantillas
+El dueño también edita en el editor de temas (por ejemplo, agregó el widget de Judge.me en Clorofila).
+- **Antes de modificar una plantilla,** descarga la versión del tema MAIN y del tema más reciente que editó el dueño; compara `updatedAt` entre temas. Aplica tus cambios sobre esa versión, nunca sobre la copia local.
+- **Nunca reemplaces imágenes o secciones existentes** sin que te lo pidan. Las piezas nuevas se agregan como secciones o fotos adicionales.
 
 ## Lo que el dueño hace a mano
 - Publicar el tema: Tienda online → Temas → Publicar. La conexión con Shopify lo bloquea.

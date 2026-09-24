@@ -75,6 +75,7 @@ Usa AskUserQuestion u otro mensaje, solo con lo que falte:
   - Si el tema MAIN no tiene esa plantilla, la página pública usa `product.json` hasta que se publique el tema nuevo. Díselo al dueño.
 
 ## 6. Subir la plantilla al tema
+- Si la plantilla ya existe en el tema MAIN, **descárgala primero** y aplica los cambios sobre esa versión, porque el dueño pudo editarla en el editor de temas. No reemplaces fotos ni secciones existentes; agrega las nuevas.
 - `themeFilesUpsert` no escribe en el tema MAIN. Busca un tema de desarrollo sin publicar que sea copia del MAIN actual; si no hay, haz `themeDuplicate` del MAIN con el nombre "entalle-vN · desarrollo".
 - Sube la plantilla (y cualquier sección o asset cambiado) con URL firmada y verifica el `checksumMd5`.
 

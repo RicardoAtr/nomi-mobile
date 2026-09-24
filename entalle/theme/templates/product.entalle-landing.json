@@ -7,7 +7,8 @@
     "badge": "",
     "offers_label": "Elige tu oferta",
     "cod_mode": "auto",
-    "force_h1": true
+    "force_h1": true,
+    "product": ""
    },
    "blocks": {
     "b0": {
@@ -76,7 +77,8 @@
       "title": "1 frasco",
       "note": "Compra individual",
       "badge": "",
-      "default": false
+      "default": false,
+      "badge_alt": false
      }
     },
     "b11": {
@@ -124,7 +126,9 @@
       "label": "PIDE AHORA",
       "sublabel": "Pagas al recibir · Envío gratis",
       "icon": true,
-      "anim": "pulse"
+      "anim": "pulse",
+      "show_add": true,
+      "add_label": "Agregar al carrito"
      }
     },
     "b16": {
@@ -161,7 +165,7 @@
      "type": "accordion",
      "settings": {
       "heading": "Descripción",
-      "source": "custom",
+      "source": "description",
       "content": "<p><b>Clorofila líquida Benevolent Nourishment con sabor menta.</b> Un complemento simple para tu rutina diaria: unas gotas en tu vaso de agua y listo.</p><ul><li>Sabor menta</li><li>Sin alcohol y sin gluten</li><li>Frasco de 59 ml con gotario</li></ul><p><b>Ingredientes:</b> clorofila, menta, eucalipto, té verde, romero y amla.</p><p><b>Modo de uso:</b> agrega 15 gotas a un vaso de agua, mezcla y disfruta. Sigue siempre las indicaciones de la etiqueta.</p>",
       "open": true
      }
@@ -171,7 +175,8 @@
      "settings": {
       "heading": "Envío y entrega",
       "source": "custom",
-      "content": "<p>El envío es gratis. Tu pedido llega entre 2 y 6 días después de la compra. Te enviamos el seguimiento por WhatsApp cuando sale a despacho.</p>"
+      "content": "<p>El envío es gratis. Tu pedido llega entre 2 y 6 días después de la compra. Te enviamos el seguimiento por WhatsApp cuando sale a despacho.</p>",
+      "open": false
      }
     },
     "b22": {
@@ -179,7 +184,8 @@
      "settings": {
       "heading": "Garantía",
       "source": "custom",
-      "content": "<p>Tienes 30 días de garantía. Si hay un problema con tu pedido, escríbenos por WhatsApp o a contacto@entalle.cl y lo resolvemos.</p>"
+      "content": "<p>Tienes 30 días de garantía. Si hay un problema con tu pedido, escríbenos por WhatsApp o a contacto@entalle.cl y lo resolvemos.</p>",
+      "open": false
      }
     }
    },
@@ -287,8 +293,8 @@
     "heading": "",
     "intro": "",
     "side": "left",
-    "image": "shopify://shop_images/clorofila-ia-historia.webp",
-    "alt": "Mujer agregando gotas de clorofila a su agua con hielo",
+    "image": "shopify://shop_images/clorofila-5.webp",
+    "alt": "Cómo consumir: llena un vaso, agrega 15 gotas, mezcla y disfruta",
     "title": "Fácil de incorporar a tu día",
     "text": "<p>Llena un vaso con agua, agrega 15 gotas, mezcla y disfruta. Sigue siempre las indicaciones de la etiqueta.</p>",
     "show_cta": false,
@@ -577,7 +583,8 @@
     "cta_label": "PIDE AHORA",
     "cta_sub": "Pagas al recibir",
     "anim": "pulse",
-    "micro": "🚚 Envío gratis | 💵 Pagas al recibir | 🛡️ Garantía 30 días"
+    "micro": "🚚 Envío gratis | 💵 Pagas al recibir | 🛡️ Garantía 30 días",
+    "product": ""
    }
   },
   "legal": {
@@ -609,7 +616,9 @@
     "limit": 8,
     "cols_d": 4,
     "badge_tag": "",
-    "more_label": "Ver todo el catálogo"
+    "more_label": "Ver todo el catálogo",
+    "collections": [],
+    "collection": ""
    }
   },
   "sticky": {
@@ -620,8 +629,46 @@
     "label": "PIDE AHORA",
     "anim": "pulse",
     "whatsapp": true,
-    "top": true
+    "top": true,
+    "product": ""
    }
+  },
+  "1790275465440b6fee": {
+   "type": "apps",
+   "blocks": {
+    "judge_me_reviews_review_widget_UjRewN": {
+     "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+     "settings": {
+      "review_data": "sample_data",
+      "max_width": 1200,
+      "show_shop_reviews": false,
+      "empty_state": "empty_widget"
+     }
+    }
+   },
+   "block_order": [
+    "judge_me_reviews_review_widget_UjRewN"
+   ],
+   "settings": {}
+  },
+  "rutina": {
+   "type": "el-media-text",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "side": "right",
+    "image": "shopify://shop_images/clorofila-ia-historia.webp",
+    "alt": "Mujer agregando gotas de clorofila a su agua con hielo",
+    "title": "Incorpórala a tu rutina",
+    "text": "<p>Agita el frasco, agrega unas gotas a tu vaso de agua y disfrútala fresca, todos los días.</p>",
+    "show_cta": true,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Aprovecha el 2x1"
+   },
+   "blocks": {},
+   "block_order": []
   }
  },
  "order": [
@@ -629,6 +676,7 @@
   "benefits",
   "videos",
   "howto",
+  "rutina",
   "ingredients",
   "included",
   "reviews",
@@ -637,6 +685,7 @@
   "closing",
   "legal",
   "discover",
-  "sticky"
+  "sticky",
+  "1790275465440b6fee"
  ]
 }
