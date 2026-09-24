@@ -54,8 +54,8 @@ Sigue **`.claude/skills/cargar-producto/SKILL.md`** paso a paso. No hace falta u
 
 ## IDs y datos técnicos
 - **Temas:**
-  - `entalle-v6 · desarrollo`: 167006142564;
-  - v5: 167005323364 (MAIN al 24 sep).
+  - `entalle-v6`: 167006142564 (MAIN desde el 24 sep);
+  - `entalle-v7 · desarrollo`: 167022887012 (copia sin publicar).
   - Revisa cuál es MAIN con `themes(roles:[MAIN])`.
 - **Escritura de temas:**
   - `themeFilesUpsert` está bloqueado sobre el tema MAIN.
