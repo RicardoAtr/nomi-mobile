@@ -90,31 +90,49 @@
   var COD_CLS = /(^|[\s_-])(rsi|releasit)/i;
   function ours(el) { return el.closest('[data-el-buy],.el-sticky,.el-float,.el-offer,.el-acc,.el-gallery,[data-el-ignore]'); }
   function meta(el) { var c = el.className; c = (c && c.baseVal !== undefined) ? c.baseVal : (c || ''); return c + ' ' + (el.id || ''); }
-  function findCod() {
-    var scope = (S.root && S.root.querySelector('.el-buy')) || document;
-    var sets = [scope, document];
-    for (var s = 0; s < sets.length; s++) {
-      var list = sets[s].querySelectorAll('button,a,[role=button],input[type=submit]');
-      for (var i = 0; i < list.length; i++) {
-        var el = list[i];
-        if (ours(el)) continue;
-        if (COD_CLS.test(meta(el)) || (el.parentElement && COD_CLS.test(meta(el.parentElement)))) return el;
-        if (s === 0 && COD_TXT.test((el.innerText || el.value || '').trim())) return el;
-      }
+  // Releasit puede insertar varios botones: el del producto y una barra fija inferior en móvil.
+  // Se ocultan todos (siguen en el DOM y se usan para abrir su formulario).
+  function fixedAncestor(el) {
+    for (var n = el; n && n !== document.body; n = n.parentElement) {
+      var p = getComputedStyle(n).position;
+      if (p === 'fixed' || p === 'sticky') return n;
     }
     return null;
   }
+  function findAllCod() {
+    var scope = (S.root && S.root.querySelector('.el-buy')) || document, out = [];
+    var list = document.querySelectorAll('button,a,[role=button],input[type=submit]');
+    for (var i = 0; i < list.length; i++) {
+      var el = list[i];
+      if (ours(el) || out.indexOf(el) > -1) continue;
+      var byCls = COD_CLS.test(meta(el)) || (el.parentElement && COD_CLS.test(meta(el.parentElement)));
+      var byTxt = COD_TXT.test((el.innerText || el.textContent || el.value || '').trim());
+      if (byCls || (byTxt && (scope.contains(el) || fixedAncestor(el) || el.classList.contains('el-cod-btn')))) out.push(el);
+    }
+    return out;
+  }
+  function findCod() {
+    if (EL.codBtn && EL.codBtn.isConnected) return EL.codBtn;
+    var all = findAllCod();
+    return all.filter(function (b) { return !b.closest('.el-cod-fixed'); })[0] || all[0] || null;
+  }
   function hideCod(b) {
-    var box = b, p = b.parentElement;
-    if (p && p.children.length === 1 && !p.matches('form,.el-buy')) box = p;
+    if (b.classList.contains('el-cod-btn')) return;
+    b.classList.add('el-cod-btn');
+    var fx = fixedAncestor(b), box = fx || b, p = b.parentElement;
+    if (!fx && p && p.children.length === 1 && !p.matches('form,.el-buy')) box = p;
+    if (fx) box.classList.add('el-cod-fixed');
     box.classList.add('el-cod-hidden');
-    box.style.cssText += ';position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important';
+    box.style.cssText += ';position:absolute!important;left:-9999px!important;top:auto!important;bottom:auto!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important';
     box.setAttribute('aria-hidden', 'true'); b.tabIndex = -1;
   }
   EL.adoptCod = function () {
-    var root = S.root; if (!root || root.dataset.cod === 'off') return;
-    var b = findCod(); if (b) { hideCod(b); root.classList.add('el-has-cod'); return true; }
-    return false;
+    var root = S.root; if (!root || root.dataset.cod === 'off') return false;
+    var all = findAllCod(); if (!all.length) return false;
+    all.forEach(hideCod);
+    if (!EL.codBtn || !EL.codBtn.isConnected) EL.codBtn = findCod();
+    root.classList.add('el-has-cod');
+    return true;
   };
 
   var lock = false;
@@ -299,10 +317,12 @@
   }
   function boot() {
     init(document); initSticky(); initTop(); modalWatch();
-    if (!EL.adoptCod() && 'MutationObserver' in window) {
-      var mo = new MutationObserver(function () { if (EL.adoptCod()) mo.disconnect(); });
-      mo.observe(document.body, { childList: true, subtree: true });
-      setTimeout(function () { mo.disconnect(); }, 15000);
+    EL.adoptCod();
+    if ('MutationObserver' in window) {
+      // Observa siempre: Releasit puede crear su barra fija al hacer scroll o tras cargar.
+      var pend = false;
+      new MutationObserver(function () { if (!pend) { pend = true; requestAnimationFrame(function () { pend = false; EL.adoptCod(); }); } })
+        .observe(document.body, { childList: true, subtree: true });
     }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
