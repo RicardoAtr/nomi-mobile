@@ -45,3 +45,12 @@ Antes de volver a subir una plantilla, descargar la versión remota y comparar s
 
 ## Futuro (sin activar)
 Detectar productos nuevos en la tienda de referencia (rastreo periódico) y crear borradores de plantilla automáticamente. Se deja fuera a propósito: no se activa monitoreo ni publicación automática.
+
+## Regla de contenido (decisión del dueño, 24 sep)
+- Se copian los **precios, packs y ofertas** de la página objetivo, salvo indicación contraria. Si la oferta es 2x1, se crea el descuento automático BXGY del producto, combinable con otros descuentos (así funciona el downsell de Releasit).
+- Los copys se adaptan **solo un poco**.
+- Si la página objetivo no trae un dato, no se agrega.
+- Excepciones fijas:
+  - no se copian testimonios de otra tienda;
+  - los datos físicos (ml, porciones) salen de la etiqueta del producto propio.
+- El downsell de Releasit se configura por producto: hay que agregar cada producto nuevo en Releasit → Downsells.
