@@ -1,0 +1,640 @@
+{
+ "sections": {
+  "main": {
+   "type": "el-product-main",
+   "settings": {
+    "ratio": "1/1",
+    "badge": "",
+    "offers_label": "Elige tu oferta",
+    "cod_mode": "auto",
+    "force_h1": true
+   },
+   "blocks": {
+    "b0": {
+     "type": "vendor",
+     "settings": {
+      "text": "Benevolent Nourishment"
+     }
+    },
+    "b1": {
+     "type": "title",
+     "settings": {
+      "text": "Clorofila Líquida Benevolent 59 ml"
+     }
+    },
+    "b2": {
+     "type": "subtitle",
+     "settings": {
+      "text": "Clorofila líquida sabor menta para tu rutina diaria. Unas gotas en tu vaso de agua y listo."
+     }
+    },
+    "b3": {
+     "type": "chips",
+     "settings": {
+      "items": "Sabor menta, Sin alcohol, Sin gluten, Apto veganos, 59 ml"
+     }
+    },
+    "b4": {
+     "type": "bullet",
+     "settings": {
+      "text": "🌿 Complemento natural para tu rutina de bienestar"
+     }
+    },
+    "b5": {
+     "type": "bullet",
+     "settings": {
+      "text": "💧 Solo 15 gotas en tu vaso de agua"
+     }
+    },
+    "b6": {
+     "type": "bullet",
+     "settings": {
+      "text": "🍃 Sabor menta, fresco y agradable"
+     }
+    },
+    "b7": {
+     "type": "bullet",
+     "settings": {
+      "text": "🔥 <b>2x1:</b> llévate 2 y paga 1"
+     }
+    },
+    "b8": {
+     "type": "price",
+     "settings": {
+      "save_prefix": "🏷️ AHORRA",
+      "note": "Precio final con IVA. Envío gratis a todo Chile."
+     }
+    },
+    "b9": {
+     "type": "variant_picker",
+     "settings": {}
+    },
+    "b10": {
+     "type": "offer",
+     "settings": {
+      "qty": 1,
+      "title": "1 frasco",
+      "note": "Compra individual",
+      "badge": "",
+      "default": false
+     }
+    },
+    "b11": {
+     "type": "offer",
+     "settings": {
+      "qty": 2,
+      "pay": 1,
+      "compare": 35990,
+      "title": "Lleva 2 y paga 1",
+      "note": "2 frascos · $14.495 cada uno",
+      "badge": "Más conveniente",
+      "badge_alt": false,
+      "default": true
+     }
+    },
+    "b12": {
+     "type": "offer",
+     "settings": {
+      "qty": 4,
+      "pay": 2,
+      "compare": 115960,
+      "title": "Pack para compartir · 4 frascos",
+      "note": "Dos promociones 2x1 · $14.495 cada uno",
+      "badge": "Mejor precio por unidad",
+      "badge_alt": true,
+      "default": false
+     }
+    },
+    "b13": {
+     "type": "urgency",
+     "settings": {
+      "text": "La oferta termina en",
+      "end": ""
+     }
+    },
+    "b14": {
+     "type": "stock",
+     "settings": {
+      "threshold": 10
+     }
+    },
+    "b15": {
+     "type": "cta",
+     "settings": {
+      "label": "PIDE AHORA",
+      "sublabel": "Pagas al recibir · Envío gratis",
+      "icon": true,
+      "anim": "pulse"
+     }
+    },
+    "b16": {
+     "type": "cta_micro",
+     "settings": {
+      "items": "🔒 Compra segura | 🚚 Envío gratis | 💵 Pagas al recibir"
+     }
+    },
+    "b17": {
+     "type": "delivery",
+     "settings": {
+      "from": 2,
+      "to": 6,
+      "business": false,
+      "note": "envío gratis",
+      "line2": "<p><b>Pagas al recibir</b> tu pedido, o con tarjeta si prefieres.</p>",
+      "line3": "<p><b>Garantía de 30 días</b> si hay un problema con tu pedido.</p>",
+      "payments": false
+     }
+    },
+    "b18": {
+     "type": "trust",
+     "settings": {
+      "items": "🚚:Envío gratis|🔒:Compra segura|🛡️:Garantía 30 días|💬:Atención por WhatsApp"
+     }
+    },
+    "b19": {
+     "type": "contact",
+     "settings": {
+      "text": "¿Dudas? Escríbenos:"
+     }
+    },
+    "b20": {
+     "type": "accordion",
+     "settings": {
+      "heading": "Descripción",
+      "source": "custom",
+      "content": "<p><b>Clorofila líquida Benevolent Nourishment con sabor menta.</b> Un complemento simple para tu rutina diaria: unas gotas en tu vaso de agua y listo.</p><ul><li>Sabor menta</li><li>Sin alcohol y sin gluten</li><li>Frasco de 59 ml con gotario</li></ul><p><b>Ingredientes:</b> clorofila, menta, eucalipto, té verde, romero y amla.</p><p><b>Modo de uso:</b> agrega 15 gotas a un vaso de agua, mezcla y disfruta. Sigue siempre las indicaciones de la etiqueta.</p>",
+      "open": true
+     }
+    },
+    "b21": {
+     "type": "accordion",
+     "settings": {
+      "heading": "Envío y entrega",
+      "source": "custom",
+      "content": "<p>El envío es gratis. Tu pedido llega entre 2 y 6 días después de la compra. Te enviamos el seguimiento por WhatsApp cuando sale a despacho.</p>"
+     }
+    },
+    "b22": {
+     "type": "accordion",
+     "settings": {
+      "heading": "Garantía",
+      "source": "custom",
+      "content": "<p>Tienes 30 días de garantía. Si hay un problema con tu pedido, escríbenos por WhatsApp o a contacto@entalle.cl y lo resolvemos.</p>"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b8",
+    "b2",
+    "b9",
+    "b10",
+    "b11",
+    "b12",
+    "b13",
+    "b14",
+    "b15",
+    "b16",
+    "b4",
+    "b5",
+    "b6",
+    "b7",
+    "b3",
+    "b17",
+    "b18",
+    "b19",
+    "b20",
+    "b21",
+    "b22"
+   ]
+  },
+  "benefits": {
+   "type": "el-benefits",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Por qué elegirla",
+    "heading": "Bienestar natural, desde adentro",
+    "intro": "",
+    "cols_m": "2",
+    "cols_d": 4,
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {
+    "b0": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🌿",
+      "title": "Sabor menta",
+      "text": "Fresco y agradable, fácil de tomar todos los días."
+     }
+    },
+    "b1": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🚫",
+      "title": "Sin alcohol",
+      "text": "Fórmula libre de alcohol."
+     }
+    },
+    "b2": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🌾",
+      "title": "Sin gluten",
+      "text": "Apto para personas que evitan el gluten."
+     }
+    },
+    "b3": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🌱",
+      "title": "Apto veganos",
+      "text": "Ingredientes de origen vegetal."
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3"
+   ]
+  },
+  "videos": {
+   "type": "el-videos",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Así se usa",
+    "heading": "Míralo en acción",
+    "intro": "",
+    "from_product": true,
+    "ratio": "9/16",
+    "show_cta": true,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Aprovecha el 2x1"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "howto": {
+   "type": "el-media-text",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Modo de uso",
+    "heading": "",
+    "intro": "",
+    "side": "left",
+    "image": "shopify://shop_images/clorofila-5.webp",
+    "alt": "Cómo consumir: llena un vaso, agrega 15 gotas, mezcla y disfruta",
+    "title": "Fácil de incorporar a tu día",
+    "text": "<p>Llena un vaso con agua, agrega 15 gotas, mezcla y disfruta. Sigue siempre las indicaciones de la etiqueta.</p>",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": ""
+   },
+   "blocks": {
+    "b0": {
+     "type": "point",
+     "settings": {
+      "text": "💧 15 gotas por vaso"
+     }
+    },
+    "b1": {
+     "type": "point",
+     "settings": {
+      "text": "🍃 Sabor menta, fresco"
+     }
+    },
+    "b2": {
+     "type": "point",
+     "settings": {
+      "text": "🎒 Frasco de 59 ml con gotario, fácil de llevar"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2"
+   ]
+  },
+  "ingredients": {
+   "type": "el-benefits",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Composición",
+    "heading": "Ingredientes naturales",
+    "intro": "Según la etiqueta del fabricante.",
+    "cols_m": "2",
+    "cols_d": 6,
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": ""
+   },
+   "blocks": {
+    "b0": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🍃",
+      "title": "Clorofila",
+      "text": ""
+     }
+    },
+    "b1": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🌿",
+      "title": "Menta",
+      "text": ""
+     }
+    },
+    "b2": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🌳",
+      "title": "Eucalipto",
+      "text": ""
+     }
+    },
+    "b3": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🍵",
+      "title": "Té verde",
+      "text": ""
+     }
+    },
+    "b4": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🌲",
+      "title": "Romero",
+      "text": ""
+     }
+    },
+    "b5": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🟢",
+      "title": "Amla",
+      "text": ""
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+    "b5"
+   ]
+  },
+  "included": {
+   "type": "el-included",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Lo que recibes",
+    "heading": "Qué incluye tu pedido",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": ""
+   },
+   "blocks": {
+    "b0": {
+     "type": "item",
+     "settings": {
+      "qty": "1×",
+      "text": "Frasco de Clorofila Líquida Benevolent 59 ml con gotario (por cada unidad)"
+     }
+    }
+   },
+   "block_order": [
+    "b0"
+   ]
+  },
+  "reviews": {
+   "type": "el-reviews",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Clientes Entalle",
+    "heading": "Opiniones verificadas",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": ""
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "faq": {
+   "type": "el-faq",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Resolvemos tus dudas",
+    "heading": "Preguntas frecuentes",
+    "intro": "",
+    "schema": true,
+    "show_cta": true,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {
+    "b0": {
+     "type": "q",
+     "settings": {
+      "q": "¿Cómo funciona el 2x1?",
+      "a": "<p>Elige la opción «Lleva 2 y paga 1»: recibes 2 frascos por $28.990, el mismo precio de un frasco individual. Si quieres más, el pack para compartir trae 4 frascos por $57.980 (dos promociones 2x1). También puedes comprar 1 frasco por $28.990.</p>"
+     }
+    },
+    "b1": {
+     "type": "q",
+     "settings": {
+      "q": "¿Cuánto demora en llegar?",
+      "a": "<p>Tu pedido llega entre 2 y 6 días después de la compra. Arriba del botón de compra ves las fechas estimadas según el día en que compras.</p>"
+     }
+    },
+    "b2": {
+     "type": "q",
+     "settings": {
+      "q": "¿El envío tiene costo?",
+      "a": "<p>No. El envío es gratis en todos los pedidos.</p>"
+     }
+    },
+    "b3": {
+     "type": "q",
+     "settings": {
+      "q": "¿Cómo se consume?",
+      "a": "<p>Agrega 15 gotas a un vaso de agua, mezcla y disfruta. Sigue siempre las indicaciones de la etiqueta.</p>"
+     }
+    },
+    "b4": {
+     "type": "q",
+     "settings": {
+      "q": "¿Tiene alcohol o gluten?",
+      "a": "<p>No. Es una fórmula sin alcohol, sin gluten y apta para veganos.</p>"
+     }
+    },
+    "b5": {
+     "type": "q",
+     "settings": {
+      "q": "¿Puedo tomarlo si estoy embarazada o tomo medicamentos?",
+      "a": "<p>Si estás embarazada, amamantando o en tratamiento médico, consulta a tu médico antes de consumirlo.</p>"
+     }
+    },
+    "b6": {
+     "type": "q",
+     "settings": {
+      "q": "¿Qué pasa si tengo un problema con mi pedido?",
+      "a": "<p>Tienes 30 días de garantía. Escríbenos por WhatsApp al +56 9 4058 9575 o a contacto@entalle.cl y lo resolvemos.</p>"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+    "b5",
+    "b6"
+   ]
+  },
+  "guarantees": {
+   "type": "el-guarantees",
+   "settings": {
+    "bg": "dark",
+    "eyebrow": "Compra tranquilo",
+    "heading": "Así te protegemos",
+    "intro": "",
+    "cols_m": "2",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": ""
+   },
+   "blocks": {
+    "b0": {
+     "type": "g",
+     "settings": {
+      "icon": "🚚",
+      "title": "Envío gratis",
+      "text": "A todo Chile, en 2 a 6 días.",
+      "link": "shopify://pages/envios",
+      "link_label": "Plazos de entrega"
+     }
+    },
+    "b1": {
+     "type": "g",
+     "settings": {
+      "icon": "💵",
+      "title": "Pagas al recibir",
+      "text": "Confirmas tu pedido y pagas cuando llega.",
+      "link": "",
+      "link_label": ""
+     }
+    },
+    "b2": {
+     "type": "g",
+     "settings": {
+      "icon": "🛡️",
+      "title": "Garantía de 30 días",
+      "text": "Si hay un problema con tu pedido, lo solucionamos.",
+      "link": "shopify://pages/devoluciones",
+      "link_label": "Ver política"
+     }
+    },
+    "b3": {
+     "type": "g",
+     "settings": {
+      "icon": "💬",
+      "title": "Atención directa",
+      "text": "WhatsApp y contacto@entalle.cl.",
+      "link": "shopify://pages/contact",
+      "link_label": "Contacto"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3"
+   ]
+  },
+  "closing": {
+   "type": "el-cta-banner",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Oferta 2x1 vigente",
+    "heading": "Lleva 2 frascos y paga 1",
+    "text": "Elige tu pack, confirma tus datos y paga al recibir.",
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir",
+    "anim": "pulse",
+    "micro": "🚚 Envío gratis | 💵 Pagas al recibir | 🛡️ Garantía 30 días"
+   }
+  },
+  "legal": {
+   "type": "el-media-text",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "side": "left",
+    "image": "shopify://shop_images/clorofila-info-2.webp",
+    "alt": "Información del producto",
+    "title": "",
+    "text": "<p><em>Suplemento alimenticio. No reemplaza una alimentación variada y equilibrada. Si estás embarazada, amamantando o en tratamiento médico, consulta a tu médico antes de consumirlo. Mantener fuera del alcance de los niños.</em></p>",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": ""
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "discover": {
+   "type": "el-discover",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Catálogo Entalle",
+    "heading": "Descubre más productos",
+    "intro": "",
+    "limit": 8,
+    "cols_d": 4,
+    "badge_tag": "",
+    "more_label": "Ver todo el catálogo"
+   }
+  },
+  "sticky": {
+   "type": "el-sticky-buy",
+   "settings": {
+    "enable": true,
+    "desktop": true,
+    "label": "PIDE AHORA",
+    "anim": "pulse",
+    "whatsapp": true,
+    "top": true
+   }
+  }
+ },
+ "order": [
+  "main",
+  "benefits",
+  "videos",
+  "howto",
+  "ingredients",
+  "included",
+  "reviews",
+  "faq",
+  "guarantees",
+  "closing",
+  "legal",
+  "discover",
+  "sticky"
+ ]
+}

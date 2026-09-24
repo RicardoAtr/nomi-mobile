@@ -1,0 +1,708 @@
+{%- liquid
+  assign p = product
+  if p == blank
+    assign p = section.settings.product
+  endif
+  assign v = p.selected_or_first_available_variant
+  assign wa = settings.whatsapp | remove: '+' | remove: ' '
+  assign pack_blocks = section.blocks | where: 'type', 'pack'
+  assign promo = section.settings.promo_active
+  assign def_qty = 1
+  assign def_cmp = 0
+  for block in pack_blocks
+    if block.settings.default
+      assign def_qty = block.settings.qty
+      assign def_cmp = block.settings.compare | times: 100
+    endif
+  endfor
+  assign def_paid = def_qty
+  if promo
+    assign def_paid = def_qty | plus: 1 | divided_by: 2
+  endif
+  assign def_price = v.price | times: def_paid
+  assign def_full = def_cmp
+  assign def_pct = 0
+  if def_full > def_price
+    assign def_pct = def_full | minus: def_price | times: 100 | divided_by: def_full
+  endif
+  assign images = p.media | where: 'media_type', 'image'
+  assign videos = p.media | where: 'media_type', 'video'
+-%}
+{%- if p != blank -%}
+<section class="el" data-el data-price="{{ v.price }}" data-vid="{{ v.id }}" data-promo="{{ promo }}">
+<style>
+.el{--el-a:{{ section.settings.c_primary }};--el-ad:{{ section.settings.c_dark }};--el-al:{{ section.settings.c_light }};--el-line:#dfe5dc;--el-mut:#4f5a53;color:var(--ink,#1d241f);background:var(--bg,#fff)}
+.el *{box-sizing:border-box}
+.el-wrap{max-width:1180px;margin:0 auto;padding:16px 16px 40px}
+.el-grid{display:grid;gap:24px}
+@media(min-width:900px){.el-grid{grid-template-columns:1.05fr 1fr;gap:48px;align-items:start}.el-gal{position:sticky;top:16px}}
+.el-main{position:relative;border-radius:18px;overflow:hidden;background:#f4f6f2;aspect-ratio:1/1}
+.el-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;height:100%}
+.el-track::-webkit-scrollbar{display:none}
+.el-slide{flex:0 0 100%;scroll-snap-align:start;height:100%}
+.el-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.el-tag{position:absolute;top:14px;left:14px;background:var(--el-ad);color:#fff;font-weight:800;font-size:14px;padding:6px 12px;border-radius:999px;z-index:2}
+.el-thumbs{display:flex;gap:8px;margin-top:10px;overflow-x:auto}
+.el-thumbs button{flex:0 0 64px;height:64px;padding:0;border:2px solid transparent;border-radius:10px;overflow:hidden;background:#f4f6f2;cursor:pointer}
+.el-thumbs button[aria-current=true]{border-color:var(--el-ad)}
+.el-thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.el-vendor{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--el-ad);font-weight:700;margin:0 0 6px}
+.el h1{font-size:clamp(26px,4vw,36px);line-height:1.12;margin:0 0 10px;font-weight:800}
+.el-sub{color:var(--el-mut);margin:0 0 14px;font-size:16px;line-height:1.5}
+.el-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px;padding:0;list-style:none}
+.el-chips li{background:var(--el-al);color:var(--el-ad);font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px}
+.el-price{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px}
+.el-price strong{font-size:34px;font-weight:800;color:var(--el-ad)}
+.el-price s{font-size:20px;color:var(--el-mut);font-weight:700}
+.el-save{background:var(--el-ad);color:#fff;font-weight:800;font-size:13px;padding:6px 12px;border-radius:8px}
+.el-packs{border:0;padding:0;margin:0 0 14px;display:grid;gap:12px}
+.el-packs legend{font-weight:800;margin-bottom:10px;font-size:15px;padding:0}
+.el-pack{position:relative;display:flex;align-items:center;gap:14px;border:2px solid var(--el-line);border-radius:14px;padding:16px;min-height:64px;cursor:pointer;transition:border-color .15s,background-color .15s}
+.el-pack:hover{border-color:var(--el-a)}
+.el-pack:has(input:checked){border-color:var(--el-ad);background:var(--el-al)}
+.el-pack:has(input:focus-visible){outline:3px solid var(--el-ad);outline-offset:2px}
+.el-pack input{accent-color:var(--el-ad);width:20px;height:20px;margin:0;flex:0 0 auto}
+.el-pack-info{flex:1;min-width:0}
+.el-pack-title{font-weight:800;font-size:17px;display:block;line-height:1.3}
+.el-pack-note{font-size:13px;color:var(--el-mut)}
+.el-pack-price{text-align:right;white-space:nowrap}
+.el-pack-price strong{display:block;font-size:18px}
+.el-pack-price s{color:var(--el-mut);font-size:13px}
+.el-badge{position:absolute;top:-11px;right:12px;background:var(--el-ad);color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:8px}
+.el-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:56px;border:0;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;text-decoration:none;font-family:inherit;transition:background-color .15s,transform .1s}
+.el-btn:active{transform:scale(.98)}
+.el-btn:focus-visible,.el a:focus-visible,.el summary:focus-visible,.el button:focus-visible{outline:3px solid var(--el-ad);outline-offset:3px}
+.el-buy{background:var(--el-ad);color:#fff}
+.el-buy:hover{background:#000}
+.el-add{background:transparent;color:var(--el-ad);border:2px solid var(--el-ad);margin-top:10px;font-size:16px;min-height:52px}
+.el-add:hover{background:var(--el-al)}
+.el-add:disabled{opacity:.7;cursor:progress}
+.el-status{min-height:1.3em;font-size:14px;margin:8px 0 0}
+.el-status.is-err{color:#b3261e}
+.el-bullets{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:8px}.el-bullets li{font-weight:700;font-size:16px;line-height:1.35}
+.el-ship{border:1px solid var(--el-line);border-radius:14px;padding:16px 18px;margin:18px 0}
+.el-ship-top{margin:0 0 10px;padding-bottom:10px;border-bottom:1px dashed var(--el-line);font-size:15px}
+.el-ship ul:not(.el-pay){list-style:none;margin:0;padding:0;display:grid;gap:8px;color:var(--el-mut);font-size:15px}
+.el-ship ul:not(.el-pay) li:before{content:"✓ ";color:var(--el-a);font-weight:800}
+.el-ship .el-pay{margin-top:12px}
+.el-ship-wa{display:block;margin-top:12px;color:#1a7d3c;font-weight:800;text-decoration:none;font-size:15px}
+.el-trust{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:0 0 18px;padding:0;list-style:none}
+@media(min-width:600px){.el-trust{grid-template-columns:repeat(4,1fr)}}
+.el-trust li{background:#f4f6f2;border-radius:12px;padding:12px 8px;text-align:center;font-size:13px;font-weight:700;line-height:1.3}
+.el-trust li span{display:block;font-size:22px;margin-bottom:4px}
+.el-legal-img{max-width:760px;margin:0 auto;padding:0 16px 48px}.el-legal-img img{width:100%;height:auto;border-radius:16px;display:block}
+.el-info-box{border:1px solid var(--el-line);border-radius:14px;padding:14px 16px;margin:16px 0;display:grid;gap:8px;font-size:15px;color:var(--el-mut);list-style:none}
+.el-info-box li{display:flex;gap:8px;line-height:1.4}.el-info-box p{margin:0}
+.el-info-box b{color:var(--ink,#1d241f)}
+.el-info-box a{color:var(--el-ad);font-weight:700}
+.el-pay{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:6px 0 0;padding:0}
+.el-pay svg{height:24px;width:auto;display:block}
+.el-acc{border-top:1px solid var(--el-line)}
+.el-acc details{border-bottom:1px solid var(--el-line)}
+.el-acc summary{cursor:pointer;padding:16px 0;min-height:48px;font-weight:800;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.el-acc summary::-webkit-details-marker{display:none}
+.el-acc summary:after{content:"+";font-size:22px;line-height:1;color:var(--el-ad)}
+.el-acc details[open] summary:after{content:"−"}
+.el-acc .rte{padding:0 0 16px;line-height:1.6}
+.el .rte img{max-width:100%;height:auto;border-radius:14px}
+.el-band{background:var(--el-al);padding:40px 16px}
+.el-sec{max-width:1100px;margin:0 auto;padding:40px 16px}
+.el h2{text-align:center;font-size:clamp(24px,3.4vw,32px);margin:0 0 22px;font-weight:800;color:var(--el-ad)}
+.el-cards{max-width:1100px;margin:0 auto;display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:800px){.el-cards{grid-template-columns:repeat(4,1fr)}.el-cards.six{grid-template-columns:repeat(6,1fr)}}
+.el-card{background:#fff;border-radius:16px;padding:20px 14px;text-align:center}
+.el-sec .el-card{background:#f4f6f2}
+.el-card span{font-size:30px;display:block;margin-bottom:8px}
+.el-card b{display:block;margin-bottom:4px}
+.el-card p{margin:0;color:var(--el-mut);font-size:14px;line-height:1.45}
+.el-steps{list-style:none;margin:0 auto;padding:0;display:grid;gap:14px;max-width:900px}
+@media(min-width:700px){.el-steps{grid-template-columns:repeat(3,1fr)}}
+.el-steps li{background:#fff;border-radius:16px;padding:20px;text-align:center}
+.el-steps li b{display:block;font-size:28px;color:var(--el-ad)}
+.el-videos{display:grid;gap:14px;max-width:1000px;margin:0 auto;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.el-video{border-radius:16px;overflow:hidden;background:#000;aspect-ratio:9/16;max-height:620px}
+.el-video video{width:100%;height:100%;object-fit:cover;display:block}
+.el-faq{max-width:760px;margin:0 auto}
+.el-cta{text-align:center;max-width:520px;margin:0 auto}
+.el-cta p{color:var(--el-mut);margin:0 0 14px}
+.el-legal{max-width:760px;margin:0 auto;padding:0 16px 40px;color:var(--el-mut);font-size:12px;text-align:center;line-height:1.5}
+.el-sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--bg,#fff);border-top:1px solid var(--el-line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;box-shadow:0 -6px 20px rgba(0,0,0,.08);transform:translateY(110%);transition:transform .2s}
+.el-sticky.is-on{transform:none}
+.el-sticky div{flex:1;min-width:0;line-height:1.2}
+.el-sticky small{display:block;color:var(--el-mut);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.el-sticky strong{font-size:18px}
+.el-sticky .el-btn{width:auto;min-height:48px;padding:0 22px;font-size:16px}
+@media(min-width:900px){.el-sticky{display:none}}
+.el-float{position:fixed;right:16px;z-index:41;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.2);border:0;cursor:pointer}
+.el-wa{bottom:84px;background:#1a8d45}
+.el-wa svg{width:28px;height:28px;fill:#fff}
+.el-top{bottom:140px;background:var(--bg,#fff);color:var(--ink,#1d241f);font-size:20px;opacity:0;pointer-events:none;transition:opacity .2s}
+.el-top.is-on{opacity:1;pointer-events:auto}
+@media(min-width:900px){.el-wa{bottom:24px}.el-top{bottom:84px}}
+.el.js-rv .rv{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.el.js-rv .rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.el *,.el.js-rv .rv{transition:none!important;opacity:1!important;transform:none!important}}
+</style>
+
+<div class="el-wrap">
+<div class="el-grid">
+  <div class="el-gal">
+    <div class="el-main">
+      {%- if promo and section.settings.image_tag != blank -%}<span class="el-tag">{{ section.settings.image_tag | escape }}</span>{%- endif -%}
+      <div class="el-track" data-track>
+        {%- for media in images -%}
+          <div class="el-slide">
+            {%- if forloop.first -%}
+              {{ media | image_url: width: 1200 | image_tag: widths: '400,700,1000,1200', sizes: '(min-width: 900px) 560px, 100vw', loading: 'eager', fetchpriority: 'high', alt: media.alt }}
+            {%- else -%}
+              {{ media | image_url: width: 1200 | image_tag: widths: '400,700,1000,1200', sizes: '(min-width: 900px) 560px, 100vw', loading: 'lazy', alt: media.alt }}
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- if images.size > 1 -%}
+    <div class="el-thumbs" role="group" aria-label="Imágenes del producto">
+      {%- for media in images -%}
+        <button type="button" data-thumb="{{ forloop.index0 }}" aria-label="Ver imagen {{ forloop.index }}" {% if forloop.first %}aria-current="true"{% endif %}>{{ media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}</button>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+
+  <div class="el-info">
+    <p class="el-vendor">{{ settings.brand | escape }}</p>
+    <h1>{{ section.settings.heading | default: p.title | escape }}</h1>
+    {%- if section.settings.subheading != blank -%}<p class="el-sub">{{ section.settings.subheading | escape }}</p>{%- endif -%}
+    {%- if section.settings.chips != blank -%}
+    <ul class="el-chips">
+      {%- assign chips = section.settings.chips | split: ',' -%}
+      {%- for c in chips -%}<li>{{ c | strip | escape }}</li>{%- endfor -%}
+    </ul>
+    {%- endif -%}
+
+    {%- assign bullet_blocks = section.blocks | where: 'type', 'bullet' -%}
+    {%- if bullet_blocks.size > 0 -%}<ul class="el-bullets">{%- for block in bullet_blocks -%}<li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>{%- endfor -%}</ul>{%- endif -%}
+    <div class="el-price" aria-live="polite">
+      <strong data-p>{% render 'entalle-money', amount: def_price %}</strong>
+      <s data-c {% unless def_full > def_price %}hidden{% endunless %}>{% render 'entalle-money', amount: def_full %}</s>
+      <span class="el-save" data-s {% unless def_full > def_price %}hidden{% endunless %}>🏷️ AHORRA <span data-pct>{{ def_pct }}</span>%</span>
+    </div>
+
+    <form method="post" action="{{ routes.cart_add_url }}" class="el-form" data-el-form data-product-form>
+      <fieldset class="el-packs">
+        <legend>{{ section.settings.packs_label | escape }}</legend>
+        {%- for block in pack_blocks -%}
+          {%- liquid
+            assign q = block.settings.qty
+            assign paid = q
+            if promo
+              assign paid = q | plus: 1 | divided_by: 2
+            endif
+            assign pp = v.price | times: paid
+            assign pf = block.settings.compare | times: 100
+          -%}
+          <label class="el-pack" {{ block.shopify_attributes }}>
+            {%- if promo and block.settings.badge != blank -%}<span class="el-badge">{{ block.settings.badge | escape }}</span>{%- endif -%}
+            <input type="radio" name="el-pack-{{ section.id }}" value="{{ q }}" data-pp="{{ pp }}" data-pf="{{ pf }}" data-label="{{ block.settings.title | escape }}" {% if q == def_qty %}checked{% endif %}>
+            <span class="el-pack-info"><span class="el-pack-title">{{ block.settings.title | escape }}</span>{%- if block.settings.note != blank -%}<span class="el-pack-note">{{ block.settings.note | escape }}</span>{%- elsif q > 1 -%}{%- assign pu = pp | divided_by: q -%}<span class="el-pack-note">{% render 'entalle-money', amount: pu %} por unidad</span>{%- endif -%}</span>
+            <span class="el-pack-price"><strong>{% render 'entalle-money', amount: pp %}</strong>{%- if pf > pp -%}<s>{% render 'entalle-money', amount: pf %}</s>{%- endif -%}</span>
+          </label>
+        {%- endfor -%}
+      </fieldset>
+      <input type="hidden" name="id" value="{{ v.id }}">
+      <input type="hidden" name="quantity" value="{{ def_qty }}" data-qty>
+      {%- if p.available and v.available -%}
+        <a class="el-btn el-buy" href="/cart/{{ v.id }}:{{ def_qty }}" data-buy>{{ section.settings.buy_label | escape }} <span aria-hidden="true">→</span></a>
+        {%- if section.settings.show_add -%}<button class="el-btn el-add" type="submit" data-add>{{ section.settings.add_label | escape }}</button>{%- endif -%}
+      {%- else -%}
+        <button class="el-btn el-buy" type="button" disabled>Sin stock por ahora</button>
+      {%- endif -%}
+      <p class="el-status form-status" role="status"></p>
+    </form>
+
+    <div class="el-ship">
+      <p class="el-ship-top">🚚 <span data-eta><b>Llega en {{ section.settings.eta_from }} a {{ section.settings.eta_to }} días</b></span>{% if section.settings.ship_note != blank %} · {{ section.settings.ship_note | escape }}{% endif %}</p>
+      {%- assign check_blocks = section.blocks | where: 'type', 'check' -%}
+      {%- if check_blocks.size > 0 -%}<ul>{%- for block in check_blocks -%}<li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>{%- endfor -%}</ul>{%- endif -%}
+      {%- if shop.enabled_payment_types.size > 0 -%}<ul class="el-pay" aria-label="Medios de pago">{%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag }}</li>{%- endfor -%}</ul>{%- endif -%}
+      {%- if wa != blank -%}<a class="el-ship-wa" href="https://wa.me/{{ wa }}?text={{ 'Hola, tengo una consulta sobre ' | append: p.title | url_encode }}" target="_blank" rel="noopener">💬 ¿Dudas? Escríbenos al {{ section.settings.whatsapp_label | escape }}</a>{%- endif -%}
+    </div>
+    {%- assign trust_blocks = section.blocks | where: 'type', 'trust' -%}
+    {%- if trust_blocks.size > 0 -%}<ul class="el-trust">{%- for block in trust_blocks -%}<li {{ block.shopify_attributes }}><span aria-hidden="true">{{ block.settings.emoji }}</span>{{ block.settings.text | escape }}</li>{%- endfor -%}</ul>{%- endif -%}
+
+    <div class="el-acc">
+      <details open><summary>Descripción</summary><div class="rte">{{ p.description }}</div></details>
+      {%- if section.settings.shipping_text != blank -%}<details><summary>{{ section.settings.shipping_title | escape }}</summary><div class="rte">{{ section.settings.shipping_text }}</div></details>{%- endif -%}
+      {%- if section.settings.warranty_text != blank -%}<details><summary>{{ section.settings.warranty_title | escape }}</summary><div class="rte">{{ section.settings.warranty_text }}</div></details>{%- endif -%}
+    </div>
+  </div>
+</div>
+</div>
+
+{%- assign benefit_blocks = section.blocks | where: 'type', 'benefit' -%}
+{%- if benefit_blocks.size > 0 -%}
+<div class="el-band rv">
+  <h2>{{ section.settings.benefits_heading | escape }}</h2>
+  <div class="el-cards">
+    {%- for block in benefit_blocks -%}<div class="el-card" {{ block.shopify_attributes }}><span aria-hidden="true">{{ block.settings.emoji }}</span><b>{{ block.settings.title | escape }}</b>{%- if block.settings.text != blank -%}<p>{{ block.settings.text | escape }}</p>{%- endif -%}</div>{%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+
+{%- if videos.size > 0 -%}
+<div class="el-sec rv">
+  <h2>{{ section.settings.video_heading | escape }}</h2>
+  <div class="el-videos">
+    {%- for media in videos -%}
+      <div class="el-video">{{ media | video_tag: controls: true, playsinline: true, preload: 'none', image_size: '720x' }}</div>
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+
+
+{%- assign ing_blocks = section.blocks | where: 'type', 'ingredient' -%}
+{%- if ing_blocks.size > 0 -%}
+<div class="el-sec rv">
+  <h2>{{ section.settings.ing_heading | escape }}</h2>
+  <div class="el-cards{% if ing_blocks.size > 4 %} six{% endif %}">
+    {%- for block in ing_blocks -%}<div class="el-card" {{ block.shopify_attributes }}><span aria-hidden="true">{{ block.settings.emoji }}</span><b>{{ block.settings.title | escape }}</b></div>{%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+
+{%- assign faq_blocks = section.blocks | where: 'type', 'faq' -%}
+{%- if faq_blocks.size > 0 -%}
+<div class="el-band rv">
+  <h2>{{ section.settings.faq_heading | escape }}</h2>
+  <div class="el-faq el-acc">
+    {%- for block in faq_blocks -%}
+      <details {{ block.shopify_attributes }}><summary>{{ block.settings.question | escape }}</summary><div class="rte">{{ block.settings.answer }}</div></details>
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+
+{%- if p.available and v.available -%}
+<div class="el-sec el-cta rv">
+  <h2>{{ section.settings.cta_heading | escape }}</h2>
+  {%- if section.settings.cta_text != blank -%}<p>{{ section.settings.cta_text | escape }}</p>{%- endif -%}
+  <a class="el-btn el-buy" href="/cart/{{ v.id }}:{{ def_qty }}" data-buy>{{ section.settings.buy_label | escape }} <span aria-hidden="true">→</span></a>
+</div>
+{%- endif -%}
+{%- if section.settings.legal != blank -%}<p class="el-legal">{{ section.settings.legal | escape }}</p>{%- endif -%}
+{%- if section.settings.legal_image != blank -%}<div class="el-legal-img">{{ section.settings.legal_image | image_url: width: 1200 | image_tag: widths: '400,800,1200', sizes: '(min-width: 800px) 760px, 100vw', loading: 'lazy' }}</div>{%- endif -%}
+
+{%- if p.available and v.available -%}
+<div class="el-sticky" data-sticky aria-hidden="true">
+  <div><small data-sl>{{ p.title | escape }}</small><strong data-sp>{% render 'entalle-money', amount: def_price %}</strong></div>
+  <a class="el-btn el-buy" href="/cart/{{ v.id }}:{{ def_qty }}" data-buy tabindex="-1">{{ section.settings.sticky_label | escape }}</a>
+</div>
+{%- endif -%}
+{%- if wa != blank -%}
+<a class="el-float el-wa" href="https://wa.me/{{ wa }}?text={{ 'Hola, tengo una consulta sobre ' | append: p.title | url_encode }}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.7L3 29l6.9-2.1c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4c-1.1-1.7-1.7-3.7-1.7-5.7C5.3 9.8 10.1 5 16 5s10.7 4.8 10.7 10.7S21.9 26.2 16 26.2zm5.9-8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.4 3.7 5.9 5.1 2.9 1.1 3.5.9 4.1.8.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg></a>
+{%- endif -%}
+<button type="button" class="el-float el-top" data-top aria-label="Volver arriba" tabindex="-1">↑</button>
+
+{%- if request.page_type == 'product' -%}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":{{ p.title | json }},"description":{{ p.description | strip_html | strip_newlines | truncate: 300 | json }},"brand":{"@type":"Brand","name":{{ p.vendor | json }}},{% if v.sku != blank %}"sku":{{ v.sku | json }},{% endif %}{% if v.barcode != blank %}"gtin":{{ v.barcode | json }},{% endif %}"image":[{% for media in images limit: 4 %}{{ media | image_url: width: 1200 | prepend: 'https:' | json }}{% unless forloop.last %},{% endunless %}{% endfor %}],"url":{{ request.origin | append: p.url | json }},"offers":{"@type":"Offer","price":{{ v.price | divided_by: 100.0 | json }},"priceCurrency":{{ cart.currency.iso_code | json }},"availability":"https://schema.org/{% if v.available %}InStock{% else %}OutOfStock{% endif %}","url":{{ request.origin | append: p.url | json }},"seller":{"@type":"Organization","name":{{ shop.name | json }}}}}</script>
+{%- endif -%}
+
+<script>
+(function(){
+  var root=document.currentScript.closest('[data-el]');if(!root||root.dataset.ready)return;root.dataset.ready='1';
+  var vid=root.dataset.vid,fmt=function(c){return new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}).format(c/100)};
+  var TZ='America/Santiago',DW=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],MO=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'],FROM={{ section.settings.eta_from }},TO={{ section.settings.eta_to }};
+  try{var o={};new Intl.DateTimeFormat('en-US',{timeZone:TZ,year:'numeric',month:'numeric',day:'numeric'}).formatToParts(new Date()).forEach(function(x){o[x.type]=+x.value});
+    var dd=function(n){var d=new Date(Date.UTC(o.year,o.month-1,o.day+n));return DW[d.getUTCDay()]+' '+d.getUTCDate()+' '+MO[d.getUTCMonth()]};
+    root.querySelectorAll('[data-eta]').forEach(function(el){el.innerHTML='<b>Llega entre el '+dd(FROM)+'</b> y el <b>'+dd(TO)+'</b>'})}catch(e){}
+  var track=root.querySelector('[data-track]'),thumbs=root.querySelectorAll('[data-thumb]');
+  thumbs.forEach(function(b){b.addEventListener('click',function(){track.scrollTo({left:track.clientWidth*(+b.dataset.thumb)})})});
+  if(track)track.addEventListener('scroll',function(){var i=Math.round(track.scrollLeft/track.clientWidth);thumbs.forEach(function(b){b.setAttribute('aria-current',String(+b.dataset.thumb===i))})},{passive:true});
+  var qty=root.querySelector('[data-qty]');
+  function sync(){var r=root.querySelector('.el-packs input:checked');if(!r)return;var pp=+r.dataset.pp,pf=+r.dataset.pf,on=pf>pp;
+    root.querySelector('[data-p]').textContent=fmt(pp);var sp=root.querySelector('[data-sp]');if(sp)sp.textContent=fmt(pp);
+    var c=root.querySelector('[data-c]'),s=root.querySelector('[data-s]');c.hidden=!on;s.hidden=!on;if(on){c.textContent=fmt(pf);root.querySelector('[data-pct]').textContent=Math.round((pf-pp)*100/pf)}
+    var sl=root.querySelector('[data-sl]');if(sl)sl.textContent=r.dataset.label+' · envío gratis';
+    qty.value=r.value;root.querySelectorAll('[data-buy]').forEach(function(a){a.href='/cart/'+vid+':'+r.value})}
+  root.querySelectorAll('.el-packs input').forEach(function(r){r.addEventListener('change',sync)});sync();
+  var add=root.querySelector('[data-add]');
+  var TXT=/cash on delivery|contra ?entrega|pag(a|ar|o) al recibir|pay on delivery|cod form/i,CLS=/(^|[\s_-])(rsi|releasit)/i;
+  var ours=function(el){return el.closest('[data-buy],.el-sticky,.el-float,.el-pack,.el-add,.el-thumbs,.el-acc')};
+  function meta(el){var c=el.className;c=(c&&c.baseVal!==undefined)?c.baseVal:(c||'');return c+' '+(el.id||'')}
+  function scan(scope,useText){var list=scope.querySelectorAll('button,a,[role=button],input[type=submit]');
+    for(var i=0;i<list.length;i++){var el=list[i];if(ours(el))continue;if(CLS.test(meta(el))||(el.parentElement&&CLS.test(meta(el.parentElement))))return el;
+      if(useText&&TXT.test((el.innerText||el.value||'').trim()))return el}return null}
+  function rsi(){return scan(root.querySelector('.el-info')||root,true)||scan(document,false)}
+  function hide(b){var box=b,par=b.parentElement;if(par&&par.children.length===1&&!par.matches('form,.el-info,.el-form'))box=par;
+    box.style.cssText+=';position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important';box.setAttribute('aria-hidden','true');b.tabIndex=-1}
+  function adopt(){var b=rsi();if(!b)return false;hide(b);root.classList.add('has-rsi');return true}
+  if(!adopt()&&'MutationObserver' in window){var mo=new MutationObserver(function(){if(adopt())mo.disconnect()});mo.observe(document.body,{childList:true,subtree:true});setTimeout(function(){mo.disconnect()},15000)}
+  root.querySelectorAll('[data-buy]').forEach(function(a){a.addEventListener('click',function(e){var b=rsi();if(b){e.preventDefault();b.style.pointerEvents='auto';b.click()}})});
+  var sticky=root.querySelector('[data-sticky]'),top=root.querySelector('[data-top]'),anchor=add||root.querySelector('[data-buy]');
+  if('IntersectionObserver' in window){
+    if(sticky&&anchor)new IntersectionObserver(function(e){var on=e[0].boundingClientRect.top<0&&!e[0].isIntersecting;sticky.classList.toggle('is-on',on);sticky.setAttribute('aria-hidden',String(!on));sticky.querySelector('a').tabIndex=on?0:-1;top.classList.toggle('is-on',on);top.tabIndex=on?0:-1}).observe(anchor);
+    if(!matchMedia('(prefers-reduced-motion: reduce)').matches){root.classList.add('js-rv');var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -10% 0px'});root.querySelectorAll('.rv').forEach(function(el){io.observe(el)})}
+  }
+  top.addEventListener('click',function(){window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});var h=root.querySelector('h1,h2');if(h){h.tabIndex=-1;h.focus({preventScroll:true})}});
+})();
+</script>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+ "name": "Landing de producto",
+ "settings": [
+  {
+   "type": "product",
+   "id": "product",
+   "label": "Producto (solo para la página de inicio)"
+  },
+  {
+   "type": "text",
+   "id": "heading",
+   "label": "Título (vacío = nombre del producto)"
+  },
+  {
+   "type": "text",
+   "id": "subheading",
+   "label": "Bajada"
+  },
+  {
+   "type": "text",
+   "id": "chips",
+   "label": "Etiquetas (separadas por coma)"
+  },
+  {
+   "type": "header",
+   "content": "Promoción"
+  },
+  {
+   "type": "checkbox",
+   "id": "promo_active",
+   "label": "Promoción 2x1 activa",
+   "default": true,
+   "info": "Debe coincidir con el descuento automático de Shopify. Si lo desactivas allá, desactívalo aquí."
+  },
+  {
+   "type": "text",
+   "id": "image_tag",
+   "label": "Sello sobre la imagen",
+   "default": "2x1"
+  },
+  {
+   "type": "header",
+   "content": "Compra"
+  },
+  {
+   "type": "header",
+   "content": "Envío"
+  },
+  {
+   "type": "range",
+   "id": "eta_from",
+   "label": "Entrega desde (días)",
+   "min": 0,
+   "max": 15,
+   "step": 1,
+   "default": 2
+  },
+  {
+   "type": "range",
+   "id": "eta_to",
+   "label": "Entrega hasta (días)",
+   "min": 1,
+   "max": 20,
+   "step": 1,
+   "default": 6
+  },
+  {
+   "type": "text",
+   "id": "ship_note",
+   "label": "Nota junto a la fecha",
+   "default": "Envío gratis"
+  },
+  {
+   "type": "text",
+   "id": "whatsapp_label",
+   "label": "WhatsApp visible",
+   "default": "+56 9 4058 9575"
+  },
+  {
+   "type": "text",
+   "id": "shipping_title",
+   "label": "Título pestaña envío",
+   "default": "Envío y entrega"
+  },
+  {
+   "type": "richtext",
+   "id": "shipping_text",
+   "label": "Texto pestaña envío"
+  },
+  {
+   "type": "text",
+   "id": "warranty_title",
+   "label": "Título pestaña garantía",
+   "default": "Garantía"
+  },
+  {
+   "type": "richtext",
+   "id": "warranty_text",
+   "label": "Texto pestaña garantía"
+  },
+  {
+   "type": "text",
+   "id": "packs_label",
+   "label": "Título de las opciones",
+   "default": "Elige tu opción"
+  },
+  {
+   "type": "text",
+   "id": "buy_label",
+   "label": "Botón comprar",
+   "default": "Comprar ahora"
+  },
+  {
+   "type": "checkbox",
+   "id": "show_add",
+   "label": "Mostrar botón «Agregar al carro»",
+   "default": false
+  },
+  {
+   "type": "text",
+   "id": "add_label",
+   "label": "Botón carro",
+   "default": "Agregar al carro"
+  },
+  {
+   "type": "text",
+   "id": "sticky_label",
+   "label": "Botón barra fija móvil",
+   "default": "Comprar"
+  },
+  {
+   "type": "header",
+   "content": "Secciones"
+  },
+  {
+   "type": "text",
+   "id": "benefits_heading",
+   "label": "Título beneficios",
+   "default": "Por qué elegirla"
+  },
+  {
+   "type": "text",
+   "id": "video_heading",
+   "label": "Título videos",
+   "default": "Míralo en acción"
+  },
+  {
+   "type": "text",
+   "id": "ing_heading",
+   "label": "Título ingredientes",
+   "default": "Ingredientes"
+  },
+  {
+   "type": "text",
+   "id": "faq_heading",
+   "label": "Título preguntas",
+   "default": "Preguntas frecuentes"
+  },
+  {
+   "type": "text",
+   "id": "cta_heading",
+   "label": "Título llamado final",
+   "default": "¿Listo para probarla?"
+  },
+  {
+   "type": "text",
+   "id": "cta_text",
+   "label": "Texto llamado final"
+  },
+  {
+   "type": "textarea",
+   "id": "legal",
+   "label": "Texto legal"
+  },
+  {
+   "type": "image_picker",
+   "id": "legal_image",
+   "label": "Imagen bajo el texto legal"
+  },
+  {
+   "type": "header",
+   "content": "Colores"
+  },
+  {
+   "type": "color",
+   "id": "c_primary",
+   "label": "Principal",
+   "default": "#2f7d1f"
+  },
+  {
+   "type": "color",
+   "id": "c_dark",
+   "label": "Oscuro (botones y precios)",
+   "default": "#1f5a14"
+  },
+  {
+   "type": "color",
+   "id": "c_light",
+   "label": "Fondo suave",
+   "default": "#eef5e9"
+  }
+ ],
+ "blocks": [
+  {
+   "type": "bullet",
+   "name": "Viñeta",
+   "settings": [
+    {
+     "type": "text",
+     "id": "text",
+     "label": "Texto (acepta <b>)",
+     "default": "✅ Beneficio"
+    }
+   ]
+  },
+  {
+   "type": "pack",
+   "name": "Opción de compra",
+   "settings": [
+    {
+     "type": "range",
+     "id": "qty",
+     "label": "Unidades",
+     "min": 1,
+     "max": 6,
+     "step": 1,
+     "default": 1
+    },
+    {
+     "type": "number",
+     "id": "compare",
+     "label": "Precio tachado en CLP (vacío = sin tachado)"
+    },
+    {
+     "type": "text",
+     "id": "title",
+     "label": "Título",
+     "default": "1 frasco"
+    },
+    {
+     "type": "text",
+     "id": "note",
+     "label": "Nota"
+    },
+    {
+     "type": "text",
+     "id": "badge",
+     "label": "Sello (solo con promoción)"
+    },
+    {
+     "type": "checkbox",
+     "id": "default",
+     "label": "Seleccionada por defecto",
+     "default": false
+    }
+   ]
+  },
+  {
+   "type": "benefit",
+   "name": "Beneficio",
+   "settings": [
+    {
+     "type": "text",
+     "id": "emoji",
+     "label": "Emoji",
+     "default": "🌿"
+    },
+    {
+     "type": "text",
+     "id": "title",
+     "label": "Título",
+     "default": "Beneficio"
+    },
+    {
+     "type": "text",
+     "id": "text",
+     "label": "Texto"
+    }
+   ]
+  },
+  {
+   "type": "ingredient",
+   "name": "Ingrediente",
+   "settings": [
+    {
+     "type": "text",
+     "id": "emoji",
+     "label": "Emoji",
+     "default": "🍃"
+    },
+    {
+     "type": "text",
+     "id": "title",
+     "label": "Nombre",
+     "default": "Ingrediente"
+    }
+   ]
+  },
+  {
+   "type": "faq",
+   "name": "Pregunta",
+   "settings": [
+    {
+     "type": "text",
+     "id": "question",
+     "label": "Pregunta",
+     "default": "Pregunta"
+    },
+    {
+     "type": "richtext",
+     "id": "answer",
+     "label": "Respuesta",
+     "default": "<p>Respuesta</p>"
+    }
+   ]
+  },
+  {
+   "type": "check",
+   "name": "Punto de envío",
+   "settings": [
+    {
+     "type": "text",
+     "id": "text",
+     "label": "Texto",
+     "default": "Envío gratis"
+    }
+   ]
+  },
+  {
+   "type": "trust",
+   "name": "Sello de confianza",
+   "settings": [
+    {
+     "type": "text",
+     "id": "emoji",
+     "label": "Emoji",
+     "default": "🔒"
+    },
+    {
+     "type": "text",
+     "id": "text",
+     "label": "Texto",
+     "default": "Compra segura"
+    }
+   ]
+  }
+ ],
+ "presets": [
+  {
+   "name": "Landing de producto"
+  }
+ ]
+}
+{% endschema %}

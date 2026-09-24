@@ -1,0 +1,160 @@
+{%- liquid
+assign show = false
+if section.blocks.size > 0
+ assign show = true
+endif
+-%}
+{%- if show -%}
+<section class="el el-section{% if section.settings.bg == 'soft' %} el-section--soft{% elsif section.settings.bg == 'dark' %} el-section--dark{% endif %}" id="el-{{ section.id }}"><div class="el-container el-rv">{%- render 'el-heading', s: section.settings -%}<div style="overflow-x:auto"><table class="el-compare"><thead><tr><th scope="col">{{ section.settings.col0 | escape }}</th><th scope="col" class="is-us">{{ section.settings.col_us | escape }}</th><th scope="col">{{ section.settings.col_other | escape }}</th></tr></thead><tbody>{%- for b in section.blocks -%}<tr {{ b.shopify_attributes }}><td>{{ b.settings.feature | escape }}</td><td class="is-us">{%- case b.settings.us -%}{%- when 'yes' -%}<span class="el-yes" aria-label="Sí">✔</span>{%- when 'no' -%}<span class="el-no" aria-label="No">✘</span>{%- else -%}{{ b.settings.us_text | escape }}{%- endcase -%}</td><td>{%- case b.settings.other -%}{%- when 'yes' -%}<span class="el-yes" aria-label="Sí">✔</span>{%- when 'no' -%}<span class="el-no" aria-label="No">✘</span>{%- else -%}{{ b.settings.other_text | escape }}{%- endcase -%}</td></tr>{%- endfor -%}</tbody></table></div>{%- if section.settings.show_cta -%}<div style="max-width:440px;margin:28px auto 0">{%- render 'el-buy-button', label: section.settings.cta_label, sublabel: section.settings.cta_sub, anim: 'pulse' -%}</div>{%- endif -%}</div></section>
+{%- endif -%}
+{% schema %}
+{
+ "name": "Comparación",
+ "settings": [
+  {
+   "type": "select",
+   "id": "bg",
+   "label": "Fondo",
+   "default": "white",
+   "options": [
+    {
+     "value": "white",
+     "label": "Blanco"
+    },
+    {
+     "value": "soft",
+     "label": "Suave"
+    },
+    {
+     "value": "dark",
+     "label": "Oscuro"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "eyebrow",
+   "label": "Antetítulo"
+  },
+  {
+   "type": "text",
+   "id": "heading",
+   "label": "Título"
+  },
+  {
+   "type": "textarea",
+   "id": "intro",
+   "label": "Bajada"
+  },
+  {
+   "type": "text",
+   "id": "col0",
+   "label": "Columna 1",
+   "default": "Característica"
+  },
+  {
+   "type": "text",
+   "id": "col_us",
+   "label": "Columna nuestra",
+   "default": "Entalle"
+  },
+  {
+   "type": "text",
+   "id": "col_other",
+   "label": "Columna comparada",
+   "default": "Otros"
+  },
+  {
+   "type": "paragraph",
+   "content": "Compara solo características verificables del producto. No uses afirmaciones de salud ni de marcas de terceros."
+  },
+  {
+   "type": "checkbox",
+   "id": "show_cta",
+   "label": "Mostrar botón de compra",
+   "default": false
+  },
+  {
+   "type": "text",
+   "id": "cta_label",
+   "label": "Texto del botón",
+   "default": "PIDE AHORA"
+  },
+  {
+   "type": "text",
+   "id": "cta_sub",
+   "label": "Texto pequeño del botón",
+   "default": "Pagas al recibir"
+  }
+ ],
+ "blocks": [
+  {
+   "type": "row",
+   "name": "Fila",
+   "settings": [
+    {
+     "type": "text",
+     "id": "feature",
+     "label": "Característica",
+     "default": "Característica"
+    },
+    {
+     "type": "select",
+     "id": "us",
+     "label": "Nuestro",
+     "default": "yes",
+     "options": [
+      {
+       "value": "yes",
+       "label": "Sí"
+      },
+      {
+       "value": "no",
+       "label": "No"
+      },
+      {
+       "value": "text",
+       "label": "Texto"
+      }
+     ]
+    },
+    {
+     "type": "text",
+     "id": "us_text",
+     "label": "Texto nuestro"
+    },
+    {
+     "type": "select",
+     "id": "other",
+     "label": "Comparado",
+     "default": "no",
+     "options": [
+      {
+       "value": "yes",
+       "label": "Sí"
+      },
+      {
+       "value": "no",
+       "label": "No"
+      },
+      {
+       "value": "text",
+       "label": "Texto"
+      }
+     ]
+    },
+    {
+     "type": "text",
+     "id": "other_text",
+     "label": "Texto comparado"
+    }
+   ]
+  }
+ ],
+ "presets": [
+  {
+   "name": "Comparación"
+  }
+ ]
+}
+{% endschema %}

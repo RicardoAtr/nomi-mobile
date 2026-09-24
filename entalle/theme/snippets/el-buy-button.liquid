@@ -1,0 +1,4 @@
+{%- comment -%}Botón de compra secundario: comparte estado con el principal (EL.buy). label, sublabel, anim, extra_class{%- endcomment -%}
+<button type="button" class="el-btn{% if anim != blank and anim != 'none' %} el-anim-{{ anim }}{% endif %} {{ extra_class }}" data-el-buy {% if anim != blank and anim != 'none' %}data-el-anim{% endif %}>
+  <span class="el-btn__txt"><span data-el-buy-label>{{ label | default: 'PIDE AHORA' | escape }}</span>{%- if sublabel != blank -%}<small>{{ sublabel | escape }}</small>{%- endif -%}</span>
+</button>

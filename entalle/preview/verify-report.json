@@ -1,0 +1,155 @@
+{
+ "widths": {
+  "320": {
+   "scrollW": 320,
+   "innerW": 320,
+   "overflow": false,
+   "overEls": [],
+   "ctaTop": 1167,
+   "ctaInFirstScreen": false,
+   "galleryW": 288,
+   "galleryH": 288,
+   "buyLeft": 16,
+   "twoCols": false,
+   "h1Size": "26px",
+   "pageH": 8721,
+   "smallTargets": []
+  },
+  "360": {
+   "scrollW": 360,
+   "innerW": 360,
+   "overflow": false,
+   "overEls": [],
+   "ctaTop": 1175,
+   "ctaInFirstScreen": false,
+   "galleryW": 328,
+   "galleryH": 328,
+   "buyLeft": 16,
+   "twoCols": false,
+   "h1Size": "26px",
+   "pageH": 8716,
+   "smallTargets": []
+  },
+  "390": {
+   "scrollW": 390,
+   "innerW": 390,
+   "overflow": false,
+   "overEls": [],
+   "ctaTop": 1136,
+   "ctaInFirstScreen": false,
+   "galleryW": 358,
+   "galleryH": 358,
+   "buyLeft": 16,
+   "twoCols": false,
+   "h1Size": "26px",
+   "pageH": 8680,
+   "smallTargets": []
+  },
+  "430": {
+   "scrollW": 430,
+   "innerW": 430,
+   "overflow": false,
+   "overEls": [],
+   "ctaTop": 1156,
+   "ctaInFirstScreen": false,
+   "galleryW": 398,
+   "galleryH": 398,
+   "buyLeft": 16,
+   "twoCols": false,
+   "h1Size": "26px",
+   "pageH": 8549,
+   "smallTargets": []
+  },
+  "768": {
+   "scrollW": 768,
+   "innerW": 768,
+   "overflow": false,
+   "overEls": [],
+   "ctaTop": 768,
+   "ctaInFirstScreen": false,
+   "galleryW": 346,
+   "galleryH": 346,
+   "buyLeft": 398,
+   "twoCols": true,
+   "h1Size": "38px",
+   "pageH": 8922,
+   "smallTargets": []
+  },
+  "1280": {
+   "scrollW": 1280,
+   "innerW": 1280,
+   "overflow": false,
+   "overEls": [],
+   "ctaTop": 768,
+   "ctaInFirstScreen": true,
+   "galleryW": 565,
+   "galleryH": 565,
+   "buyLeft": 685,
+   "twoCols": true,
+   "h1Size": "38px",
+   "pageH": 7773,
+   "smallTargets": []
+  },
+  "1440": {
+   "scrollW": 1440,
+   "innerW": 1440,
+   "overflow": false,
+   "overEls": [],
+   "ctaTop": 768,
+   "ctaInFirstScreen": true,
+   "galleryW": 565,
+   "galleryH": 565,
+   "buyLeft": 765,
+   "twoCols": true,
+   "h1Size": "38px",
+   "pageH": 7773,
+   "smallTargets": []
+  }
+ },
+ "behavior": {
+  "stickyAtTop": false,
+  "stickyAfterPassingCta": true,
+  "bodyPaddingWhenSticky": "76px",
+  "stickyBackAtTop": false,
+  "afterPack4": {
+   "now": [
+    "$57.980",
+    "$57.980",
+    "$57.980"
+   ],
+   "qty": "4",
+   "was": "$115.960",
+   "pct": "50",
+   "label": "Pack para compartir · 4 frascos"
+  },
+  "afterPack2": {
+   "now": "$28.990",
+   "qty": "2",
+   "was": "$35.990",
+   "pct": "19"
+  },
+  "checkoutNavigations": [
+   "file:///cart/50571773444196:2"
+  ],
+  "codButtonHidden": true,
+  "codOpenedCount": 1,
+  "codQtyInForm": "2",
+  "stickyHiddenWhileModal": true,
+  "stickyBackAfterModalClose": true,
+  "desktopTopBar": {
+   "on": true,
+   "top": 0
+  },
+  "keyboardReachesCta": true,
+  "reducedMotionAnimation": "none",
+  "normalMotionAnimation": "el-pulse",
+  "baseTemplateSections": [
+   "el el-main",
+   "el el-section",
+   "Así te protegemos",
+   "Clorofila Líquida Benevolent 59 ml · 2x1",
+   "Descubre más productos"
+  ]
+ },
+ "errors": []
+}

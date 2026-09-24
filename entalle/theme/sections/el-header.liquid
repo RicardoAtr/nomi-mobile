@@ -1,0 +1,90 @@
+{%- liquid
+  assign menu = section.settings.menu
+  assign cat_url = section.settings.catalog_url | default: '/collections/catalogo'
+  assign has_cat = false
+  for l in menu.links
+    if l.url == cat_url or l.title contains 'Catálogo'
+      assign has_cat = true
+    endif
+  endfor
+-%}
+{%- if section.blocks.size > 0 -%}
+<div class="el-ann" data-el-ann {% if section.settings.rotate and section.blocks.size > 1 %}data-rotate{% endif %}>
+  {%- for b in section.blocks -%}<p {% unless forloop.first %}hidden{% endunless %} {{ b.shopify_attributes }}>{%- if b.settings.link != blank -%}<a href="{{ b.settings.link }}">{{ b.settings.text | escape }}</a>{%- else -%}{{ b.settings.text | escape }}{%- endif -%}</p>{%- endfor -%}
+</div>
+{%- endif -%}
+<header class="el-hd" data-el-hd>
+  <div class="el-hd__in">
+    <button type="button" class="el-hd__icon el-hd__burger" data-el-menu-open aria-controls="ElMenu" aria-label="Abrir menú"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <a class="el-hd__brand" href="{{ routes.root_url }}" aria-label="{{ settings.brand | default: shop.name | escape }} · inicio">
+      {%- if settings.logo -%}{{ settings.logo | image_url: width: 320 | image_tag: widths: '160,320', width: 150, loading: 'eager', alt: settings.brand }}{%- else -%}<span class="el-hd__word">{{ settings.brand | default: 'ENTALLE' | escape }}</span>{%- endif -%}
+    </a>
+    <nav class="el-hd__nav" aria-label="Principal">
+      {%- for l in menu.links -%}<a href="{{ l.url }}" {% if l.active %}aria-current="page"{% endif %}>{{ l.title | escape }}</a>{%- endfor -%}
+      {%- unless has_cat -%}<a href="{{ cat_url }}">Catálogo</a>{%- endunless -%}
+    </nav>
+    <div class="el-hd__actions">
+      <button type="button" class="el-hd__icon" data-open-search aria-controls="SearchDialog" aria-label="Buscar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <a class="el-hd__icon el-hd__cart" href="{{ routes.cart_url }}" data-open-cart aria-controls="CartDrawer" aria-label="Carrito"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg><span class="el-hd__count" data-cart-count>{{ cart.item_count }}</span></a>
+    </div>
+  </div>
+</header>
+<dialog id="ElMenu" class="el-menu" aria-label="Menú">
+  <div class="el-menu__top"><span class="el-hd__word" style="color:var(--el-ink)">{{ settings.brand | default: 'ENTALLE' | escape }}</span><button type="button" class="el-hd__icon" data-close aria-label="Cerrar menú">✕</button></div>
+  <nav aria-label="Menú móvil">
+    {%- for l in menu.links -%}
+      <a href="{{ l.url }}">{{ l.title | escape }}</a>
+      {%- for c in l.links -%}<a class="is-sub" href="{{ c.url }}">{{ c.title | escape }}</a>{%- endfor -%}
+    {%- endfor -%}
+    {%- unless has_cat -%}<a href="{{ cat_url }}">Catálogo</a>{%- endunless -%}
+  </nav>
+  <div class="el-menu__foot">
+    {%- if settings.contact_email != blank -%}<a href="mailto:{{ settings.contact_email }}">✉️ {{ settings.contact_email }}</a>{%- endif -%}
+    {%- assign wa = settings.whatsapp | remove: '+' | remove: ' ' -%}{%- if wa != blank -%}<a href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">💬 WhatsApp</a>{%- endif -%}
+  </div>
+</dialog>
+<dialog id="SearchDialog" class="search-dialog"><div class="dialog-top"><h2>Buscar</h2><button data-close type="button">Cerrar ×</button></div><form action="{{ routes.search_url }}" method="get" role="search" data-search-form><label for="SearchInput">¿Qué estás buscando?</label><div class="inline-form"><input id="SearchInput" type="search" name="q" autocomplete="off" aria-controls="PredictiveResults"><button class="button" type="submit">Buscar</button></div><div id="PredictiveResults" aria-live="polite"></div></form></dialog>
+<style>
+.el-ann{background:var(--el-primary);color:#fff;text-align:center;font-size:13px;font-weight:700;letter-spacing:.02em;padding:8px 16px;min-height:36px;display:flex;align-items:center;justify-content:center}
+.el-ann p{margin:0}.el-ann a{color:inherit;text-decoration:none}
+.el-hd{background:{{ section.settings.bg }};color:{{ section.settings.fg }};position:{% if section.settings.sticky %}sticky{% else %}relative{% endif %};top:0;z-index:50;border-bottom:1px solid rgba(255,255,255,.08)}
+.el-hd__in{max-width:var(--el-max,1200px);margin:0 auto;padding:0 var(--el-gutter,16px);min-height:64px;display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:8px}
+.el-hd__brand{justify-self:center;display:flex;align-items:center;text-decoration:none;color:inherit}
+.el-hd__brand img{max-height:40px;width:auto}
+.el-hd__word{font-weight:900;letter-spacing:.18em;font-size:22px}
+.el-hd__nav{display:none}
+.el-hd__actions{display:flex;align-items:center;gap:2px;justify-self:end}
+.el-hd__icon{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border:0;background:transparent;color:inherit;cursor:pointer;position:relative;border-radius:10px;font-size:18px}
+.el-hd__icon:hover{background:rgba(255,255,255,.08)}
+.el-hd__icon:focus-visible,.el-hd__nav a:focus-visible,.el-menu a:focus-visible{outline:3px solid var(--el-primary);outline-offset:2px}
+.el-hd__count{position:absolute;top:4px;right:2px;min-width:18px;height:18px;border-radius:9px;background:var(--el-primary);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
+@media(min-width:990px){.el-hd__in{grid-template-columns:auto 1fr auto;min-height:76px;gap:32px}.el-hd__burger{display:none}.el-hd__brand{justify-self:start}.el-hd__brand img{max-height:48px}.el-hd__nav{display:flex;gap:26px;justify-content:center;font-size:15px;font-weight:700}.el-hd__nav a{color:inherit;text-decoration:none;padding:8px 2px;border-bottom:2px solid transparent}.el-hd__nav a:hover,.el-hd__nav a[aria-current=page]{border-color:var(--el-primary)}}
+.el-menu{margin:0;width:min(86vw,360px);max-width:none;height:100dvh;max-height:none;padding:0;border:0;border-radius:0 18px 18px 0;background:#fff;color:var(--el-ink);display:none;flex-direction:column}
+.el-menu[open]{display:flex}
+.el-menu::backdrop{background:rgba(27,27,31,.55)}
+.el-menu__top{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 12px 20px;border-bottom:1px solid var(--el-line)}
+.el-menu nav{display:flex;flex-direction:column;padding:8px 0;overflow:auto}
+.el-menu nav a{display:flex;align-items:center;min-height:52px;padding:0 20px;font-weight:800;font-size:17px;color:inherit;text-decoration:none;border-bottom:1px solid #F4EEEB}
+.el-menu nav a.is-sub{font-weight:600;font-size:15px;padding-left:36px;min-height:44px}
+.el-menu__foot{margin-top:auto;padding:16px 20px calc(16px + env(safe-area-inset-bottom));display:grid;gap:10px;font-size:14px;background:var(--el-soft)}
+.el-menu__foot a{color:inherit;font-weight:700;text-decoration:none}
+@media(prefers-reduced-motion:no-preference){.el-menu[open]{animation:el-slide .22s ease}@keyframes el-slide{from{transform:translateX(-100%)}to{transform:none}}}
+</style>
+<script>
+(function(){
+  var d=document.getElementById('ElMenu'),o=document.querySelector('[data-el-menu-open]');
+  if(o&&d&&!o.dataset.ready){o.dataset.ready='1';o.addEventListener('click',function(){d.showModal()});d.addEventListener('click',function(e){if(e.target===d)d.close()});d.addEventListener('close',function(){o.focus()})}
+  var a=document.querySelector('[data-el-ann][data-rotate]');
+  if(a&&!a.dataset.ready&&!matchMedia('(prefers-reduced-motion: reduce)').matches){a.dataset.ready='1';var ps=a.querySelectorAll('p'),i=0;setInterval(function(){if(document.hidden||a.matches(':hover'))return;ps[i].hidden=true;i=(i+1)%ps.length;ps[i].hidden=false},5000)}
+})();
+</script>
+{% schema %}
+{"name":"Encabezado Entalle","settings":[
+{"type":"link_list","id":"menu","label":"Menú","default":"main-menu"},
+{"type":"url","id":"catalog_url","label":"Enlace de Catálogo","info":"Se agrega al menú si no está."},
+{"type":"checkbox","id":"sticky","label":"Encabezado fijo al bajar","default":false},
+{"type":"checkbox","id":"rotate","label":"Rotar anuncios","default":true},
+{"type":"color","id":"bg","label":"Fondo","default":"#1B1B1F"},
+{"type":"color","id":"fg","label":"Texto","default":"#FFFFFF"}],
+"blocks":[{"type":"announcement","name":"Anuncio","settings":[{"type":"text","id":"text","label":"Mensaje","default":"🚚 Envío gratis a todo Chile"},{"type":"url","id":"link","label":"Enlace"}]}]}
+{% endschema %}

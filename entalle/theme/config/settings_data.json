@@ -1,0 +1,41 @@
+{
+ "current": {
+  "brand": "ENTALLE",
+  "accent": "#E5401C",
+  "surface": "#FFF3EE",
+  "background": "#FFFFFF",
+  "ink": "#1B1B1F",
+  "demo": false,
+  "strict_stock": true,
+  "whatsapp": "56940589575",
+  "contact_email": "contacto@entalle.cl",
+  "legal_identity": "Av. Providencia 2216, Providencia, Santiago",
+  "payments": true,
+  "shipping_enabled": false,
+  "shipping_url": "shopify://pages/envios",
+  "share_image": "shopify://shop_images/clorofila-1.webp",
+  "logo": "shopify://shop_images/Logo_blanco.png",
+  "blocks": {
+   "13669795325273674392": {
+    "type": "shopify://apps/releasit-cod-form/blocks/app-embed/72faf214-4174-4fec-886b-0d0e8d3af9a2",
+    "disabled": false,
+    "settings": {}
+   }
+  },
+  "el_primary": "#E5401C",
+  "el_primary_dark": "#C8340F",
+  "el_ink": "#1B1B1F",
+  "el_soft": "#FFF3EE",
+  "el_yellow": "#FFC53D",
+  "el_trust": "#0F7B6C",
+  "font_head": "poppins_n7",
+  "font_body": "assistant_n4"
+ },
+ "presets": {
+  "Entalle": {
+   "brand": "ENTALLE",
+   "demo": false,
+   "el_primary": "#E5401C"
+  }
+ }
+}

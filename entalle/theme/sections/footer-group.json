@@ -1,0 +1,16 @@
+{
+ "type": "footer",
+ "name": "Pie de página",
+ "sections": {
+  "footer": {
+   "type": "entalle-footer",
+   "settings": {
+    "tagline": "Productos útiles para tu día, con envío gratis y pago al recibir.",
+    "menu": "entalle-v2-ayuda"
+   }
+  }
+ },
+ "order": [
+  "footer"
+ ]
+}

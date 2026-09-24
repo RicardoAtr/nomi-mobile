@@ -1,0 +1,36 @@
+{%- liquid
+  assign p = product
+  if p == blank
+    assign p = section.settings.product
+  endif
+  assign wa = settings.whatsapp | remove: '+' | remove: ' '
+-%}
+{%- if p != blank and section.settings.enable -%}
+<div class="el el-sticky{% if section.settings.desktop == false %} el-sticky--mobile-only{% endif %}" data-el-sticky aria-hidden="true" role="region" aria-label="Compra rápida">
+  <div class="el-sticky__in">
+    {%- if p.featured_image -%}<div class="el-sticky__img">{{ p.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}</div>{%- endif -%}
+    <div class="el-sticky__info">
+      <span class="el-sticky__title">{{ p.title | escape }}</span>
+      <small data-el-offer-label>{{ p.selected_or_first_available_variant.title | escape }}</small>
+      <strong data-el-now>{% render 'entalle-money', amount: p.price %}</strong><s data-el-was hidden></s>
+    </div>
+    {%- if section.settings.whatsapp and wa != blank -%}<a class="el-sticky__wa" href="https://wa.me/{{ wa }}?text={{ 'Hola, tengo una consulta sobre ' | append: p.title | url_encode }}" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp" tabindex="-1"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.7L3 29l6.9-2.1c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3z"/></svg></a>{%- endif -%}
+    <button type="button" class="el-btn{% if section.settings.anim != 'none' %} el-anim-{{ section.settings.anim }}{% endif %}" data-el-buy tabindex="-1" {% if section.settings.anim != 'none' %}data-el-anim{% endif %}><span class="el-btn__txt"><span data-el-buy-label>{{ section.settings.label | escape }}</span></span></button>
+  </div>
+</div>
+{%- endif -%}
+{%- if section.settings.whatsapp and wa != blank -%}
+<a class="el el-float el-float--wa" href="https://wa.me/{{ wa }}{% if p != blank %}?text={{ 'Hola, tengo una consulta sobre ' | append: p.title | url_encode }}{% endif %}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.7L3 29l6.9-2.1c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4c-1.1-1.7-1.7-3.7-1.7-5.7C5.3 9.8 10.1 5 16 5s10.7 4.8 10.7 10.7S21.9 26.2 16 26.2zm5.9-8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.4 3.7 5.9 5.1 2.9 1.1 3.5.9 4.1.8.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg></a>
+{%- endif -%}
+{%- if section.settings.top -%}<button type="button" class="el el-float el-float--top" data-el-top aria-label="Volver arriba" tabindex="-1">↑</button>{%- endif -%}
+{% schema %}
+{"name":"Barra fija de compra","settings":[
+{"type":"checkbox","id":"enable","label":"Mostrar barra fija al pasar el botón principal","default":true},
+{"type":"checkbox","id":"desktop","label":"Mostrar también en PC (barra superior)","default":true},
+{"type":"product","id":"product","label":"Producto (solo fuera de la página de producto)"},
+{"type":"text","id":"label","label":"Botón","default":"PIDE AHORA"},
+{"type":"select","id":"anim","label":"Animación","default":"pulse","options":[{"value":"pulse","label":"Pulso + destello"},{"value":"shake","label":"Vibración suave"},{"value":"shine","label":"Solo destello"},{"value":"none","label":"Sin animación"}]},
+{"type":"checkbox","id":"whatsapp","label":"Botón flotante de WhatsApp","default":true},
+{"type":"checkbox","id":"top","label":"Botón volver arriba","default":true}],
+"presets":[{"name":"Barra fija de compra"}]}
+{% endschema %}

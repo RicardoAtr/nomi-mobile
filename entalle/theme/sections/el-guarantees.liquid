@@ -1,0 +1,125 @@
+{%- liquid
+assign show = false
+if section.blocks.size > 0
+ assign show = true
+endif
+-%}
+{%- if show -%}
+<section class="el el-section{% if section.settings.bg == 'soft' %} el-section--soft{% elsif section.settings.bg == 'dark' %} el-section--dark{% endif %}" id="el-{{ section.id }}"><div class="el-container el-rv">{%- render 'el-heading', s: section.settings -%}<div class="el-guarantees" style="--cols-m:{{ section.settings.cols_m }};--cols-d:{{ section.blocks.size | at_most: 4 }}">{%- for b in section.blocks -%}<div class="el-guarantee" {{ b.shopify_attributes }}><span class="el-guarantee__ico" aria-hidden="true">{{ b.settings.icon }}</span><b>{{ b.settings.title | escape }}</b>{%- if b.settings.text != blank -%}<p>{{ b.settings.text | escape }}</p>{%- endif -%}{%- if b.settings.link != blank -%}<a href="{{ b.settings.link }}">{{ b.settings.link_label | default: 'Ver política' | escape }}</a>{%- endif -%}</div>{%- endfor -%}</div>{%- if section.settings.show_cta -%}<div style="max-width:440px;margin:28px auto 0">{%- render 'el-buy-button', label: section.settings.cta_label, sublabel: section.settings.cta_sub, anim: 'pulse' -%}</div>{%- endif -%}</div></section>
+{%- endif -%}
+{% schema %}
+{
+ "name": "Garantías y confianza",
+ "settings": [
+  {
+   "type": "select",
+   "id": "bg",
+   "label": "Fondo",
+   "default": "white",
+   "options": [
+    {
+     "value": "white",
+     "label": "Blanco"
+    },
+    {
+     "value": "soft",
+     "label": "Suave"
+    },
+    {
+     "value": "dark",
+     "label": "Oscuro"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "eyebrow",
+   "label": "Antetítulo"
+  },
+  {
+   "type": "text",
+   "id": "heading",
+   "label": "Título"
+  },
+  {
+   "type": "textarea",
+   "id": "intro",
+   "label": "Bajada"
+  },
+  {
+   "type": "select",
+   "id": "cols_m",
+   "label": "Columnas en móvil",
+   "default": "2",
+   "options": [
+    {
+     "value": "1",
+     "label": "1"
+    },
+    {
+     "value": "2",
+     "label": "2"
+    }
+   ]
+  },
+  {
+   "type": "checkbox",
+   "id": "show_cta",
+   "label": "Mostrar botón de compra",
+   "default": false
+  },
+  {
+   "type": "text",
+   "id": "cta_label",
+   "label": "Texto del botón",
+   "default": "PIDE AHORA"
+  },
+  {
+   "type": "text",
+   "id": "cta_sub",
+   "label": "Texto pequeño del botón",
+   "default": "Pagas al recibir"
+  }
+ ],
+ "blocks": [
+  {
+   "type": "g",
+   "name": "Garantía",
+   "settings": [
+    {
+     "type": "text",
+     "id": "icon",
+     "label": "Emoji",
+     "default": "🛡️"
+    },
+    {
+     "type": "text",
+     "id": "title",
+     "label": "Título",
+     "default": "Garantía"
+    },
+    {
+     "type": "text",
+     "id": "text",
+     "label": "Texto"
+    },
+    {
+     "type": "url",
+     "id": "link",
+     "label": "Enlace a política"
+    },
+    {
+     "type": "text",
+     "id": "link_label",
+     "label": "Texto del enlace"
+    }
+   ]
+  }
+ ],
+ "presets": [
+  {
+   "name": "Garantías y confianza"
+  }
+ ]
+}
+{% endschema %}

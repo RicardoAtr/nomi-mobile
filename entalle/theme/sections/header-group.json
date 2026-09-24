@@ -1,0 +1,48 @@
+{
+ "type": "header",
+ "name": "Encabezado",
+ "sections": {
+  "header": {
+   "type": "el-header",
+   "blocks": {
+    "a1": {
+     "type": "announcement",
+     "settings": {
+      "text": "🚚 Envío gratis a todo Chile",
+      "link": ""
+     }
+    },
+    "a2": {
+     "type": "announcement",
+     "settings": {
+      "text": "💵 Pagas al recibir tu pedido",
+      "link": ""
+     }
+    },
+    "a3": {
+     "type": "announcement",
+     "settings": {
+      "text": "🔥 2x1 en Clorofila Benevolent",
+      "link": "shopify://products/clorofila-benevolent-x-60-ml"
+     }
+    }
+   },
+   "block_order": [
+    "a1",
+    "a2",
+    "a3"
+   ],
+   "settings": {
+    "menu": "entalle-v2-principal",
+    "catalog_url": "shopify://collections/catalogo",
+    "sticky": false,
+    "rotate": true,
+    "bg": "#1B1B1F",
+    "fg": "#FFFFFF"
+   }
+  }
+ },
+ "order": [
+  "header"
+ ]
+}

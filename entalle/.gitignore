@@ -1,0 +1,5 @@
+tools/node_modules/
+tools/package-lock.json
+preview/shots/*-full.png
+ref/
+*.mp4

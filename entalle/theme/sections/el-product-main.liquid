@@ -1,0 +1,290 @@
+{%- liquid
+  assign p = product
+  if p == blank
+    assign p = section.settings.product
+  endif
+  if p == blank
+    assign p = collections.all.products.first
+  endif
+  assign v = p.selected_or_first_available_variant
+  assign offers = section.blocks | where: 'type', 'offer'
+  assign def = offers.first
+  for o in offers
+    if o.settings.default
+      assign def = o
+      break
+    endif
+  endfor
+  assign q = 1
+  assign pay = 1
+  assign cmp = 0
+  if def
+    assign q = def.settings.qty
+    assign pay = def.settings.pay | default: def.settings.qty
+    assign cmp = def.settings.compare | default: 0 | times: 100
+  endif
+  assign now = v.price | times: pay
+  assign was = 0
+  if cmp > now
+    assign was = cmp
+  elsif q == 1 and v.compare_at_price > v.price
+    assign was = v.compare_at_price
+  endif
+  assign pct = 0
+  if was > 0
+    assign pct = was | minus: now | times: 100 | divided_by: was
+  endif
+  assign gal_blocks = section.blocks | where: 'type', 'gallery_image'
+  assign imgs = p.media | where: 'media_type', 'image'
+  assign heading_tag = 'h1'
+  if template.name != 'product'
+    assign heading_tag = 'h2'
+  endif
+  if section.settings.force_h1
+    assign heading_tag = 'h1'
+  endif
+  assign wa = settings.whatsapp | remove: '+' | remove: ' '
+-%}
+{%- if p != blank -%}
+<section class="el el-main" id="el-main-{{ section.id }}" data-el-product data-variant="{{ v.id }}" data-cod="{% if section.settings.cod_mode == 'checkout' %}off{% else %}auto{% endif %}">
+<script type="application/json" data-el-config>{"currency":{{ cart.currency.iso_code | json }},"variants":[{%- for x in p.variants -%}{"id":{{ x.id }},"title":{{ x.title | json }},"price":{{ x.price }},"compare_at_price":{{ x.compare_at_price | default: 0 }},"available":{{ x.available }},"options":{{ x.options | json }},"image":{{ x.featured_media.id | default: 'null' }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]}</script>
+<div class="el-container">
+<div class="el-main__grid">
+  <div class="el-main__media">
+    <div class="el-gallery" data-el-gallery>
+      <div class="el-gallery__stage" style="aspect-ratio:{{ section.settings.ratio }}">
+        {%- if section.settings.badge != blank -%}<span class="el-gallery__badge">{{ section.settings.badge | escape }}</span>{%- endif -%}
+        <div class="el-gallery__track" data-el-track tabindex="0" role="region" aria-label="Galería de imágenes">
+          {%- if gal_blocks.size > 0 -%}
+            {%- for b in gal_blocks -%}{%- if b.settings.image != blank -%}
+              <div class="el-gallery__slide" {{ b.shopify_attributes }}>{%- if forloop.first -%}{{ b.settings.image | image_url: width: 1400 | image_tag: widths: '360,540,720,900,1100,1400', sizes: '(min-width: 1200px) 620px, (min-width: 990px) 52vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: b.settings.alt | default: p.title }}{%- else -%}{{ b.settings.image | image_url: width: 1400 | image_tag: widths: '360,540,720,900,1100,1400', sizes: '(min-width: 1200px) 620px, (min-width: 990px) 52vw, 100vw', loading: 'lazy', alt: b.settings.alt | default: p.title }}{%- endif -%}</div>
+            {%- endif -%}{%- endfor -%}
+          {%- else -%}
+            {%- for m in imgs -%}
+              <div class="el-gallery__slide" data-media-id="{{ m.id }}">{%- if forloop.first -%}{{ m | image_url: width: 1400 | image_tag: widths: '360,540,720,900,1100,1400', sizes: '(min-width: 1200px) 620px, (min-width: 990px) 52vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: m.alt | default: p.title }}{%- else -%}{{ m | image_url: width: 1400 | image_tag: widths: '360,540,720,900,1100,1400', sizes: '(min-width: 1200px) 620px, (min-width: 990px) 52vw, 100vw', loading: 'lazy', alt: m.alt | default: p.title }}{%- endif -%}</div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+        <button type="button" class="el-gallery__nav el-gallery__nav--prev" data-el-prev aria-label="Imagen anterior">‹</button>
+        <button type="button" class="el-gallery__nav el-gallery__nav--next" data-el-next aria-label="Imagen siguiente">›</button>
+      </div>
+      {%- liquid
+        assign count = imgs.size
+        if gal_blocks.size > 0
+          assign count = gal_blocks.size
+        endif
+      -%}
+      {%- if count > 1 -%}
+      <div class="el-gallery__dots">{%- for i in (1..count) -%}<button type="button" data-el-go="{{ forloop.index0 }}" aria-label="Ver imagen {{ i }}" {% if forloop.first %}aria-current="true"{% endif %}></button>{%- endfor -%}</div>
+      <div class="el-gallery__thumbs">
+        {%- if gal_blocks.size > 0 -%}
+          {%- for b in gal_blocks limit: 6 -%}<button type="button" data-el-go="{{ forloop.index0 }}" aria-label="Ver imagen {{ forloop.index }}" {% if forloop.first %}aria-current="true"{% endif %}>{{ b.settings.image | image_url: width: 180 | image_tag: loading: 'lazy', alt: '' }}</button>{%- endfor -%}
+        {%- else -%}
+          {%- for m in imgs limit: 6 -%}<button type="button" data-el-go="{{ forloop.index0 }}" aria-label="Ver imagen {{ forloop.index }}" {% if forloop.first %}aria-current="true"{% endif %}>{{ m | image_url: width: 180 | image_tag: loading: 'lazy', alt: '' }}</button>{%- endfor -%}
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="el-buy">
+    {%- assign offers_done = false -%}
+    {%- assign bullets_done = false -%}
+    {%- assign acc_done = false -%}
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'vendor' -%}
+          <p class="el-buy__vendor" {{ block.shopify_attributes }}>{{ block.settings.text | default: p.vendor | escape }}</p>
+        {%- when 'title' -%}
+          <{{ heading_tag }} {{ block.shopify_attributes }}>{{ block.settings.text | default: p.title | escape }}</{{ heading_tag }}>
+        {%- when 'subtitle' -%}
+          {%- if block.settings.text != blank -%}<p class="el-buy__sub" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</p>{%- endif -%}
+        {%- when 'chips' -%}
+          {%- if block.settings.items != blank -%}<ul class="el-chips" {{ block.shopify_attributes }}>{%- assign cs = block.settings.items | split: ',' -%}{%- for c in cs -%}<li>{{ c | strip | escape }}</li>{%- endfor -%}</ul>{%- endif -%}
+        {%- when 'bullet' -%}
+          {%- unless bullets_done -%}{%- assign bullets_done = true -%}
+          <ul class="el-bullets">{%- for b in section.blocks -%}{%- if b.type == 'bullet' and b.settings.text != blank -%}<li {{ b.shopify_attributes }}>{{ b.settings.text }}</li>{%- endif -%}{%- endfor -%}</ul>
+          {%- endunless -%}
+        {%- when 'price' -%}
+          <div class="el-price" aria-live="polite" {{ block.shopify_attributes }}>
+            <span class="el-price__now" data-el-now>{% render 'entalle-money', amount: now %}</span>
+            <s class="el-price__was" data-el-was {% if was == 0 %}hidden{% endif %}>{% if was > 0 %}{% render 'entalle-money', amount: was %}{% endif %}</s>
+            <span class="el-price__save" data-el-save {% if pct == 0 %}hidden{% endif %}>{{ block.settings.save_prefix | default: 'AHORRA' | escape }} <span data-el-pct>{{ pct }}</span>%</span>
+            {%- if block.settings.note != blank -%}<span class="el-price__note">{{ block.settings.note | escape }}</span>{%- endif -%}
+          </div>
+        {%- when 'variant_picker' -%}
+          {%- unless p.has_only_default_variant -%}
+          <div {{ block.shopify_attributes }} data-el-variant-picker>
+            {%- for opt in p.options_with_values -%}
+            <fieldset class="el-variants">
+              <legend>{{ opt.name | escape }}</legend>
+              <div class="el-variants__list">
+                {%- for val in opt.values -%}
+                <label class="el-variants__opt"><input type="radio" name="el-opt-{{ section.id }}-{{ forloop.parentloop.index }}" value="{{ val | escape }}" {% if opt.selected_value == val %}checked{% endif %}><span>{{ val | escape }}</span></label>
+                {%- endfor -%}
+              </div>
+            </fieldset>
+            {%- endfor -%}
+          </div>
+          {%- endunless -%}
+        {%- when 'offer' -%}
+          {%- unless offers_done -%}{%- assign offers_done = true -%}
+          <fieldset class="el-offers" data-el-offers>
+            <legend>{{ section.settings.offers_label | escape }}</legend>
+            {%- for o in offers -%}
+              {%- liquid
+                assign oq = o.settings.qty
+                assign op = o.settings.pay | default: oq
+                assign onow = v.price | times: op
+                assign owas = o.settings.compare | default: 0 | times: 100
+                assign ounit = onow | divided_by: oq
+              -%}
+              <label class="el-offer" {{ o.shopify_attributes }}>
+                {%- if o.settings.badge != blank -%}<span class="el-offer__badge{% if o.settings.badge_alt %} el-offer__badge--alt{% endif %}">{{ o.settings.badge | escape }}</span>{%- endif -%}
+                <input type="radio" name="el-offer-{{ section.id }}" value="{{ oq }}" data-pay="{{ op }}" data-compare="{{ owas }}" data-label="{{ o.settings.title | escape }}" {% if o.id == def.id %}checked{% endif %}>
+                <span class="el-offer__info"><span class="el-offer__title">{{ o.settings.title | escape }}</span>
+                  {%- if o.settings.note != blank -%}<span class="el-offer__note">{{ o.settings.note | escape }}</span>{%- elsif oq > 1 -%}<span class="el-offer__note">{% render 'entalle-money', amount: ounit %} por unidad</span>{%- endif -%}</span>
+                <span class="el-offer__price"><strong>{% render 'entalle-money', amount: onow %}</strong>{%- if owas > onow -%}<s>{% render 'entalle-money', amount: owas %}</s>{%- endif -%}</span>
+              </label>
+            {%- endfor -%}
+          </fieldset>
+          {%- endunless -%}
+        {%- when 'urgency' -%}
+          {%- if block.settings.end != blank -%}
+          <div class="el-urgency" data-el-countdown data-end="{{ block.settings.end | escape }}" hidden {{ block.shopify_attributes }}>
+            <span>{{ block.settings.text | escape }}</span>
+            <span class="el-urgency__clock" aria-label="Tiempo restante"><span><b data-u="d">00</b>d</span><span data-u="h">00</span><span data-u="m">00</span><span data-u="s">00</span></span>
+          </div>
+          {%- endif -%}
+        {%- when 'stock' -%}
+          {%- if v.inventory_management == 'shopify' and v.inventory_quantity > 0 and v.inventory_quantity <= block.settings.threshold -%}
+          {%- assign w = v.inventory_quantity | times: 100 | divided_by: block.settings.threshold -%}
+          <div class="el-stock" {{ block.shopify_attributes }}>Quedan {{ v.inventory_quantity }} unidades disponibles<div class="el-stock__bar"><i style="width:{{ w }}%"></i></div></div>
+          {%- endif -%}
+        {%- when 'cta' -%}
+          <form method="post" action="{{ routes.cart_add_url }}" data-el-form data-product-form {{ block.shopify_attributes }}>
+            <input type="hidden" name="id" value="{{ v.id }}">
+            <input type="hidden" name="quantity" value="{{ q }}">
+            <div data-el-main-cta>
+              <button type="button" class="el-btn{% if block.settings.anim != 'none' %} el-anim-{{ block.settings.anim }}{% endif %}" data-el-buy {% if block.settings.anim != 'none' %}data-el-anim{% endif %} {% unless v.available %}disabled{% endunless %}>
+                {%- if block.settings.icon -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>{%- endif -%}
+                <span class="el-btn__txt"><span data-el-buy-label>{% if v.available %}{{ block.settings.label | escape }}{% else %}Agotado{% endif %}</span>{%- if block.settings.sublabel != blank -%}<small>{{ block.settings.sublabel | escape }}</small>{%- endif -%}</span>
+              </button>
+            </div>
+            <p class="el-status" role="status" data-el-status></p>
+          </form>
+        {%- when 'cta_micro' -%}
+          {%- if block.settings.items != blank -%}<div class="el-cta-micro" {{ block.shopify_attributes }}>{%- assign ms = block.settings.items | split: '|' -%}{%- for m in ms -%}<span>{{ m | strip }}</span>{%- endfor -%}</div>{%- endif -%}
+        {%- when 'delivery' -%}
+          <div class="el-delivery" {{ block.shopify_attributes }}>
+            <div class="el-delivery__row"><span class="el-delivery__ico" aria-hidden="true">🚚</span><span><span data-el-eta data-from="{{ block.settings.from }}" data-to="{{ block.settings.to }}" data-business="{{ block.settings.business }}">Llega en {{ block.settings.from }} a {{ block.settings.to }} días{% if block.settings.business %} hábiles{% endif %}</span>{% if block.settings.note != blank %} · {{ block.settings.note | escape }}{% endif %}</span></div>
+            {%- if block.settings.line2 != blank -%}<div class="el-delivery__row"><span class="el-delivery__ico" aria-hidden="true">💵</span><span>{{ block.settings.line2 }}</span></div>{%- endif -%}
+            {%- if block.settings.line3 != blank -%}<div class="el-delivery__row"><span class="el-delivery__ico" aria-hidden="true">🛡️</span><span>{{ block.settings.line3 }}</span></div>{%- endif -%}
+            {%- if block.settings.payments and shop.enabled_payment_types.size > 0 -%}<ul class="el-pay" aria-label="Medios de pago">{%- for t in shop.enabled_payment_types -%}<li>{{ t | payment_type_svg_tag }}</li>{%- endfor -%}</ul>{%- endif -%}
+          </div>
+        {%- when 'trust' -%}
+          {%- if block.settings.items != blank -%}
+          <ul class="el-trustrow" {{ block.shopify_attributes }}>{%- assign ts = block.settings.items | split: '|' -%}{%- for t in ts -%}{%- assign parts = t | split: ':' -%}<li><span aria-hidden="true">{{ parts[0] | strip }}</span>{{ parts[1] | strip | escape }}</li>{%- endfor -%}</ul>
+          {%- endif -%}
+        {%- when 'contact' -%}
+          <p class="el-contact-line" {{ block.shopify_attributes }}>💬 {{ block.settings.text | escape }}
+            {%- if wa != blank %} <a href="https://wa.me/{{ wa }}?text={{ 'Hola, tengo una consulta sobre ' | append: p.title | url_encode }}" target="_blank" rel="noopener">WhatsApp</a>{% endif -%}
+            {%- if settings.contact_email != blank %} · <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a>{% endif -%}</p>
+        {%- when 'accordion' -%}
+          {%- unless acc_done -%}{%- assign acc_done = true -%}
+          <div class="el-acc">
+            {%- for b in section.blocks -%}{%- if b.type == 'accordion' -%}
+              {%- liquid
+                assign body = b.settings.content
+                if b.settings.source == 'description'
+                  assign body = p.description
+                elsif b.settings.source == 'shipping' and shop.shipping_policy.body != blank
+                  assign body = shop.shipping_policy.body
+                elsif b.settings.source == 'refund' and shop.refund_policy.body != blank
+                  assign body = shop.refund_policy.body
+                endif
+              -%}
+              {%- if body != blank -%}<details {% if b.settings.open %}open{% endif %} {{ b.shopify_attributes }}><summary>{{ b.settings.heading | escape }}</summary><div class="el-rte">{{ body }}</div></details>{%- endif -%}
+            {%- endif -%}{%- endfor -%}
+          </div>
+          {%- endunless -%}
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+</div>
+{%- if request.page_type == 'product' -%}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":{{ p.title | json }},"description":{{ p.description | strip_html | strip_newlines | truncate: 300 | json }},"brand":{"@type":"Brand","name":{{ p.vendor | json }}},{% if v.sku != blank %}"sku":{{ v.sku | json }},{% endif %}"image":[{%- for m in imgs limit: 4 -%}{{ m | image_url: width: 1200 | prepend: 'https:' | json }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}],"url":{{ request.origin | append: p.url | json }},"offers":{"@type":"Offer","price":{{ v.price | divided_by: 100.0 | json }},"priceCurrency":{{ cart.currency.iso_code | json }},"availability":"https://schema.org/{% if v.available %}InStock{% else %}OutOfStock{% endif %}","url":{{ request.origin | append: p.url | json }}}}</script>
+{%- endif -%}
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Producto · compra",
+  "tag": "div",
+  "class": "el-section-main",
+  "settings": [
+    {"type": "product", "id": "product", "label": "Producto (solo fuera de la página de producto)"},
+    {"type": "checkbox", "id": "force_h1", "label": "Usar título principal (H1) también en inicio", "default": true},
+    {"type": "select", "id": "ratio", "label": "Proporción de la galería", "default": "1/1", "options": [{"value": "1/1", "label": "Cuadrada"}, {"value": "4/5", "label": "Vertical 4:5"}, {"value": "3/4", "label": "Vertical 3:4"}]},
+    {"type": "text", "id": "badge", "label": "Sello sobre la imagen", "info": "Ej.: 2x1. Déjalo vacío si no hay oferta real."},
+    {"type": "text", "id": "offers_label", "label": "Título de las opciones", "default": "Elige tu oferta"},
+    {"type": "select", "id": "cod_mode", "label": "Botón de compra abre", "info": "Sin formulario contra entrega, abre el checkout de Shopify.", "default": "auto", "options": [{"value": "auto", "label": "Formulario contra entrega (si existe)"}, {"value": "checkout", "label": "Siempre checkout de Shopify"}]},
+    {"type": "paragraph", "content": "Las imágenes de «Imagen de galería» reemplazan las fotos del producto. Úsalas si Dropify sobrescribe imágenes al sincronizar."}
+  ],
+  "blocks": [
+    {"type": "gallery_image", "name": "Imagen de galería", "settings": [{"type": "image_picker", "id": "image", "label": "Imagen"}, {"type": "text", "id": "alt", "label": "Texto alternativo"}]},
+    {"type": "vendor", "name": "Marca", "limit": 1, "settings": [{"type": "text", "id": "text", "label": "Texto (vacío = proveedor)"}]},
+    {"type": "title", "name": "Título", "limit": 1, "settings": [{"type": "text", "id": "text", "label": "Título comercial (vacío = nombre del producto)"}]},
+    {"type": "subtitle", "name": "Propuesta de valor", "limit": 1, "settings": [{"type": "textarea", "id": "text", "label": "Texto"}]},
+    {"type": "chips", "name": "Etiquetas", "limit": 1, "settings": [{"type": "text", "id": "items", "label": "Separadas por coma"}]},
+    {"type": "bullet", "name": "Viñeta", "settings": [{"type": "text", "id": "text", "label": "Texto (acepta <b>)"}]},
+    {"type": "price", "name": "Precio", "limit": 1, "settings": [{"type": "text", "id": "save_prefix", "label": "Texto de ahorro", "default": "AHORRA"}, {"type": "text", "id": "note", "label": "Nota bajo el precio"}]},
+    {"type": "variant_picker", "name": "Selector de variantes", "limit": 1, "settings": [{"type": "paragraph", "content": "Solo aparece si el producto tiene variantes."}]},
+    {"type": "offer", "name": "Oferta / pack", "settings": [
+      {"type": "range", "id": "qty", "label": "Unidades", "min": 1, "max": 10, "step": 1, "default": 1},
+      {"type": "number", "id": "pay", "label": "Unidades que se cobran", "info": "2x1: unidades 2, se cobran 1. Debe coincidir con un descuento automático real en Shopify."},
+      {"type": "number", "id": "compare", "label": "Precio tachado (CLP)", "info": "Vacío = sin tachado."},
+      {"type": "text", "id": "title", "label": "Nombre", "default": "1 unidad"},
+      {"type": "text", "id": "note", "label": "Nota (vacío = precio por unidad)"},
+      {"type": "text", "id": "badge", "label": "Sello"},
+      {"type": "checkbox", "id": "badge_alt", "label": "Sello amarillo", "default": false},
+      {"type": "checkbox", "id": "default", "label": "Preseleccionada", "default": false}
+    ]},
+    {"type": "urgency", "name": "Contador (fecha real)", "limit": 1, "settings": [
+      {"type": "text", "id": "text", "label": "Mensaje", "default": "La oferta termina en"},
+      {"type": "text", "id": "end", "label": "Fecha y hora de término", "info": "Formato 2026-10-05T23:59:00-03:00. Al vencer se oculta solo. Vacío = no se muestra."}
+    ]},
+    {"type": "stock", "name": "Stock bajo (real)", "limit": 1, "settings": [
+      {"type": "range", "id": "threshold", "label": "Mostrar cuando queden como máximo", "min": 1, "max": 50, "step": 1, "default": 10},
+      {"type": "paragraph", "content": "Solo se muestra si Shopify controla el inventario de la variante."}
+    ]},
+    {"type": "cta", "name": "Botón Pide ahora", "limit": 1, "settings": [
+      {"type": "text", "id": "label", "label": "Texto", "default": "PIDE AHORA"},
+      {"type": "text", "id": "sublabel", "label": "Texto pequeño", "default": "Pagas al recibir"},
+      {"type": "checkbox", "id": "icon", "label": "Ícono de carro", "default": true},
+      {"type": "select", "id": "anim", "label": "Animación", "default": "pulse", "options": [{"value": "pulse", "label": "Pulso + destello"}, {"value": "shake", "label": "Vibración suave"}, {"value": "shine", "label": "Solo destello"}, {"value": "none", "label": "Sin animación"}]}
+    ]},
+    {"type": "cta_micro", "name": "Microtexto del botón", "limit": 1, "settings": [{"type": "text", "id": "items", "label": "Separados por |", "default": "🔒 Compra segura | 🚚 Envío gratis | 💵 Pagas al recibir"}]},
+    {"type": "delivery", "name": "Entrega y pago", "limit": 1, "settings": [
+      {"type": "range", "id": "from", "label": "Entrega desde (días)", "min": 0, "max": 20, "step": 1, "default": 2},
+      {"type": "range", "id": "to", "label": "Entrega hasta (días)", "min": 1, "max": 30, "step": 1, "default": 6},
+      {"type": "checkbox", "id": "business", "label": "Contar días hábiles", "default": false},
+      {"type": "text", "id": "note", "label": "Nota junto a la fecha", "default": "envío gratis"},
+      {"type": "richtext", "id": "line2", "label": "Línea de pago"},
+      {"type": "richtext", "id": "line3", "label": "Línea de garantía"},
+      {"type": "checkbox", "id": "payments", "label": "Mostrar medios de pago habilitados", "default": false}
+    ]},
+    {"type": "trust", "name": "Sellos de confianza", "limit": 1, "settings": [{"type": "text", "id": "items", "label": "Formato emoji:texto separados por |", "default": "🚚:Envío gratis|🔒:Compra segura|🛡️:Garantía 30 días|💬:Atención por WhatsApp"}]},
+    {"type": "contact", "name": "Línea de contacto", "limit": 1, "settings": [{"type": "text", "id": "text", "label": "Texto", "default": "¿Dudas? Escríbenos:"}]},
+    {"type": "accordion", "name": "Pestaña desplegable", "settings": [
+      {"type": "text", "id": "heading", "label": "Título", "default": "Descripción"},
+      {"type": "select", "id": "source", "label": "Contenido", "info": "Dropify puede sobrescribir la descripción al sincronizar.", "default": "custom", "options": [{"value": "custom", "label": "Texto de abajo"}, {"value": "description", "label": "Descripción del producto"}, {"value": "shipping", "label": "Política de envío"}, {"value": "refund", "label": "Política de reembolso"}]},
+      {"type": "richtext", "id": "content", "label": "Texto"},
+      {"type": "checkbox", "id": "open", "label": "Abierta por defecto", "default": false}
+    ]}
+  ],
+  "presets": [{"name": "Producto · compra", "blocks": [{"type": "title"}, {"type": "price"}, {"type": "offer", "settings": {"default": true}}, {"type": "cta"}, {"type": "delivery"}]}]
+}
+{% endschema %}

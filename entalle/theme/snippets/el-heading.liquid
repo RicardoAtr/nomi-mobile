@@ -1,0 +1,8 @@
+{%- comment -%}Encabezado estándar de sección: s = section.settings{%- endcomment -%}
+{%- if s.heading != blank or s.eyebrow != blank or s.intro != blank -%}
+<div class="el-head">
+  {%- if s.eyebrow != blank -%}<span class="el-eyebrow">{{ s.eyebrow | escape }}</span>{%- endif -%}
+  {%- if s.heading != blank -%}<h2>{{ s.heading | escape }}</h2>{%- endif -%}
+  {%- if s.intro != blank -%}<p>{{ s.intro | escape }}</p>{%- endif -%}
+</div>
+{%- endif -%}

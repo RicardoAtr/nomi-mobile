@@ -1,0 +1,77 @@
+{
+ "sections": {
+  "main": {
+   "type": "entalle-catalogo",
+   "settings": {
+    "badge_tag": "2x1",
+    "badge_text": "2x1",
+    "c_dark": "#C8340F"
+   }
+  },
+  "discover": {
+   "type": "el-guarantees",
+   "settings": {
+    "bg": "dark",
+    "eyebrow": "Compra tranquilo",
+    "heading": "Así te protegemos",
+    "intro": "",
+    "cols_m": "2",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": ""
+   },
+   "blocks": {
+    "b0": {
+     "type": "g",
+     "settings": {
+      "icon": "🚚",
+      "title": "Envío gratis",
+      "text": "A todo Chile, en 2 a 6 días.",
+      "link": "shopify://pages/envios",
+      "link_label": "Plazos de entrega"
+     }
+    },
+    "b1": {
+     "type": "g",
+     "settings": {
+      "icon": "💵",
+      "title": "Pagas al recibir",
+      "text": "Confirmas tu pedido y pagas cuando llega.",
+      "link": "",
+      "link_label": ""
+     }
+    },
+    "b2": {
+     "type": "g",
+     "settings": {
+      "icon": "🛡️",
+      "title": "Garantía de 30 días",
+      "text": "Si hay un problema con tu pedido, lo solucionamos.",
+      "link": "shopify://pages/devoluciones",
+      "link_label": "Ver política"
+     }
+    },
+    "b3": {
+     "type": "g",
+     "settings": {
+      "icon": "💬",
+      "title": "Atención directa",
+      "text": "WhatsApp y contacto@entalle.cl.",
+      "link": "shopify://pages/contact",
+      "link_label": "Contacto"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3"
+   ]
+  }
+ },
+ "order": [
+  "main",
+  "discover"
+ ]
+}

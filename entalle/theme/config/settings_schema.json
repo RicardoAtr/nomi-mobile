@@ -1,0 +1,210 @@
+[
+ {
+  "name": "theme_info",
+  "theme_name": "Entalle",
+  "theme_version": "1.2.0",
+  "theme_author": "Entalle",
+  "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+  "theme_support_url": "https://help.shopify.com/"
+ },
+ {
+  "name": "Identidad",
+  "settings": [
+   {
+    "type": "text",
+    "id": "brand",
+    "label": "Marca",
+    "default": "ENTALLE"
+   },
+   {
+    "type": "image_picker",
+    "id": "logo",
+    "label": "Logo"
+   },
+   {
+    "type": "image_picker",
+    "id": "favicon",
+    "label": "Favicon",
+    "info": "Imagen cuadrada de al menos 180 × 180 px. Si está vacío se usa la inicial de la marca."
+   },
+   {
+    "type": "image_picker",
+    "id": "share_image",
+    "label": "Imagen para compartir",
+    "info": "Se usa en redes sociales cuando la página no tiene imagen propia. 1200 × 630 px recomendado."
+   },
+   {
+    "type": "color",
+    "id": "background",
+    "label": "Fondo",
+    "default": "#FFFFFF"
+   },
+   {
+    "type": "color",
+    "id": "ink",
+    "label": "Texto",
+    "default": "#202622"
+   },
+   {
+    "type": "color",
+    "id": "accent",
+    "label": "Acento",
+    "default": "#6036D8"
+   },
+   {
+    "type": "color",
+    "id": "surface",
+    "label": "Superficie",
+    "default": "#F3F1F7"
+   },
+   {
+    "type": "checkbox",
+    "id": "demo",
+    "label": "Contenido de muestra",
+    "default": true,
+    "info": "Desactiva antes de publicar. Las tarjetas ficticias no permiten compras."
+   },
+   {
+    "type": "text",
+    "id": "whatsapp",
+    "label": "WhatsApp",
+    "info": "Número internacional, solo dígitos. Ejemplo de formato: 569XXXXXXXX."
+   },
+   {
+    "type": "text",
+    "id": "legal_identity",
+    "label": "Razón social, RUT y domicilio"
+   },
+   {
+    "type": "text",
+    "id": "contact_email",
+    "label": "Correo de atención"
+   }
+  ]
+ },
+ {
+  "name": "Identidad Entalle",
+  "settings": [
+   {
+    "type": "header",
+    "content": "Colores"
+   },
+   {
+    "type": "color",
+    "id": "el_primary",
+    "label": "Principal (botones)",
+    "default": "#E5401C"
+   },
+   {
+    "type": "color",
+    "id": "el_primary_dark",
+    "label": "Principal oscuro (precios, textos)",
+    "default": "#C8340F"
+   },
+   {
+    "type": "color",
+    "id": "el_ink",
+    "label": "Texto",
+    "default": "#1B1B1F"
+   },
+   {
+    "type": "color",
+    "id": "el_soft",
+    "label": "Fondo suave",
+    "default": "#FFF3EE"
+   },
+   {
+    "type": "color",
+    "id": "el_yellow",
+    "label": "Etiquetas de oferta",
+    "default": "#FFC53D"
+   },
+   {
+    "type": "color",
+    "id": "el_trust",
+    "label": "Confianza / éxito",
+    "default": "#0F7B6C"
+   },
+   {
+    "type": "header",
+    "content": "Tipografía"
+   },
+   {
+    "type": "font_picker",
+    "id": "font_head",
+    "label": "Títulos",
+    "default": "poppins_n7"
+   },
+   {
+    "type": "font_picker",
+    "id": "font_body",
+    "label": "Texto",
+    "default": "assistant_n4"
+   }
+  ]
+ },
+ {
+  "name": "Envío y carrito",
+  "settings": [
+   {
+    "type": "checkbox",
+    "id": "shipping_enabled",
+    "label": "Activar progreso de envío gratis",
+    "default": false
+   },
+   {
+    "type": "number",
+    "id": "shipping_threshold",
+    "label": "Umbral en CLP",
+    "default": 49990
+   },
+   {
+    "type": "text",
+    "id": "shipping_scope",
+    "label": "Cobertura",
+    "default": "Revisa la cobertura y condiciones antes de pagar."
+   },
+   {
+    "type": "url",
+    "id": "shipping_url",
+    "label": "Política de despacho"
+   },
+   {
+    "type": "product",
+    "id": "cart_upsell",
+    "label": "Producto complementario"
+   },
+   {
+    "type": "checkbox",
+    "id": "payments",
+    "label": "Mostrar medios de pago habilitados",
+    "default": true
+   }
+  ]
+ },
+ {
+  "name": "Control de compra",
+  "settings": [
+   {
+    "type": "checkbox",
+    "id": "strict_stock",
+    "label": "Exigir inventario controlado",
+    "info": "Impide comprar en este tema si la variante no controla stock o permite sobreventa. No sustituye el control del checkout ni la conexión a Dropi.",
+    "default": true
+   },
+   {
+    "type": "checkbox",
+    "id": "pause_sales",
+    "label": "Pausar compras en este tema",
+    "info": "Para bloquear todos los canales, poner el inventario en cero y desactivar continuar vendiendo en Shopify.",
+    "default": false
+   },
+   {
+    "type": "text",
+    "id": "stock_contact",
+    "label": "Mensaje de consulta",
+    "default": "Esta opción no está disponible. Consúltanos por reposición."
+   }
+  ]
+ }
+]

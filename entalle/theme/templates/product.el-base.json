@@ -1,0 +1,359 @@
+{
+ "sections": {
+  "main": {
+   "type": "el-product-main",
+   "settings": {
+    "ratio": "1/1",
+    "badge": "",
+    "offers_label": "Elige tu oferta",
+    "cod_mode": "auto",
+    "force_h1": true
+   },
+   "blocks": {
+    "b0": {
+     "type": "vendor",
+     "settings": {
+      "text": ""
+     }
+    },
+    "b1": {
+     "type": "title",
+     "settings": {
+      "text": ""
+     }
+    },
+    "b2": {
+     "type": "subtitle",
+     "settings": {
+      "text": ""
+     }
+    },
+    "b3": {
+     "type": "price",
+     "settings": {
+      "save_prefix": "🏷️ AHORRA",
+      "note": ""
+     }
+    },
+    "b4": {
+     "type": "variant_picker",
+     "settings": {}
+    },
+    "b5": {
+     "type": "offer",
+     "settings": {
+      "qty": 1,
+      "title": "1 unidad",
+      "note": "",
+      "badge": "",
+      "default": true
+     }
+    },
+    "b6": {
+     "type": "urgency",
+     "settings": {
+      "text": "La oferta termina en",
+      "end": ""
+     }
+    },
+    "b7": {
+     "type": "stock",
+     "settings": {
+      "threshold": 10
+     }
+    },
+    "b8": {
+     "type": "cta",
+     "settings": {
+      "label": "PIDE AHORA",
+      "sublabel": "Pagas al recibir",
+      "icon": true,
+      "anim": "pulse"
+     }
+    },
+    "b9": {
+     "type": "cta_micro",
+     "settings": {
+      "items": "🔒 Compra segura | 🚚 Envío gratis | 💵 Pagas al recibir"
+     }
+    },
+    "b10": {
+     "type": "delivery",
+     "settings": {
+      "from": 2,
+      "to": 6,
+      "business": false,
+      "note": "envío gratis",
+      "line2": "<p><b>Pagas al recibir</b> tu pedido.</p>",
+      "line3": "",
+      "payments": false
+     }
+    },
+    "b11": {
+     "type": "trust",
+     "settings": {
+      "items": "🚚:Envío gratis|🔒:Compra segura|💵:Pago al recibir|💬:Atención por WhatsApp"
+     }
+    },
+    "b12": {
+     "type": "contact",
+     "settings": {
+      "text": "¿Dudas? Escríbenos:"
+     }
+    },
+    "b13": {
+     "type": "accordion",
+     "settings": {
+      "heading": "Descripción",
+      "source": "description",
+      "content": "",
+      "open": true
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+    "b5",
+    "b6",
+    "b7",
+    "b8",
+    "b9",
+    "b10",
+    "b11",
+    "b12",
+    "b13"
+   ]
+  },
+  "benefits": {
+   "type": "el-benefits",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "demo": {
+   "type": "el-media-text",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "videos": {
+   "type": "el-videos",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir",
+    "from_product": true,
+    "ratio": "9/16"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "compare": {
+   "type": "el-compare",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "steps": {
+   "type": "el-steps",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "included": {
+   "type": "el-included",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "reviews": {
+   "type": "el-reviews",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "faq": {
+   "type": "el-faq",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "guarantees": {
+   "type": "el-guarantees",
+   "settings": {
+    "bg": "dark",
+    "eyebrow": "Compra tranquilo",
+    "heading": "Así te protegemos",
+    "intro": "",
+    "cols_m": "2",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": ""
+   },
+   "blocks": {
+    "b0": {
+     "type": "g",
+     "settings": {
+      "icon": "🚚",
+      "title": "Envío gratis",
+      "text": "A todo Chile, en 2 a 6 días.",
+      "link": "shopify://pages/envios",
+      "link_label": "Plazos de entrega"
+     }
+    },
+    "b1": {
+     "type": "g",
+     "settings": {
+      "icon": "💵",
+      "title": "Pagas al recibir",
+      "text": "Confirmas tu pedido y pagas cuando llega.",
+      "link": "",
+      "link_label": ""
+     }
+    },
+    "b2": {
+     "type": "g",
+     "settings": {
+      "icon": "🛡️",
+      "title": "Garantía de 30 días",
+      "text": "Si hay un problema con tu pedido, lo solucionamos.",
+      "link": "shopify://pages/devoluciones",
+      "link_label": "Ver política"
+     }
+    },
+    "b3": {
+     "type": "g",
+     "settings": {
+      "icon": "💬",
+      "title": "Atención directa",
+      "text": "WhatsApp y contacto@entalle.cl.",
+      "link": "shopify://pages/contact",
+      "link_label": "Contacto"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3"
+   ]
+  },
+  "closing": {
+   "type": "el-cta-banner",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "text": "",
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir",
+    "anim": "pulse",
+    "micro": "🚚 Envío gratis | 💵 Pagas al recibir"
+   }
+  },
+  "discover": {
+   "type": "el-discover",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Catálogo Entalle",
+    "heading": "Descubre más productos",
+    "intro": "",
+    "limit": 8,
+    "cols_d": 4,
+    "badge_tag": "",
+    "more_label": "Ver todo el catálogo"
+   }
+  },
+  "sticky": {
+   "type": "el-sticky-buy",
+   "settings": {
+    "enable": true,
+    "desktop": true,
+    "label": "PIDE AHORA",
+    "anim": "pulse",
+    "whatsapp": true,
+    "top": true
+   }
+  }
+ },
+ "order": [
+  "main",
+  "benefits",
+  "demo",
+  "videos",
+  "compare",
+  "steps",
+  "included",
+  "reviews",
+  "faq",
+  "guarantees",
+  "closing",
+  "discover",
+  "sticky"
+ ]
+}
