@@ -18,7 +18,10 @@
       "icon": true,
       "anim": "pulse",
       "show_add": true,
-      "add_label": "Agregar al carrito"
+      "add_label": "Agregar al carrito",
+      "show_paynow": true,
+      "paynow_label": "PAGAR AHORA CON MERCADO PAGO",
+      "paynow_sub": "Tarjeta, débito o saldo Mercado Pago"
      }
     },
     "b2": {
@@ -67,7 +70,7 @@
       "total": 39990,
       "compare": 49980,
       "title": "2 frascos",
-      "note": "$19.995 cada uno · Ahorra $9.990",
+      "note": "$19.995 cada uno · Ahorra $9.990 · 🎁 + 2 guías digitales gratis",
       "badge": "MÁS VENDIDO",
       "badge_alt": false,
       "default": true
@@ -132,7 +135,7 @@
       "total": 54990,
       "compare": 74970,
       "title": "3 frascos",
-      "note": "$18.330 cada uno · Ahorra $19.980",
+      "note": "$18.330 cada uno · Ahorra $19.980 · 🎁 + 2 guías digitales gratis",
       "badge": "MEJOR PRECIO",
       "badge_alt": true,
       "default": false
@@ -481,6 +484,13 @@
       "q": "¿Qué pasa si tengo un problema con mi pedido?",
       "a": "<p>Tienes 30 días de garantía. Escríbenos por WhatsApp al +56 9 4058 9575 o a <a href=\"mailto:contacto@entalle.cl\">contacto@entalle.cl</a> y lo resolvemos.</p>"
      }
+    },
+    "breg": {
+     "type": "q",
+     "settings": {
+      "q": "¿Cómo recibo las guías de regalo?",
+      "a": "<p>Si llevas el pack, te enviamos por correo los enlaces para descargar las guías <b>21 días de hábitos simples</b> y <b>Constancia y energía diaria</b> junto con la confirmación de tu pedido. También puedes pedirlas por WhatsApp al +56 9 4058 9575.</p>"
+     }
     }
    },
    "block_order": [
@@ -492,6 +502,7 @@
     "b5",
     "b6",
     "b7",
+    "breg",
     "b8"
    ]
   },
@@ -612,11 +623,54 @@
     "whatsapp": true,
     "top": true
    }
+  },
+  "regalo": {
+   "type": "el-media-text",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "side": "right",
+    "image": "shopify://shop_images/regalo-guias-neurazenx.webp",
+    "alt": "Regalo: 2 guías digitales Entalle",
+    "title": "🎁 Tu regalo con el pack",
+    "text": "<p>Llevando el pack recibes gratis 2 guías digitales en PDF, valoradas en $11.980: <b>21 días de hábitos simples</b> y <b>Constancia y energía diaria</b>. Te llegan por correo junto con la confirmación de tu pedido.</p>",
+    "show_cta": true,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Incluye 2 guías de regalo"
+   },
+   "blocks": {
+    "b0": {
+     "type": "point",
+     "settings": {
+      "text": "📘 Hábitos simples para tu día"
+     }
+    },
+    "b1": {
+     "type": "point",
+     "settings": {
+      "text": "✅ Hoja de seguimiento para marcar tu avance"
+     }
+    },
+    "b2": {
+     "type": "point",
+     "settings": {
+      "text": "📱 PDF para leer en tu celular"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2"
+   ]
   }
  },
  "order": [
   "main",
   "hook",
+  "regalo",
   "ritual",
   "steps",
   "reviews",

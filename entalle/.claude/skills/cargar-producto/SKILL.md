@@ -87,6 +87,10 @@ URL de vista previa: `https://www.entalle.cl/products/<handle>?preview_theme_id=
 - Revisa que no haya desplazamiento horizontal y que la galería, el GIF (animado) y los precios estén bien.
 - Nunca envíes formularios ni hagas pedidos: los scripts bloquean esos POST.
 
+## 7b. Pago online y regalo
+- El bloque CTA ya trae «Pagar ahora con Mercado Pago» (`show_paynow`); verifica que lleve al checkout con la cantidad y el total del pack.
+- Si el dueño quiere regalar guías con el pack, sigue `docs/09-ebooks.md`: nota del pack, sección `regalo` (copiar de `product.aurelys.json`) y condición en el correo.
+
 ## 8. Registro y cierre
 - Crea `products/<handle>/README.md` con:
   - IDs;

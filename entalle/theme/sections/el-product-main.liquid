@@ -178,6 +178,9 @@
                 <span class="el-btn__txt"><span data-el-buy-label>{% if v.available %}{{ block.settings.label | escape }}{% else %}Agotado{% endif %}</span>{%- if block.settings.sublabel != blank -%}<small>{{ block.settings.sublabel | escape }}</small>{%- endif -%}</span>
               </button>
             </div>
+            {%- if block.settings.show_paynow and section.settings.cod_mode != 'checkout' -%}
+            <button type="button" class="el-btn el-btn--pay" data-el-paynow {% unless v.available %}disabled{% endunless %}><span class="el-btn__txt"><span>{{ block.settings.paynow_label | default: 'PAGAR AHORA CON MERCADO PAGO' | escape }}</span>{%- if block.settings.paynow_sub != blank -%}<small>{{ block.settings.paynow_sub | escape }}</small>{%- endif -%}</span></button>
+            {%- endif -%}
             {%- if block.settings.show_add -%}
             <button type="submit" name="add" class="el-btn el-btn--ghost el-add" data-el-add {% unless v.available %}disabled{% endunless %}>{{ block.settings.add_label | default: 'Agregar al carrito' | escape }}</button>
             {%- endif -%}
@@ -552,6 +555,25 @@
        "label": "Sin animación"
       }
      ]
+    },
+    {
+     "type": "checkbox",
+     "id": "show_paynow",
+     "label": "Mostrar «Pagar ahora» (pago online)",
+     "info": "Se oculta si la sección abre siempre el checkout.",
+     "default": true
+    },
+    {
+     "type": "text",
+     "id": "paynow_label",
+     "label": "Texto de «Pagar ahora»",
+     "default": "PAGAR AHORA CON MERCADO PAGO"
+    },
+    {
+     "type": "text",
+     "id": "paynow_sub",
+     "label": "Subtexto de «Pagar ahora»",
+     "default": "Tarjeta, débito o saldo Mercado Pago"
     },
     {
      "type": "checkbox",

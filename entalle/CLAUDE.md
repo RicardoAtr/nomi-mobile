@@ -55,8 +55,8 @@ Sigue **`.claude/skills/cargar-producto/SKILL.md`** paso a paso. No hace falta u
 
 ## IDs y datos técnicos
 - **Temas:**
-  - `entalle-v10`: 167027146852 (MAIN desde el 25 sep);
-  - `entalle-v11 · desarrollo`: 167038976100 (copia sin publicar: NeuraZenx + precio por pack).
+  - `entalle-v11`: 167038976100 (MAIN desde el 25 sep);
+  - `entalle-v12 · desarrollo`: 167041335396 (copia sin publicar: guías digitales, botón «Pagar ahora con Mercado Pago» y regalo en packs).
   - El dueño publica seguido: antes de escribir, revisa siempre qué tema es MAIN.
   - Revisa cuál es MAIN con `themes(roles:[MAIN])`.
 - **Escritura de temas:**
@@ -80,6 +80,13 @@ Sigue **`.claude/skills/cargar-producto/SKILL.md`** paso a paso. No hace falta u
 El dueño también edita en el editor de temas (por ejemplo, agregó el widget de Judge.me en Clorofila).
 - **Antes de modificar una plantilla,** descarga la versión del tema MAIN y del tema más reciente que editó el dueño; compara `updatedAt` entre temas. Aplica tus cambios sobre esa versión, nunca sobre la copia local.
 - **Nunca reemplaces imágenes o secciones existentes** sin que te lo pidan. Las piezas nuevas se agregan como secciones o fotos adicionales.
+
+## Pagos y guías digitales
+- **Productos físicos:** dos caminos de compra.
+  - «PIDE AHORA – PAGA AL RECIBIR», con Releasit;
+  - «PAGAR AHORA CON MERCADO PAGO», que usa `data-el-paynow` y lleva a `/cart/<variante>:<cantidad>` en el checkout de Shopify.
+- **Guías digitales:** plantilla `product.el-ebook` con `cod_mode: checkout`, solo pago online. Ver `docs/09-ebooks.md`: IDs, PDF, regalo en packs, fragmento del correo de confirmación.
+- **Producto nuevo:** si lleva regalo, agrega "🎁 + 2 guías digitales gratis" a la nota del pack preferido, la sección `regalo` y la pregunta frecuente; también la condición en el fragmento del correo. Si no tiene guía propia, se regala solo la general.
 
 ## Lo que el dueño hace a mano
 - Publicar el tema: Tienda online → Temas → Publicar. La conexión con Shopify lo bloquea.

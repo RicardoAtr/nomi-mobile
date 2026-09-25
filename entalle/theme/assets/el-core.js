@@ -49,6 +49,7 @@
       if (lbl) { if (!lbl.dataset.orig) lbl.dataset.orig = lbl.textContent; lbl.textContent = avail ? lbl.dataset.orig : 'Agotado'; }
     });
     document.querySelectorAll('[data-el-add]').forEach(function (b) { b.toggleAttribute('disabled', !avail); });
+    document.querySelectorAll('[data-el-paynow]').forEach(function (b) { b.toggleAttribute('disabled', !avail); });
     var f = S.root && S.root.querySelector('form[data-el-form]');
     if (f) {
       var id = f.querySelector('input[name=id]'), q = f.querySelector('input[name=quantity]');
@@ -89,7 +90,7 @@
   /* ---------- Compra: un único proceso, sin duplicados ---------- */
   var COD_TXT = /cash on delivery|contra ?entrega|pag(a|ar|o) al recibir|pay on delivery|cod form/i;
   var COD_CLS = /(^|[\s_-])(rsi|releasit)/i;
-  function ours(el) { return el.closest('[data-el-buy],.el-sticky,.el-float,.el-offer,.el-acc,.el-gallery,[data-el-ignore]'); }
+  function ours(el) { return el.closest('[data-el-buy],[data-el-paynow],.el-sticky,.el-float,.el-offer,.el-acc,.el-gallery,[data-el-ignore]'); }
   function meta(el) { var c = el.className; c = (c && c.baseVal !== undefined) ? c.baseVal : (c || ''); return c + ' ' + (el.id || ''); }
   // Releasit puede insertar varios botones: el del producto y una barra fija inferior en móvil.
   // Se ocultan todos (siguen en el DOM y se usan para abrir su formulario).
@@ -133,9 +134,11 @@
     box.setAttribute('aria-hidden', 'true'); b.tabIndex = -1;
   }
   EL.adoptCod = function () {
-    var root = S.root; if (!root || root.dataset.cod === 'off') return false;
+    var root = S.root; if (!root) return false;
     var all = findAllCod(); if (!all.length) return false;
     all.forEach(hideCod);
+    // En páginas sin pago contra entrega (guías digitales) los botones de Releasit solo se ocultan
+    if (root.dataset.cod === 'off') return false;
     if (!EL.codBtn || !EL.codBtn.isConnected) EL.codBtn = findCod();
     root.classList.add('el-has-cod');
     return true;
@@ -154,6 +157,20 @@
     var t = totals();
     location.href = '/cart/' + S.variant.id + ':' + t.qty;
   };
+  // Pago online: checkout de Shopify con la cantidad del pack (los descuentos automáticos se aplican ahí)
+  EL.paynow = function (trigger) {
+    if (lock || !S.variant || !S.variant.available) return;
+    lock = true;
+    if (trigger) trigger.setAttribute('aria-busy', 'true');
+    setTimeout(function () { lock = false; if (trigger) trigger.removeAttribute('aria-busy'); }, 1500);
+    location.href = '/cart/' + S.variant.id + ':' + totals().qty;
+  };
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-el-paynow]');
+    if (!b) return;
+    e.preventDefault();
+    if (!b.hasAttribute('disabled')) EL.paynow(b);
+  });
   function status(msg, err) {
     var s = S.root && S.root.querySelector('[data-el-status]');
     if (s) { s.textContent = msg; s.classList.toggle('is-err', !!err); }

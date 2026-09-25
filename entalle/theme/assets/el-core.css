@@ -305,3 +305,5 @@ h1,h2,h3{font-family:var(--el-font-head)}
 .el-btn.el-btn.el-add[disabled]{background:transparent;color:#9a9aa1}
 .el-mt.el-mt--text{grid-template-columns:1fr;max-width:760px;margin:0 auto;text-align:center}
 .el-mt--text .el-bullets{justify-items:center}
+
+.el-btn.el-btn.el-btn--pay{background:#009EE3;color:#fff;box-shadow:0 8px 20px rgba(0,158,227,.28);margin-top:10px;min-height:54px}.el-btn.el-btn.el-btn--pay:hover{background:#0088C4}.el-btn--pay small{opacity:.9}

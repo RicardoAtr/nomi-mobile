@@ -68,7 +68,10 @@
       "label": "PIDE AHORA",
       "sublabel": "Pagas al recibir",
       "icon": true,
-      "anim": "pulse"
+      "anim": "pulse",
+      "show_paynow": true,
+      "paynow_label": "PAGAR AHORA CON MERCADO PAGO",
+      "paynow_sub": "Tarjeta, débito o saldo Mercado Pago"
      }
     },
     "b9": {

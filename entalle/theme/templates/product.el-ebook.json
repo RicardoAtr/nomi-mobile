@@ -1,0 +1,275 @@
+{
+ "sections": {
+  "main": {
+   "type": "el-product-main",
+   "settings": {
+    "ratio": "1/1",
+    "badge": "",
+    "offers_label": "",
+    "cod_mode": "checkout",
+    "force_h1": true
+   },
+   "blocks": {
+    "b1": {
+     "type": "cta",
+     "settings": {
+      "label": "COMPRAR GUÍA",
+      "sublabel": "Pago seguro con Mercado Pago · Descarga en tu correo",
+      "icon": true,
+      "anim": "pulse",
+      "show_add": true,
+      "add_label": "Agregar al carrito"
+     }
+    },
+    "b2": {
+     "type": "vendor",
+     "settings": {
+      "text": "Guía digital Entalle"
+     }
+    },
+    "b3": {
+     "type": "title",
+     "settings": {
+      "text": ""
+     }
+    },
+    "b4": {
+     "type": "price",
+     "settings": {
+      "save_prefix": "🏷️ AHORRA",
+      "note": "Precio final con IVA. Producto digital: sin envío."
+     }
+    },
+    "b5": {
+     "type": "subtitle",
+     "settings": {
+      "text": "Una guía en PDF para leer en tu celular, con hábitos simples y una hoja de seguimiento."
+     }
+    },
+    "b11": {
+     "type": "cta_micro",
+     "settings": {
+      "items": "🔒 Pago seguro | 📩 Descarga en tu correo | 📱 PDF"
+     }
+    },
+    "b13": {
+     "type": "trust",
+     "settings": {
+      "items": "📩:Llega a tu correo|🔒:Pago seguro|📱:Léela en tu celular|💬:Atención por WhatsApp"
+     }
+    },
+    "b14": {
+     "type": "contact",
+     "settings": {
+      "text": "¿Dudas? Escríbenos:"
+     }
+    },
+    "b15": {
+     "type": "accordion",
+     "settings": {
+      "heading": "Qué incluye",
+      "source": "description",
+      "content": "<p><b>Aurelys Drenaje Linfático</b> es un suplemento alimenticio herbal en gotas, con cuatro extractos botánicos (diente de león, bardana, amor de hortelano (Galium aparine) y té verde), en frasco ámbar de 50 ml con gotario.</p><p>Ocho horas en la silla o de pie se notan al final del día. Súmale un minuto de cuidado: unas gotas en tu agua o en tu té cada mañana.</p><p><em>Suplemento alimenticio. No reemplaza una alimentación variada y equilibrada ni un tratamiento médico.</em></p>",
+      "open": true
+     }
+    }
+   },
+   "block_order": [
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+    "b5",
+    "b11",
+    "b13",
+    "b14",
+    "b15"
+   ]
+  },
+  "hook": {
+   "type": "el-benefits",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Guías Entalle",
+    "heading": "Hábitos simples, en tu bolsillo",
+    "intro": "Guías cortas y prácticas, escritas por Entalle para acompañar tu rutina.",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir",
+    "cols_m": "2",
+    "cols_d": 4
+   },
+   "blocks": {
+    "b0": {
+     "type": "benefit",
+     "settings": {
+      "icon": "📱",
+      "title": "PDF para tu celular",
+      "text": "Léela donde quieras, sin imprimir."
+     }
+    },
+    "b1": {
+     "type": "benefit",
+     "settings": {
+      "icon": "✅",
+      "title": "Pasos concretos",
+      "text": "Nada de teoría: acciones simples para hoy."
+     }
+    },
+    "b2": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🗓️",
+      "title": "Hoja de seguimiento",
+      "text": "Marca tu avance día a día."
+     }
+    },
+    "b3": {
+     "type": "benefit",
+     "settings": {
+      "icon": "📩",
+      "title": "Llega a tu correo",
+      "text": "Enlace de descarga con tu confirmación."
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3"
+   ]
+  },
+  "faq": {
+   "type": "el-faq",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Resolvemos tus dudas",
+    "heading": "Preguntas frecuentes",
+    "intro": "",
+    "show_cta": true,
+    "cta_label": "COMPRAR GUÍA",
+    "cta_sub": "Pago con Mercado Pago",
+    "schema": true
+   },
+   "blocks": {
+    "b0": {
+     "type": "q",
+     "settings": {
+      "q": "¿Cómo recibo la guía?",
+      "a": "<p>Apenas se aprueba tu pago, te llega un correo de confirmación con el enlace para descargar el PDF. Si no lo ves, revisa tu carpeta de spam o escríbenos por WhatsApp al +56 9 4058 9575.</p>"
+     }
+    },
+    "b1": {
+     "type": "q",
+     "settings": {
+      "q": "¿Cómo puedo pagar?",
+      "a": "<p>Con Mercado Pago: tarjeta de crédito, débito o saldo en tu cuenta. Las guías no se pagan al recibir.</p>"
+     }
+    },
+    "b2": {
+     "type": "q",
+     "settings": {
+      "q": "¿En qué formato viene?",
+      "a": "<p>En PDF, pensado para leer cómodo en el celular. También lo puedes imprimir.</p>"
+     }
+    },
+    "b3": {
+     "type": "q",
+     "settings": {
+      "q": "¿Puedo recibirla de regalo?",
+      "a": "<p>Sí. Al llevar el pack de Clorofila, Aurelys o NeuraZenx te regalamos 2 guías: la general y la de tu producto.</p>"
+     }
+    },
+    "b4": {
+     "type": "q",
+     "settings": {
+      "q": "¿Es un consejo médico?",
+      "a": "<p>No. Son guías de hábitos generales y no reemplazan la indicación de un profesional de la salud.</p>"
+     }
+    },
+    "b5": {
+     "type": "q",
+     "settings": {
+      "q": "¿Puedo compartirla?",
+      "a": "<p>La guía es para uso personal. Está prohibida su reproducción o venta sin autorización de Entalle.</p>"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+    "b5"
+   ]
+  },
+  "closing": {
+   "type": "el-cta-banner",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Guías digitales Entalle",
+    "heading": "Empieza hoy con pasos simples",
+    "text": "Compra tu guía y recíbela en tu correo en minutos.",
+    "cta_label": "COMPRAR GUÍA",
+    "cta_sub": "Pago con Mercado Pago",
+    "anim": "pulse",
+    "micro": "🔒 Pago seguro | 📩 Descarga en tu correo | 📱 PDF",
+    "image": ""
+   }
+  },
+  "legal": {
+   "type": "el-media-text",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir",
+    "side": "left",
+    "image": "",
+    "alt": "",
+    "title": "",
+    "text": "<p><em>Contenido informativo sobre hábitos generales. No reemplaza la indicación de un profesional de la salud. © 2026 Entalle. Todos los derechos reservados.</em></p>"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "discover": {
+   "type": "el-discover",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Productos Entalle",
+    "heading": "Complementa tu rutina",
+    "intro": "",
+    "limit": 8,
+    "cols_d": 4,
+    "badge_tag": "",
+    "more_label": "Ver todo el catálogo"
+   }
+  },
+  "sticky": {
+   "type": "el-sticky-buy",
+   "settings": {
+    "enable": true,
+    "desktop": true,
+    "label": "COMPRAR GUÍA",
+    "anim": "pulse",
+    "whatsapp": true,
+    "top": true
+   }
+  }
+ },
+ "order": [
+  "main",
+  "hook",
+  "faq",
+  "closing",
+  "legal",
+  "discover",
+  "sticky"
+ ]
+}
