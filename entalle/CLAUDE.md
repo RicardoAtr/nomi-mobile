@@ -24,6 +24,7 @@ Sigue **`.claude/skills/cargar-producto/SKILL.md`** paso a paso. No hace falta u
    - Los datos físicos (ml, porciones, cápsulas) salen de la etiqueta del producto propio.
    - Los ingredientes salen de Dropi.
 4. **2x1:**
+   - Packs con precio fijo (escalera): bloque de oferta con `total`, más un descuento automático básico por cantidad mínima, sin combinarse con otros descuentos de producto (ver `products/neurazenx`).
    - Pack `qty 2, pay 1`, con precio tachado = precio de 2 unidades (ej. 2 × $37.990 = $75.980).
    - Descuento automático BXGY "2x1 <producto>": compra 1 y lleva 1 gratis, sobre el mismo producto, con `combinesWith` todo en true (necesario para el downsell de Releasit).
 5. **Condiciones de venta:**
@@ -54,8 +55,8 @@ Sigue **`.claude/skills/cargar-producto/SKILL.md`** paso a paso. No hace falta u
 
 ## IDs y datos técnicos
 - **Temas:**
-  - `entalle-v9`: 167026622564 (MAIN desde el 24 sep);
-  - `entalle-v10 · desarrollo`: 167027146852 (copia sin publicar, lista para publicar).
+  - `entalle-v10`: 167027146852 (MAIN desde el 25 sep);
+  - `entalle-v11 · desarrollo`: 167038976100 (copia sin publicar: NeuraZenx + precio por pack).
   - El dueño publica seguido: antes de escribir, revisa siempre qué tema es MAIN.
   - Revisa cuál es MAIN con `themes(roles:[MAIN])`.
 - **Escritura de temas:**
@@ -66,6 +67,7 @@ Sigue **`.claude/skills/cargar-producto/SKILL.md`** paso a paso. No hace falta u
   2. `curl -X PUT` del archivo;
   3. `themeFilesUpsert` con body `{type:URL, value:resourceUrl}`.
   - Es asíncrono y no reporta errores: verifica con `checksumMd5`.
+- **Orden de subida:** cuando cambies el schema de una sección, súbela primero y después la plantilla. Si no, Shopify descarta los ajustes nuevos de la plantilla.
 - **Esquemas:** Shopify rechaza en silencio etiquetas de opción de más de 50 caracteres, rangos con menos de 3 pasos, nombres de bloque de más de 25 caracteres y etiquetas de más de 70. Corre `python3 tools/schema-lint.py theme` antes de subir.
 - **Colección Catálogo:** `gid://shopify/Collection/490766467172` (manual).
 - **Releasit** (contra entrega):

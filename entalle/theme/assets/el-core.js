@@ -21,12 +21,12 @@
   }
 
   function offerFor(input) {
-    return { qty: +input.value, pay: +input.dataset.pay || +input.value, compare: +input.dataset.compare || 0, label: input.dataset.label || '' };
+    return { qty: +input.value, pay: +input.dataset.pay || +input.value, total: +input.dataset.total || 0, compare: +input.dataset.compare || 0, label: input.dataset.label || '' };
   }
 
   function totals() {
     var v = S.variant, o = S.offer || { qty: 1, pay: 1, compare: 0 };
-    var now = v.price * o.pay;
+    var now = o.total ? o.total : v.price * o.pay;
     var was = o.compare > now ? o.compare : 0;
     if (!was && v.compare_at_price && v.compare_at_price > v.price && o.qty === 1) was = v.compare_at_price;
     return { now: now, was: was, pct: was ? Math.round((was - now) * 100 / was) : 0, unit: Math.round(now / o.qty), qty: o.qty };

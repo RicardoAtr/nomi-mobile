@@ -1,0 +1,632 @@
+{
+ "sections": {
+  "main": {
+   "type": "el-product-main",
+   "settings": {
+    "ratio": "1/1",
+    "badge": "",
+    "offers_label": "Elige tu pack",
+    "cod_mode": "auto",
+    "force_h1": true
+   },
+   "blocks": {
+    "b1": {
+     "type": "cta",
+     "settings": {
+      "label": "PIDE AHORA - PAGA AL RECIBIR",
+      "sublabel": "Envío gratis a todo Chile",
+      "icon": true,
+      "anim": "pulse",
+      "show_add": true,
+      "add_label": "Agregar al carrito"
+     }
+    },
+    "b2": {
+     "type": "vendor",
+     "settings": {
+      "text": "Zen Nutrition"
+     }
+    },
+    "b3": {
+     "type": "title",
+     "settings": {
+      "text": "Ácido Alfa Lipoico 600 mg con Bioperine – NeuraZenx"
+     }
+    },
+    "b4": {
+     "type": "price",
+     "settings": {
+      "save_prefix": "🏷️ AHORRA",
+      "note": "Precio final con IVA. Envío gratis a todo Chile."
+     }
+    },
+    "b5": {
+     "type": "subtitle",
+     "settings": {
+      "text": "Ácido Alfa Lipoico 600 mg con Bioperine, en cápsulas vegetales para complementar tu alimentación diaria."
+     }
+    },
+    "b6": {
+     "type": "variant_picker",
+     "settings": {}
+    },
+    "b7": {
+     "type": "offer",
+     "settings": {
+      "qty": 1,
+      "title": "1 frasco",
+      "note": "60 cápsulas vegetales",
+      "badge": "",
+      "default": false
+     }
+    },
+    "b8": {
+     "type": "offer",
+     "settings": {
+      "qty": 2,
+      "total": 39990,
+      "compare": 49980,
+      "title": "2 frascos",
+      "note": "$19.995 cada uno · Ahorra $9.990",
+      "badge": "MÁS VENDIDO",
+      "badge_alt": false,
+      "default": true
+     }
+    },
+    "b9": {
+     "type": "urgency",
+     "settings": {
+      "text": "La oferta termina en",
+      "end": ""
+     }
+    },
+    "b10": {
+     "type": "stock",
+     "settings": {
+      "threshold": 10
+     }
+    },
+    "b11": {
+     "type": "cta_micro",
+     "settings": {
+      "items": "🔒 Compra segura | 🚚 Envío gratis | 💵 Pagas al recibir"
+     }
+    },
+    "b12": {
+     "type": "delivery",
+     "settings": {
+      "from": 2,
+      "to": 6,
+      "business": false,
+      "note": "envío gratis",
+      "line2": "<p><b>Pagas al recibir</b> tu pedido, sin adelantar dinero.</p>",
+      "line3": "<p><b>Garantía de 30 días</b> si hay un problema con tu pedido.</p>",
+      "payments": false
+     }
+    },
+    "b13": {
+     "type": "trust",
+     "settings": {
+      "items": "🚚:Envío gratis|💵:Pago al recibir|🛡️:Garantía 30 días|💬:Atención por WhatsApp"
+     }
+    },
+    "b14": {
+     "type": "contact",
+     "settings": {
+      "text": "¿Dudas? Escríbenos:"
+     }
+    },
+    "b15": {
+     "type": "accordion",
+     "settings": {
+      "heading": "Descripción",
+      "source": "custom",
+      "content": "<p><b>NeuraZenx de Zen Nutrition</b> es un suplemento alimenticio elaborado con <b>Ácido Alfa Lipoico (ALA) 600 mg</b> y <b>Bioperine</b>, presentado en 60 cápsulas vegetales.</p><ul><li>Sin sabor</li><li>Formato práctico para tu consumo diario</li><li>Para mayores de 18 años</li></ul><p><b>Uso:</b> sigue exclusivamente las indicaciones de consumo del envase.</p><p><em>Suplemento alimenticio, no es un medicamento. No está destinado a diagnosticar, tratar, curar ni prevenir enfermedades. No reemplaza una alimentación variada y equilibrada.</em></p>",
+      "open": true
+     }
+    },
+    "b8b": {
+     "type": "offer",
+     "settings": {
+      "qty": 3,
+      "total": 54990,
+      "compare": 74970,
+      "title": "3 frascos",
+      "note": "$18.330 cada uno · Ahorra $19.980",
+      "badge": "MEJOR PRECIO",
+      "badge_alt": true,
+      "default": false
+     }
+    }
+   },
+   "block_order": [
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+    "b5",
+    "b6",
+    "b7",
+    "b8",
+    "b8b",
+    "b9",
+    "b10",
+    "b11",
+    "b12",
+    "b13",
+    "b14",
+    "b15"
+   ]
+  },
+  "hook": {
+   "type": "el-benefits",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Por qué elegirlo",
+    "heading": "Nutrición que te acompaña",
+    "intro": "Una fórmula simple para sumar a tu rutina: Ácido Alfa Lipoico y Bioperine en cápsulas vegetales.",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir",
+    "cols_m": "2",
+    "cols_d": 4
+   },
+   "blocks": {
+    "b0": {
+     "type": "benefit",
+     "settings": {
+      "icon": "💊",
+      "title": "Ácido Alfa Lipoico 600 mg",
+      "text": "Ingrediente principal de la fórmula."
+     }
+    },
+    "b1": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🌶️",
+      "title": "Con Bioperine",
+      "text": "Extracto de pimienta negra incluido en la fórmula."
+     }
+    },
+    "b2": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🌱",
+      "title": "60 cápsulas vegetales",
+      "text": "Sin sabor, fáciles de tomar."
+     }
+    },
+    "b3": {
+     "type": "benefit",
+     "settings": {
+      "icon": "📅",
+      "title": "Consumo diario",
+      "text": "Un hábito simple, todos los días."
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3"
+   ]
+  },
+  "ritual": {
+   "type": "el-media-text",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": true,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "2 frascos por $39.990",
+    "side": "left",
+    "image": "shopify://shop_images/neurazenx-ia-historia.webp",
+    "alt": "Mujer tomando una cápsula de NeuraZenx con un vaso de agua",
+    "title": "Incorpóralo a tu rutina",
+    "text": "<p>Tómalo con agua, siempre en el mismo momento del día. La constancia es la clave.</p>"
+   },
+   "blocks": {
+    "b0": {
+     "type": "point",
+     "settings": {
+      "text": "💧 Con un vaso de agua"
+     }
+    },
+    "b1": {
+     "type": "point",
+     "settings": {
+      "text": "📋 Según la dosis del envase"
+     }
+    },
+    "b2": {
+     "type": "point",
+     "settings": {
+      "text": "📅 Todos los días"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2"
+   ]
+  },
+  "steps": {
+   "type": "el-steps",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Modo de uso",
+    "heading": "¿Cómo se usa?",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {
+    "b0": {
+     "type": "step",
+     "settings": {
+      "title": "Sigue la dosis del envase",
+      "text": "Respeta la porción que indica el fabricante."
+     }
+    },
+    "b1": {
+     "type": "step",
+     "settings": {
+      "title": "Tómalo con agua",
+      "text": "En el momento del día que te acomode."
+     }
+    },
+    "b2": {
+     "type": "step",
+     "settings": {
+      "title": "Constancia",
+      "text": "Todos los días, como parte de tu rutina."
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2"
+   ]
+  },
+  "reviews": {
+   "type": "el-reviews",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Clientes Entalle",
+    "heading": "Opiniones verificadas",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "included": {
+   "type": "el-included",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Lo que recibes",
+    "heading": "Qué incluye tu pedido",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir"
+   },
+   "blocks": {
+    "b0": {
+     "type": "item",
+     "settings": {
+      "qty": "1×",
+      "per_pack": true,
+      "units": 1,
+      "text": "Frascos NeuraZenx de 60 cápsulas vegetales"
+     }
+    }
+   },
+   "block_order": [
+    "b0"
+   ]
+  },
+  "specs": {
+   "type": "el-benefits",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Datos del envase",
+    "heading": "Especificaciones",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "",
+    "cols_m": "2",
+    "cols_d": 3
+   },
+   "blocks": {
+    "b0": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🏷️",
+      "title": "Marca",
+      "text": "Zen Nutrition"
+     }
+    },
+    "b1": {
+     "type": "benefit",
+     "settings": {
+      "icon": "💊",
+      "title": "Ácido Alfa Lipoico",
+      "text": "600 mg"
+     }
+    },
+    "b2": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🌶️",
+      "title": "Bioperine",
+      "text": "Incluida en la fórmula"
+     }
+    },
+    "b3": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🌱",
+      "title": "Contenido",
+      "text": "60 cápsulas vegetales"
+     }
+    },
+    "b4": {
+     "type": "benefit",
+     "settings": {
+      "icon": "👅",
+      "title": "Sabor",
+      "text": "Sin sabor"
+     }
+    },
+    "b5": {
+     "type": "benefit",
+     "settings": {
+      "icon": "🔞",
+      "title": "Edad",
+      "text": "Mayores de 18 años"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+    "b5"
+   ]
+  },
+  "faq": {
+   "type": "el-faq",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Resolvemos tus dudas",
+    "heading": "Preguntas frecuentes",
+    "intro": "",
+    "show_cta": true,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Paga al recibir",
+    "schema": true
+   },
+   "blocks": {
+    "b0": {
+     "type": "q",
+     "settings": {
+      "q": "¿Qué es NeuraZenx?",
+      "a": "<p>Un suplemento alimenticio de Zen Nutrition con Ácido Alfa Lipoico (ALA) 600 mg y Bioperine, en 60 cápsulas vegetales.</p>"
+     }
+    },
+    "b1": {
+     "type": "q",
+     "settings": {
+      "q": "¿Qué es el Ácido Alfa Lipoico?",
+      "a": "<p>Es un compuesto utilizado en formulaciones de suplementos nutricionales. NeuraZenx lo incorpora como ingrediente principal, acompañado de Bioperine.</p>"
+     }
+    },
+    "b2": {
+     "type": "q",
+     "settings": {
+      "q": "¿Cómo se toma?",
+      "a": "<p>Sigue exclusivamente las indicaciones de consumo del envase, con un vaso de agua.</p>"
+     }
+    },
+    "b3": {
+     "type": "q",
+     "settings": {
+      "q": "¿Cuánto me dura un frasco?",
+      "a": "<p>Depende de la dosis indicada en el envase. Cada frasco trae 60 cápsulas vegetales.</p>"
+     }
+    },
+    "b4": {
+     "type": "q",
+     "settings": {
+      "q": "¿Para quién no es?",
+      "a": "<p>No es para menores de 18 años. Si consumes medicamentos, estás embarazada, en período de lactancia o tienes alguna condición de salud, consulta a un profesional de la salud antes de consumirlo.</p>"
+     }
+    },
+    "b5": {
+     "type": "q",
+     "settings": {
+      "q": "¿Es un medicamento?",
+      "a": "<p>No. Es un suplemento alimenticio: no está destinado a diagnosticar, tratar, curar ni prevenir enfermedades, y no reemplaza tratamientos indicados por profesionales de la salud.</p>"
+     }
+    },
+    "b6": {
+     "type": "q",
+     "settings": {
+      "q": "¿Cómo pago y cuánto demora el envío?",
+      "a": "<p>Pagas al recibir tu pedido, sin adelantar dinero. El envío es gratis a todo Chile y llega entre 2 y 6 días.</p>"
+     }
+    },
+    "b7": {
+     "type": "q",
+     "settings": {
+      "q": "¿Puedo pedir solo un frasco?",
+      "a": "<p>Sí, a $24.990. Pero el pack de 2 frascos sale $39.990 ($19.995 cada uno) y el de 3, $54.990 ($18.330 cada uno).</p>"
+     }
+    },
+    "b8": {
+     "type": "q",
+     "settings": {
+      "q": "¿Qué pasa si tengo un problema con mi pedido?",
+      "a": "<p>Tienes 30 días de garantía. Escríbenos por WhatsApp al +56 9 4058 9575 o a <a href=\"mailto:contacto@entalle.cl\">contacto@entalle.cl</a> y lo resolvemos.</p>"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3",
+    "b4",
+    "b5",
+    "b6",
+    "b7",
+    "b8"
+   ]
+  },
+  "guarantees": {
+   "type": "el-guarantees",
+   "settings": {
+    "bg": "dark",
+    "eyebrow": "Compra tranquilo",
+    "heading": "Así te protegemos",
+    "intro": "",
+    "cols_m": "2",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": ""
+   },
+   "blocks": {
+    "b0": {
+     "type": "g",
+     "settings": {
+      "icon": "🚚",
+      "title": "Envío gratis",
+      "text": "A todo Chile, en 2 a 6 días.",
+      "link": "shopify://pages/envios",
+      "link_label": "Plazos de entrega"
+     }
+    },
+    "b1": {
+     "type": "g",
+     "settings": {
+      "icon": "💵",
+      "title": "Pagas al recibir",
+      "text": "Confirmas tu pedido y pagas cuando llega.",
+      "link": "",
+      "link_label": ""
+     }
+    },
+    "b2": {
+     "type": "g",
+     "settings": {
+      "icon": "🛡️",
+      "title": "Garantía de 30 días",
+      "text": "Si hay un problema con tu pedido, lo solucionamos.",
+      "link": "shopify://pages/devoluciones",
+      "link_label": "Ver política"
+     }
+    },
+    "b3": {
+     "type": "g",
+     "settings": {
+      "icon": "💬",
+      "title": "Atención directa",
+      "text": "WhatsApp y contacto@entalle.cl.",
+      "link": "shopify://pages/contact",
+      "link_label": "Contacto"
+     }
+    }
+   },
+   "block_order": [
+    "b0",
+    "b1",
+    "b2",
+    "b3"
+   ]
+  },
+  "closing": {
+   "type": "el-cta-banner",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "Envío gratis · Pagas al recibir",
+    "heading": "2 frascos por $39.990",
+    "text": "Ahorra $9.990 llevando 2. O lleva 3 por $54.990.",
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Paga al recibir",
+    "anim": "pulse",
+    "micro": "🚚 Envío gratis | 💵 Pagas al recibir | 🛡️ Garantía 30 días",
+    "image": "shopify://shop_images/neurazenx-2frascos-1x1.webp"
+   }
+  },
+  "legal": {
+   "type": "el-media-text",
+   "settings": {
+    "bg": "white",
+    "eyebrow": "",
+    "heading": "",
+    "intro": "",
+    "show_cta": false,
+    "cta_label": "PIDE AHORA",
+    "cta_sub": "Pagas al recibir",
+    "side": "left",
+    "image": "",
+    "alt": "",
+    "title": "",
+    "text": "<p><em>Suplemento alimenticio, no es un medicamento. No está destinado a diagnosticar, tratar, curar ni prevenir enfermedades. No reemplaza una alimentación variada y equilibrada. Si consumes medicamentos, estás embarazada o en lactancia, consulta a un profesional de la salud. Mayores de 18 años. Mantener fuera del alcance de los niños.</em></p>"
+   },
+   "blocks": {},
+   "block_order": []
+  },
+  "discover": {
+   "type": "el-discover",
+   "settings": {
+    "bg": "soft",
+    "eyebrow": "Catálogo Entalle",
+    "heading": "Descubre más productos",
+    "intro": "",
+    "limit": 8,
+    "cols_d": 4,
+    "badge_tag": "",
+    "more_label": "Ver todo el catálogo"
+   }
+  },
+  "sticky": {
+   "type": "el-sticky-buy",
+   "settings": {
+    "enable": true,
+    "desktop": true,
+    "label": "PIDE AHORA",
+    "anim": "pulse",
+    "whatsapp": true,
+    "top": true
+   }
+  }
+ },
+ "order": [
+  "main",
+  "hook",
+  "ritual",
+  "steps",
+  "reviews",
+  "included",
+  "specs",
+  "faq",
+  "guarantees",
+  "closing",
+  "legal",
+  "discover",
+  "sticky"
+ ]
+}

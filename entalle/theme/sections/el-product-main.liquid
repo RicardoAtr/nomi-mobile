@@ -24,6 +24,9 @@
     assign cmp = def.settings.compare | default: 0 | times: 100
   endif
   assign now = v.price | times: pay
+  if def and def.settings.total != blank
+    assign now = def.settings.total | times: 100
+  endif
   assign was = 0
   if cmp > now
     assign was = cmp
@@ -136,12 +139,15 @@
                 assign oq = o.settings.qty
                 assign op = o.settings.pay | default: oq
                 assign onow = v.price | times: op
+                if o.settings.total != blank
+                  assign onow = o.settings.total | times: 100
+                endif
                 assign owas = o.settings.compare | default: 0 | times: 100
                 assign ounit = onow | divided_by: oq
               -%}
               <label class="el-offer" {{ o.shopify_attributes }}>
                 {%- if o.settings.badge != blank -%}<span class="el-offer__badge{% if o.settings.badge_alt %} el-offer__badge--alt{% endif %}">{{ o.settings.badge | escape }}</span>{%- endif -%}
-                <input type="radio" name="el-offer-{{ section.id }}" value="{{ oq }}" data-pay="{{ op }}" data-compare="{{ owas }}" data-label="{{ o.settings.title | escape }}" {% if o.id == def.id %}checked{% endif %}>
+                <input type="radio" name="el-offer-{{ section.id }}" value="{{ oq }}" data-pay="{{ op }}" data-total="{{ o.settings.total | default: 0 | times: 100 }}" data-compare="{{ owas }}" data-label="{{ o.settings.title | escape }}" {% if o.id == def.id %}checked{% endif %}>
                 <span class="el-offer__info"><span class="el-offer__title">{{ o.settings.title | escape }}</span>
                   {%- if o.settings.note != blank -%}<span class="el-offer__note">{{ o.settings.note | escape }}</span>{%- elsif oq > 1 -%}<span class="el-offer__note">{% render 'entalle-money', amount: ounit %} por unidad</span>{%- endif -%}</span>
                 <span class="el-offer__price"><strong>{% render 'entalle-money', amount: onow %}</strong>{%- if owas > onow -%}<s>{% render 'entalle-money', amount: owas %}</s>{%- endif -%}</span>
@@ -418,6 +424,12 @@
      "id": "pay",
      "label": "Unidades que se cobran",
      "info": "2x1: unidades 2, se cobran 1. Debe coincidir con un descuento automático real en Shopify."
+    },
+    {
+     "type": "number",
+     "id": "total",
+     "label": "Precio total del pack (CLP)",
+     "info": "Opcional. Reemplaza al cálculo por unidades. Debe coincidir con un descuento real."
     },
     {
      "type": "number",
